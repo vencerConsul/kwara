@@ -1,5 +1,5 @@
 @section('footerstyle')
-<link rel="stylesheet" href="{{ asset('/css/layout/footer.css') }}">
+<link rel="stylesheet" href="{{ asset('css/layout/footer.css') }}">
 @endsection
 <div id="footer__content">
     <div class="container-fluid">

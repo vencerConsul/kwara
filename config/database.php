@@ -79,7 +79,7 @@ return [
         //     'prefix_indexes' => true,
         //     'schema' => 'public',
         //     'sslmode' => 'prefer',
-        // ], awdawd
+        // ],
 
         'pgsql' => [
             'driver' => 'pgsql',
@@ -90,8 +90,9 @@ return [
             'password' => $DATABASE_URL["pass"],
             'charset' => 'utf8',
             'prefix' => '',
+            'prefix_indexes' => true,
             'schema' => 'public',
-            'sslmode' => 'require',
+            'sslmode' => 'prefer',
         ],
 
         'sqlsrv' => [
