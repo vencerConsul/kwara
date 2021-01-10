@@ -19,7 +19,7 @@ Sign up
                         <p>login your existing account</p>
                         <a class="btn btn-sm" href="{{ route('login.seller') }}">Sign in</a>
                     </div>
-                    <img class="img-fluid" src="{{ asset('/images/SELLER.svg') }}">
+                    <img class="img-fluid" src="{{ asset('/images/sellers/login-image.png') }}">
                 </div>
             </div>
             {{-- column 1 --}}

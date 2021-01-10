@@ -39,7 +39,7 @@ My Account
                         </div>
 
                         @if(Auth::user()->profile == 0)
-                        <img class="img-fluid ml-5 mr-5 mx-auto column__one__profile" src="/images/icons/avatar.svg">
+                        <img class="img-fluid ml-5 mr-5 mx-auto column__one__profile" src="/images/users/avatar.png">
                         @else
                         <img class="img-fluid ml-5 mr-5 mx-auto column__one__profile" src="/profile_images/{{ Auth::user()->profile }}">
                         @endif

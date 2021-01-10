@@ -19,7 +19,7 @@ Seller Sign in
                         <p>Create your account now</p>
                         <a class="btn btn-sm" href="{{ route('register.seller') }}">Sign up</a>
                     </div>
-                    <img class="img-fluid" src="{{ asset('/images/login-image.svg') }}">
+                    <img class="img-fluid" src="{{ asset('/images/sellers/login-image.png') }}">
                 </div>
             </div>
             {{-- column 1 --}}

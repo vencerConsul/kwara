@@ -23,7 +23,7 @@ Shipping Address
                     <div class="card my-5">
 
                         @if(Auth::user()->profile == 0)
-                        <img class="img-fluid ml-5 mr-5 mx-auto column__one__profile mt-4" src="/images/icons/avatar.svg">
+                        <img class="img-fluid ml-5 mr-5 mx-auto column__one__profile mt-4" src="/images/users/avatar.png">
                         @else
                         <img class="img-fluid ml-5 mr-5 mx-auto column__one__profile mt-4" src="/profile_images/{{ Auth::user()->profile }}">
                         @endif
@@ -85,7 +85,7 @@ Shipping Address
                                     </div>
                                 </div>
                                 <div class="col-lg-6 d-flex justify-content-center align-items-center">
-                                    <img class="img-fluid d-none d-lg-block" src="{{ asset('/images/location.svg') }}" alt="address">
+                                    <img class="img-fluid d-none d-lg-block" src="{{ asset('/images/users/shipping.png') }}" alt="address">
                                 </div>
                             </div>
                             <hr>

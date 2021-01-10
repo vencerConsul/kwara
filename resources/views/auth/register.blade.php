@@ -19,7 +19,7 @@ Sign up
                         <p>login your existing account</p>
                         <a class="btn btn-sm" href="{{ route('login') }}">Sign in</a>
                     </div>
-                    <img class="img-fluid" src="{{ asset('/images/login-image.svg') }}">
+                    <img class="img-fluid" src="{{ asset('/images/users/login-image.png') }}">
                 </div>
             </div>
             {{-- column 1 --}}
@@ -65,7 +65,7 @@ Sign up
                         </div>
                     </div>
                     <div class="card-footer text-center">
-                        <button type="submit" class="btn">Sign in</button>
+                        <button type="submit" class="btn">Sign up</button>
                         @if (Route::has('register'))
                             <div class="mt-4">
                                     <a class="not__yet__member" href="{{ route('login') }}">

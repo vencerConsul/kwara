@@ -22,7 +22,7 @@ Make appointment
                         <h1>Great!</h1>
                         <p>Make your schedule now!</p>
                     </div>
-                    <img class="img-fluid" src="{{ asset('/images/appointment.svg') }}">
+                    <img class="img-fluid" src="{{ asset('/images/sellers/appointment.png') }}">
                 </div>
             </div>
             <div class="col-lg-6 column__two col-sm-6">
@@ -107,13 +107,13 @@ Pending appointment
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-6 column__one">
-            <img class="img-fluid" src="{{asset('images/appointment/pending_appointment.png')}}" alt="Pending appointment">
+            <img class="img-fluid" src="{{asset('images/sellers/pending.png')}}" alt="Pending appointment">
         </div>
         <div class="col-lg-6 column__two">
             <div class="column__two__content">
                 <h4 class="mb-2">Hello <span class="font-weight-bold text-capitalize">{{Auth::user()->firstname}}!</h4></span>
                 <h5>
-                    Just a reminder from Gotchu about your appointment on <span class="text-info">{{ date('l, F d y', strtotime($pendingAppointment->schedule_date)) }}</span> at <span class="text-info">{{$pendingAppointment->schedule_place}}, {{$pendingAppointment->schedule_time}}</span>. Please note, your appointment is valid until <span class="text-warning">{{date('l, F d y, h:i a', Auth::user()->expiration_date)}}.</span>  If you need to reschedule, contact <a href="tel:09618382290">09618382290 <i class="fa fa-phone"></i></a>, Thanks!
+                    Just a reminder from Kwara about your appointment on <span class="text-info">{{ date('l, F d y', strtotime($pendingAppointment->schedule_date)) }}</span> at <span class="text-info">{{$pendingAppointment->schedule_place}}, {{$pendingAppointment->schedule_time}}</span>. Please note, your appointment is valid until <span class="text-warning">{{date('l, F d y, h:i a', Auth::user()->expiration_date)}}.</span>  If you need to reschedule, contact <a href="tel:09618382290">09618382290 <i class="fa fa-phone"></i></a>, Thanks!
                 </h5>
 
                 <button class="btn btn-sm ml-0 btn-light" onclick="event.preventDefault(); document.getElementById('logout-form').submit()">Sign out</button>
@@ -144,6 +144,16 @@ Dashboard
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css">
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="{{ asset('css/seller/dashboard.css') }}">
+
+<style>
+    table img {
+        width: 100%;
+        height: auto;
+        image-rendering: auto;
+        image-rendering: crisp-edges;
+        image-rendering: pixelated;
+    }
+</style>
 @endsection
 
 @section('content')
@@ -447,7 +457,7 @@ Dashboard
                                                 <td>
                                                     @php $productImageFirst = explode("|", $sp->product_image);
                                                     @endphp
-                                                    <img class="img-fluid" src="{{ asset('ResizeProductImg/'.$productImageFirst[0].'') }}" alt="{{$sp->product_name}}">
+                                                    <img class="img-fluid" src="{{ asset('OriginalProductImg/'.$productImageFirst[0].'') }}" alt="{{$sp->product_name}}" style="width: 50px; height:50px;">
                                                 </td>
                                                 <td class="text-capitalize">{{$sp->product_name}}</td>
                                                 <td>&#8369 {{number_format($sp->product_price)}}</td>

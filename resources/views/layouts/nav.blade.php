@@ -32,7 +32,7 @@
 </div>
 <nav class="navbar__content navbar sticky-top navbar-expand-lg navbar-light scrolling-navbar">
     <div class="container">
-        <a href="{{ URL::to('/') }}" class="navbar-brand"><img class="navbar__logo" src="{{ asset('/images/logo.png') }}"></a>
+        <a href="{{ URL::to('/') }}" class="navbar-brand"><img class="navbar__logo" src="{{ asset('/images/logo.png') }}" ></a>
 
         @if (Route::current()->getName() == 'Main' || Route::current()->getName() == 'product')
         <div class="ml-auto searchFor">
@@ -106,13 +106,13 @@
             <div class="sidebar__profile">
                 @auth
                 @if(Auth::user()->profile == 0)
-                <img class="img-fluid @if(Route::current()->getName() != 'user.myaccount') mt-5 @endif" src="{{ asset('/images/icons/avatar.svg') }}">
+                <img class="img-fluid @if(Route::current()->getName() != 'user.myaccount') mt-5 @endif" src="{{ asset('/images/users/avatar.png') }}">
                 @else
                 <img class="img-fluid @if(Route::current()->getName() != 'user.myaccount') mt-5 @endif" src="{{ asset('/profile_images/'.Auth::user()->profile.'') }}">
                 @endif
                 @endauth
                 @guest
-                <img class="img-fluid @if(Route::current()->getName() != 'user.myaccount') mt-5 @endif" src="{{ asset('/images/icons/avatar.svg') }}">
+                <img class="img-fluid @if(Route::current()->getName() != 'user.myaccount') mt-5 @endif" src="{{ asset('/images/users/avatar.png') }}">
                 @endguest
             </div>
             <br />

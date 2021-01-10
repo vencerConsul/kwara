@@ -181,7 +181,7 @@ Edit Product
                             <div class="row">
                                 <div class="col-lg-4 column__one">
                                 <h4>EDIT PRODUCT</h4>
-                                <img class="img-fluid my-3" src="{{ asset('images/seller-img/edit-product.png') }}" alt="edit product">
+                                <img class="img-fluid my-3" src="{{ asset('images/sellers/edit-product.png') }}" alt="edit product">
                                 <h5>Date Created</h5>
                                 <small>{{ date('F j, Y h:i a', strtotime($products->created_at)) }}</small>
                                 </div>

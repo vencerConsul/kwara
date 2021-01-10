@@ -10,22 +10,22 @@ Product
 
 @section('content')
 @include('layouts.nav')
-    <div class="container-product single-product">
+    <div class="container-product single-product mt-4">
         <div class="row-product">
             <div class="col-2-product">
                 @php
                     $img = explode("|", $product->product_image)
                 @endphp
-                <img src="{{asset('OriginalProductImg/'.$img[0].'')}}" alt="{{$product->product_name}}" width="100%" id="index-image">
+                <img src="{{asset('OriginalProductImg/'.$img[0].'')}}" alt="{{$product->product_name}}" width="100%" id="index-image" style="width:500;height:390px;">
                 <div class="small-img-row">
                     @foreach($img as $smallImg)
                     <div class="small-img-col">
-                        <img src="{{asset('OriginalProductImg/'.$smallImg.'')}}" alt="{{$product->product_name}}" width="100%" onclick="proImg(this.src)">
+                        <img src="{{asset('OriginalProductImg/'.$smallImg.'')}}" alt="{{$product->product_name}}" width="100%" style="width:100%;height:80px;object-fit:cover;object-position:50% 50%;" onclick="proImg(this.src)">
                     </div>
                     @endforeach
                 </div>
             </div>
-            <div class="col-2-product">
+            <div class="col-2-product p-4">
                 <a href="seller-store/{{$product->id}}" class="text-capitalize font-weight-normal text-dark">
                     <i class="fas fa-store"></i> {{$product->store_name}} Store
                 </a>

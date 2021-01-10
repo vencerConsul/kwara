@@ -150,8 +150,7 @@ class SellerController extends Controller
 
                         $random = substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 7) . $DateNow . $name;
 
-                        $img = Image::make($file->getRealPath())->fit(60, 60)->save('ResizeProductImg' . '/' . $random);
-                        $img = Image::make($file->getRealPath())->fit(300, 300)->save('OriginalProductImg' . '/' . $random);
+                        $img = Image::make($file->getRealPath())->save('OriginalProductImg' . '/' . $random);
                         $product_image[] = $random;
                     } else {
                         return back()->with('error', 'Image must be jpg or png ');
