@@ -4,7 +4,7 @@ use Illuminate\Support\Str;
 
 $DATABASE_URL = parse_url('postgres://yjwtszlctugsli:0f50996e61865ffd32351107e2c4aa88836af9371cc8030a97d328978fab4002@ec2-54-163-249-4.compute-1.amazonaws.com:5432/d9sb074so7ker0');
 
-// dd();
+// dd($DATABASE_URL);
 return [
 
     /*
@@ -79,7 +79,7 @@ return [
         //     'prefix_indexes' => true,
         //     'schema' => 'public',
         //     'sslmode' => 'prefer',
-        // ],
+        // ], awdawd
 
         'pgsql' => [
             'driver' => 'pgsql',
