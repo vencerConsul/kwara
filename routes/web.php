@@ -26,7 +26,7 @@ Route::get('/delete-address/{id}', 'Main\UserController@DeleteAddress')->name('d
 Route::get('/edit-address/{id}', 'Main\UserController@EditAddress')->name('user.editaddress');
 
 
-// -------------POST------------- //
+// -------------POST----------- //
 // to update info
 Route::post('/updateInfo', 'Main\UserController@UpdateInformation')->name('updateInfo');
 //  my account change profile
