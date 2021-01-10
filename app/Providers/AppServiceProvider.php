@@ -5,6 +5,9 @@ namespace App\Providers;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
+if (env('APP_ENV') !== 'local') {
+    $url->forceSchema('https');
+}
 class AppServiceProvider extends ServiceProvider
 {
     /**
