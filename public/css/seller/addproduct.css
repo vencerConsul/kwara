@@ -1,0 +1,128 @@
+.col-6,
+.col-lg-12 {
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+}
+.small-box .icon > i.fa,
+.small-box .icon > i.fab,
+.small-box .icon > i.fad,
+.small-box .icon > i.fal,
+.small-box .icon > i.far,
+.small-box .icon > i.fas,
+.small-box .icon > i.ion {
+    font-size: 50px;
+    top: 20px;
+}
+
+.navbar {
+    box-shadow: none;
+}
+.column__one {
+    text-align: center;
+    padding: 2em;
+    background: var(--light-grey);
+}
+.column__one h4{
+    color: var(--semi-grey);
+}
+.column__two {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+}
+.card {
+    box-shadow: none;
+}
+.column__two .upload__image {
+    font-size: 50px;
+    cursor: pointer;
+}
+.card .column__two .form-group label {
+    font-weight: 100;
+}
+.card .column__two .form-group #files {
+    display: none;
+}
+.card .column__two button {
+    box-shadow: none;
+    border: 2px solid var(--light-grey);
+}
+/* image previews */
+input[type="file"] {
+    display: block;
+}
+.imageThumb {
+    max-height: 70px;
+    max-width: 70px;
+    cursor: pointer;
+}
+.container__multiple {
+    position: relative;
+    display: inline-block;
+    margin: 10px 10px 0 0;
+}
+.remove {
+    position: absolute;
+    top: -7px;
+    right: -7px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #333333;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+.remove:hover {
+    background: white;
+    color: black;
+}
+
+.select2-container--default
+    .select2-selection--single
+    .select2-selection__rendered {
+    color: #9d9d9d;
+    line-height: 28px;
+}
+.select2-container--default .select2-selection--single {
+    background-color: #ffffff;
+    color: white;
+    border: 1px solid #dadce0;
+    font-weight: 100;
+    border-radius: 4px;
+    height: auto;
+}
+.card .column__two input[type="text"]:focus:not([readonly]) + label,
+.card .column__two input[type="email"]:focus:not([readonly]) + label {
+    color: var(--grey) !important;
+    background: white;
+}
+.md-form .input-prefix.active {
+    color: var(--grey) !important;
+}
+input[type="text"]:focus:not([readonly]),
+input[type="email"]:focus:not([readonly]),
+input[type="password"]:focus:not([readonly]) {
+    border: 1px solid var(--semi-grey) !important;
+    box-shadow: 0 1px 0 0 var(--light-grey) !important;
+}
+
+.md-form .input-prefix {
+    color: var(--semi-grey);
+}
+.md-form .input-prefix.active {
+    color: var(--light-grey);
+}
+
+@media only screen and (max-width: 760px) {
+    .card .column__one {
+        display: none;
+    }
+}
+@media only screen and (max-width: 575px) {
+}

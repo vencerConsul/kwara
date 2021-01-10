@@ -1,0 +1,39 @@
+#make__appointment .column__one{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    transition: all 0.5s ease-in;
+}
+#make__appointment .column__one .column__one__content{
+    position: relative;
+}
+#make__appointment .column__one .column__one__content .column__one__upper{
+    text-align: center;
+}
+
+/* column__two */
+#make__appointment .column__two{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: var(--grey);
+    transition: all 0.5s ease-in;
+}
+#make__appointment .column__two .card {
+    width: 60%;
+    background: none;
+    box-shadow: none;
+}
+#make__appointment .column__two .card .card-body h5{
+    color: #ffffff;
+}
+#make__appointment .column__two .card .card-body .form-group label{
+    color: #ffffff;
+}
+#make__appointment .column__two .card .card-body button{
+    color: #000000;
+    background: #ffffff;
+    box-shadow: none;
+}

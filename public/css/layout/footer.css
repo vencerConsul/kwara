@@ -1,0 +1,57 @@
+#footer__content{
+    background: var(--light-grey);
+}
+#footer__content .container-fluid{
+    padding-top: 50px;
+}
+#footer__content .container-fluid .flex__to__center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#footer__content .container-fluid .flex__to__center .footer__context__one{
+    text-align:center;
+}
+#footer__content .container-fluid .flex__to__center .footer__context__one input{
+    border-radius: 0;
+}
+#footer__content .container-fluid .flex__to__center .footer__context__one button{
+    border-radius: 0;
+    box-shadow: none;
+}
+#footer__content .container-fluid .flex__to__center .footer__context__two{
+    text-align:center;
+}
+#footer__content .container-fluid .flex__to__center .footer__context__two ul{
+    list-style: none;
+}
+#footer__content .container-fluid .flex__to__center .footer__context__two ul li a{
+    color: var(--grey);
+}
+#footer__content .container-fluid .flex__to__center .footer__context__three{
+    color: var(--grey);
+}
+#footer__content .container-fluid .flex__to__center .footer__context__three button{
+    border-radius: 0;
+    box-shadow: none;
+}
+#footer__content .container-fluid .flex__to__center .footer__context__three .footer__social__media{
+    position: relative;
+}
+#footer__content .container-fluid .flex__to__center .footer__context__three .footer__social__media a{
+    color: var(--grey);
+}
+#footer__content .container-fluid .flex__to__center .footer__context__three .footer__social__media a i{
+    font-size: 30px;
+    margin: 10px;
+}
+#footer__content .container-fluid .footer__copy__right{
+    text-align: center;
+}
+#footer__content .container-fluid .footer__hr{
+    background: var(--semi-grey);
+}
+#footer__content .container-fluid .footer__copy__right p{
+    color: var(--light-grey);
+    padding: 10px;
+}

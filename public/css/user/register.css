@@ -1,0 +1,144 @@
+#user__register {
+    position: relative;
+}
+#user__register .column__one {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+#user__register .column__one .column__content {
+    position: relative;
+}
+#user__register .column__one .column__content .column__upper {
+    text-align: center;
+}
+#user__register .column__one .column__content .column__upper a {
+    background: none;
+    box-shadow: none;
+    border: 1px solid var(--grey);
+    border-radius: 40px;
+}
+#user__register .column__one .column__content img {
+    margin-top: 40px !important;
+}
+#user__register .column__two {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: var(--grey);
+}
+#user__register .column__two .card {
+    width: 60%;
+    background: none;
+    box-shadow: none;
+}
+#user__register .column__two .card .card-body h1 {
+    text-align: center;
+    color: var(--white);
+}
+#user__register .column__two .card .card-body .form-group label {
+    color: var(--white);
+    font-weight: 100;
+}
+#user__register .column__two .card .card-body .form-group input {
+    color: var(--white);
+    font-weight: 100;
+}
+#user__register .column__two .card .card-body .form-group .forgot__password {
+    color: var(--white);
+    font-weight: 100;
+}
+#user__register .column__two .card .card-body .form-group a:hover {
+    color: #b5b4b4;
+}
+#user__register .column__two .card .card-footer {
+    background: none;
+    border: none;
+}
+#user__register .column__two .card .card-footer button {
+    border: 1px solid var(--white);
+    outline: none;
+    color: var(--white);
+    border-radius: 40px;
+}
+#user__register .column__two .card .card-footer .card__footer__signin__with {
+    color: var(--white);
+    font-weight: 100;
+}
+#user__register
+    .column__two
+    .card
+    .card-footer
+    .card__footer__signin__with
+    .signin__with__content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#user__register
+    .column__two
+    .card
+    .card-footer
+    .card__footer__signin__with
+    .signin__with__content
+    .signin__circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--white);
+    padding: 10px;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+}
+#user__register
+    .column__two
+    .card
+    .card-footer
+    .card__footer__signin__with
+    .signin__with__content
+    a {
+    color: var(--white);
+}
+#user__register .column__two .card .card-footer .not__yet__member {
+    color: var(--white);
+    font-weight: 100;
+    border-bottom: 1px solid var(--light-grey);
+    display: none;
+}
+
+input[type="text"]:focus:not([readonly]) + label,
+input[type="email"]:focus:not([readonly]) + label,
+input[type="password"]:focus:not([readonly]) + label {
+    color: var(--light-grey) !important;
+}
+
+input[type="text"]:focus:not([readonly]),
+input[type="email"]:focus:not([readonly]),
+input[type="password"]:focus:not([readonly]) {
+    border-bottom: 1px solid var(--light-grey) !important;
+    box-shadow: 0 1px 0 0 var(--light-grey) !important;
+}
+
+@media only screen and (max-width: 760px) {
+    #user__register .column__two .card {
+        width: 100%;
+        background: none;
+        box-shadow: none;
+    }
+}
+@media only screen and (max-width: 575px) {
+    #user__register .column__one {
+        display: none;
+    }
+    #user__register .column__two .card {
+        width: 100%;
+        background: none;
+        box-shadow: none;
+    }
+    #user__register .column__two .card .card-footer .not__yet__member {
+        display: inline;
+    }
+}

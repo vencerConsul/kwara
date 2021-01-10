@@ -1,0 +1,9 @@
+.users-list>li img {
+    border-radius: 50%;
+    /* height: auto; */
+    height: 71px !important;
+    width: 71px !important;
+    object-fit: cover;
+    max-width: 100%;
+}
+

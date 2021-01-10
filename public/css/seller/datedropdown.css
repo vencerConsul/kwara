@@ -1,0 +1,14 @@
+div.datedropper.datedropdown {
+    --dd-color1: #000000;
+    --dd-color2: #fff;
+    --dd-color3: #4d4d4d;
+    --dd-color4: #fff;
+
+    --dd-radius: 0px;
+    --dd-width: 200px;
+    --dd-shadow: 0 0 8px 0px rgba(0, 0, 0, 0.26);
+}
+
+div.datedropper .picker ul.pick.pick-d li div {
+    margin-top: -16px !important;
+}

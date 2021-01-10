@@ -1,0 +1,11 @@
+:not(.layout-fixed) .main-sidebar {
+    height: inherit;
+    min-height: 100%;
+    position: absolute;
+    top: 0;
+    box-shadow: none !important;
+    border-right: 1px solid #dee2e6 !important;
+}
+.elevation-4 {
+    border-right: 1px solid #dee2e6 !important;
+}

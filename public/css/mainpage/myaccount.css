@@ -1,0 +1,83 @@
+#my__account {
+    background: var(--light-grey);
+}
+#my__account .column__one .column__one__content .card {
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0;
+    transition: 0.5s ease-out;
+}
+#my__account .column__one .column__one__content .card .column__one__profile {
+    height: 194px;
+    width: 194px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+#my__account .column__one .column__one__content .card .card-body {
+    border: none !important;
+}
+#my__account .column__one .column__one__content .card .card-body .list-group {
+    border: none !important;
+    border-radius: 0 !important;
+}
+#my__account
+    .column__one
+    .column__one__content
+    .card
+    .card-body
+    .list-group
+    .list-group-item:hover {
+    background: var(--light-grey);
+    transition: all 0.5s ease-in;
+}
+#my__account
+    .column__one
+    .column__one__content
+    .card
+    .card-body
+    .list-group
+    .list-group-item {
+    border: none !important;
+    border-top: 1px solid var(--light-grey) !important;
+    border-radius: 0 !important;
+    color: var(--grey);
+    font-weight: 100;
+}
+#my__account
+    .column__one
+    .column__one__content
+    .card
+    .card-body
+    .list-group
+    .list__group__active {
+    background: var(--light-grey);
+    border-right: 2px solid #ffffff !important;
+    border-left: 2px solid #ffffff !important;
+}
+#my__account .column__two .card {
+    box-shadow: none;
+    border-radius: 0;
+}
+#my__account .column__two .card .card-header {
+    border: none;
+    border-bottom: 1px solid var(--light-grey);
+    background: none;
+}
+#my__account .column__two .card .card-body button {
+    border: 1px solid var(--semi-grey);
+    box-shadow: none;
+}
+i {
+    cursor: pointer !important;
+}
+
+@media only screen and (max-width: 575px) {
+    #my__account .column__one .column__one__content .card {
+        display: none;
+    }
+}
+@media only screen and (max-width: 767px) {
+    #my__account .column__one .column__one__content .card {
+        display: none;
+    }
+}

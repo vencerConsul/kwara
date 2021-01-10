@@ -1,0 +1,237 @@
+input:focus, select:focus{
+    box-shadow: none !important;
+    outline: none !important;
+}
+.top__header {
+    background: #fbfbfb;
+}
+.top__header .top__header__content {
+    position: relative;
+}
+.top__header .top__header__content .top__header__social {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.top__header .top__header__content .top__header__social a i {
+    margin-left: 10px;
+    color: var(--grey) !important;
+}
+.top__header .top__header__content .top__header__loginregister {
+    font-size: 15px;
+}
+.top__header .divider {
+    height: 100%;
+    width: 1px;
+    background: #e1e1e1;
+}
+.navbar__content {
+    box-shadow: none !important;
+    background: #ffffff;
+}
+.navbar__content.top-nav-collapse {
+    border-bottom: 2px solid var(--light-grey);
+}
+.navbar__content .navbar__left__icons {
+    width: 100px;
+}
+.navbar__content .navbar__left__icons i {
+    color: var(--grey);
+    cursor: pointer;
+}
+.navbar__content .navbar__left__icons small {
+    margin-left: 6px;
+    background: var(--light-grey);
+    padding: 10px;
+    border-radius: 10px;
+}
+.navbar__content .input-group .input-group-append button {
+    border: 1px solid #ced4da;
+}
+.navbar__content .searchFor .input-group-append button i {
+    font-size: 18px;
+}
+.navbar__content .fa-opencart{
+    font-size: 20px;
+}
+.navbar__menu__humberger {
+    position: relative;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 1px;
+    cursor: pointer;
+    margin-left: 30px !important;
+    transition: all 0.5s ease-in-out;
+}
+.navbar__menu__humberger__burger {
+    width: 30px;
+    height: 1.099px;
+    background: var(--grey);
+    transition: all 0.5s ease-in-out;
+}
+.navbar__menu__humberger__burger::before,
+.navbar__menu__humberger__burger::after {
+    content: "";
+    position: absolute;
+    width: 25px;
+    height: 1.099px;
+    background: var(--grey);
+    transition: all 0.5s ease-in-out;
+}
+.navbar__menu__humberger__burger::before {
+    transform: translateY(-8px);
+}
+.navbar__menu__humberger__burger::after {
+    transform: translateY(8px);
+}
+/* ANIMATION */
+.navbar__menu__humberger.open .navbar__menu__humberger__burger {
+    transform: translateX(-50px);
+    background: transparent;
+}
+.navbar__menu__humberger.open .navbar__menu__humberger__burger::before {
+    transform: rotate(45deg) translate(35px, -35px);
+}
+.navbar__menu__humberger.open .navbar__menu__humberger__burger::after {
+    transform: rotate(-45deg) translate(35px, 35px);
+}
+
+/* sidebar */
+#sidebar__overlay {
+    position: fixed;
+    background: #0000003d;
+    display: none;
+    height: 100vh;
+    width: 100%;
+    opacity: 0;
+    transition: all 0.5s ease-in-out;
+}
+.sidebar__overlay__open {
+    opacity: 1 !important;
+    z-index: 2 !important;
+}
+
+#sidebar__content {
+    position: fixed;
+    display: none;
+    right: -250px;
+    background: var(--light-grey);
+    border-right: 1px solid var(--semi-grey);
+    height: 100vh;
+    width: 250px;
+    z-index: 3;
+    transition: all 0.5s ease-in-out;
+}
+#sidebar__content .sidebar__header {
+    position: relative;
+}
+#sidebar__content .sidebar__header .sidebar__profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#sidebar__content .sidebar__header .sidebar__profile img {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+#sidebar__content .sidebar__header .sidebar__user__info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#sidebar__content
+    .sidebar__header
+    .sidebar__user__info
+    .sidebar__user__basic__info {
+    color: var(--grey);
+}
+#sidebar__content .sidebar__header .sidebar__buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#sidebar__content .sidebar__header .sidebar__buttons a {
+    height: 30px;
+    padding: 5px 10px;
+    box-shadow: none;
+    color: var(--grey);
+}
+#sidebar__content .sidebar__header hr.header__divider {
+    height: 1px solid;
+    background: var(--light-gray);
+}
+#sidebar__content .sidebar__header .header__body {
+    position: relative;
+}
+#sidebar__content .header__body ul {
+    list-style: none !important;
+    padding: 0px;
+    color: var(--grey);
+}
+#sidebar__content .header__body ul li {
+    padding: 10px 0px;
+}
+#sidebar__content .header__body ul li i {
+    color: var(--semi-grey);
+    margin-right: 10px;
+    font-size: 12px;
+}
+#sidebar__content .header__body ul a {
+    color: var(--grey);
+}
+#sidebar__content .header__body i.fas.fa-caret-left {
+    position: absolute;
+    right: 1em;
+    margin-top: 3px !important;
+    font-size: 20px;
+}
+
+/* add this class to open the sidebar */
+#sidebar__content.sedebar__open {
+    right: 0;
+}
+.mobile__searchFor {
+    display: none;
+}
+
+@media only screen and (max-width: 320px) {
+    .navbar__logo {
+        width: 100px !important;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .top__header,
+    .searchFor {
+        display: none;
+    }
+    .navbar__logo {
+        width: 150px;
+    }
+    .navbar__menu__humberger{
+        display: block;
+    }
+    .mobile__searchFor {
+        display: block;
+    }
+    #sidebar__content {
+        display: block;
+    }
+    #sidebar__overlay {
+        display: inline;
+        z-index: -1;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .navbar__content .searchFor {
+        width: 100%;
+        margin-right: 20px;
+        margin-left: 20px;
+        display: flex;
+    }
+}
