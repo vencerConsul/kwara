@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
+if (App::environment('production')) {
+    URL::forceScheme('https');
+}
+
 Auth::routes();
 
 // ---------- GET---------- //
