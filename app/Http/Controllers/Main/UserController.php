@@ -170,8 +170,7 @@ class UserController extends Controller
             return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
         }
 
-        ShippingAddress::create([
-            'user_id' => Auth::id(),
+        Auth::user()->ShippingAddress()->create([
             'firstname' => $request->firstname,
             'lastname' => $request->lastname,
             'address' => $request->address,
@@ -212,7 +211,7 @@ class UserController extends Controller
             return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
         }
 
-        DB::table('shipping_addresses')->where('shipping_id', $request->shipping_id)->update([
+        ShippingAddress::where('shipping_id', $request->shipping_id)->update([
             'firstname' => $request->firstname,
             'lastname' => $request->lastname,
             'address' => $request->address,

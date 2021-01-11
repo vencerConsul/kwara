@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class ShippingAddress extends Model
 {
     protected $fillable = [
-        'user_id', 'firstname', 'lastname', 'address', 'country', 'postal_code', 'phone_number',
+        'firstname', 'lastname', 'address', 'country', 'postal_code', 'phone_number',
     ];
 
-    public function userAddresses()
+    public function ShippingAddress()
     {
         return $this->belongsTo('App\User');
     }
