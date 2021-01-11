@@ -170,15 +170,16 @@ class UserController extends Controller
             return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
         }
 
-        $address = new ShippingAddress;
-        $address->user_id = Auth::id();
-        $address->firstname = $request->firstname;
-        $address->lastname = $request->lastname;
-        $address->address = $request->address;
-        $address->country = $request->country;
-        $address->postal_code = $request->postal_code;
-        $address->phone_number = $request->phone_number;
-        $address->save();
+        Auth::user()->ShippingAddress()->create([
+            'firstname' => $request->firstname,
+            'lastname' => $request->lastname,
+            'address' => $request->address,
+            'country' => $request->country,
+            'postal_code' => $request->postal_code,
+            'phone_number' => $request->phone_number
+        ]);
+
+
         return back()->with('toast_success', 'Address successfully added');
     }
     //delete the address
