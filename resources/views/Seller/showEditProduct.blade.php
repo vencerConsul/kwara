@@ -257,7 +257,7 @@ Edit Product
                                                     <input type="file" id="files" name="files[]" multiple>
                                                     @foreach($productImg as $img)
                                                     <input type="hidden" class="img{{str_replace(".", "_", $img)}}" name="old__files[]" value="{{$img}}">
-                                                    <span class="container__multiple"><img class="imageThumb" src="{{ asset('ResizeProductImg/'.$img.'') }}"><br><span class="remove" onclick="del(this)" id="{{str_replace(".", "_", $img)}}"><i class="fa fa-times"></i></span></span>
+                                                    <span class="container__multiple"><img class="imageThumb" src="{{ asset('OriginalProductImg/'.$img.'') }}"><br><span class="remove" onclick="del(this)" id="{{str_replace(".", "_", $img)}}"><i class="fa fa-times"></i></span></span>
                                                     @endforeach
                                                 </div>
                                             </div>

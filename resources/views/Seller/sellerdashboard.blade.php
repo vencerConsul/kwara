@@ -144,16 +144,6 @@ Dashboard
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css">
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="{{ asset('css/seller/dashboard.css') }}">
-
-<style>
-    table img {
-        width: 100%;
-        height: auto;
-        image-rendering: auto;
-        image-rendering: crisp-edges;
-        image-rendering: pixelated;
-    }
-</style>
 @endsection
 
 @section('content')
@@ -457,7 +447,7 @@ Dashboard
                                                 <td>
                                                     @php $productImageFirst = explode("|", $sp->product_image);
                                                     @endphp
-                                                    <img class="img-fluid" src="{{ asset('OriginalProductImg/'.$productImageFirst[0].'') }}" alt="{{$sp->product_name}}" style="width: 50px; height:50px;">
+                                                    <img class="img-fluid" src="{{ asset('OriginalProductImg/'.$productImageFirst[0].'') }}" alt="{{$sp->product_name}}" style="width: 50px;height:50px; object-fit:cover;">
                                                 </td>
                                                 <td class="text-capitalize">{{$sp->product_name}}</td>
                                                 <td>&#8369 {{number_format($sp->product_price)}}</td>
