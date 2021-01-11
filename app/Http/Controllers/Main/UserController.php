@@ -44,13 +44,13 @@ class UserController extends Controller
     public function myAccount()
     {
         $checkPage = $this->checkPage();
-        return view('Mainpage.myaccount', compact(['checkPage']));
+        return view('mainpage.myaccount', compact(['checkPage']));
     }
 
     public function ShowChangePass()
     {
         $checkPage = $this->checkPage();
-        return view('Mainpage.showchangepass', compact(['checkPage']));
+        return view('mainpage.showchangepass', compact(['checkPage']));
     }
 
     public function UpdateInformation(Request $request)
@@ -152,7 +152,7 @@ class UserController extends Controller
     {
         $checkPage = $this->checkPage();
         $shippingAddress = DB::table('shipping_addresses')->where('user_id', '=', Auth::id())->get();
-        return view('Mainpage.shippingaddress', compact(['checkPage', 'shippingAddress']));
+        return view('mainpage.shippingaddress', compact(['checkPage', 'shippingAddress']));
     }
 
     public function AddAddress(Request $request)
@@ -193,7 +193,7 @@ class UserController extends Controller
     {
         $checkPage = $this->checkPage();
         $editshippingaddress = ShippingAddress::where('shipping_id', decrypt($id))->get();
-        return view('Mainpage.showeditaddress', compact(['checkPage', 'editshippingaddress']));
+        return view('mainpage.showeditaddress', compact(['checkPage', 'editshippingaddress']));
     }
 
     // update shipping Address
