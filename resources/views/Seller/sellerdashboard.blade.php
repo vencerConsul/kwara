@@ -447,7 +447,7 @@ Dashboard
                                                 <td>
                                                     @php $productImageFirst = explode("|", $sp->product_image);
                                                     @endphp
-                                                    <img class="img-fluid" src="{{ asset('OriginalProductImg/'.$productImageFirst[0].'') }}" alt="{{$sp->product_name}}" style="width: 50px;height:50px; object-fit:cover;">
+                                                    <img class="img-fluid" src="{{ asset('/storage/images/products/'.$productImageFirst[0].'') }}" alt="{{$sp->product_name}}" style="width: 50px;height:50px; object-fit:cover;">
                                                 </td>
                                                 <td class="text-capitalize">{{$sp->product_name}}</td>
                                                 <td>&#8369 {{number_format($sp->product_price)}}</td>

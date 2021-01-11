@@ -116,7 +116,9 @@ class SellerController extends Controller
                         $integer_hourNow = strtotime($string_hourNow);
                         $DateNow =  $integer_dateNow + $integer_hourNow;
                         $random = substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 7) . $DateNow . $name;
-                        Image::make($file->getRealPath())->save('OriginalProductImg' . '/' . $random);
+
+                        $file->storeAs('public/images/products/', $random);
+                        // Image::make($file->getRealPath())->save('OriginalProductImg' . '/' . $random);
                         $product_image[] = $random;
                     } else {
                         return back()->with('toast_error', 'Image must be jpg or png ');
@@ -202,6 +204,7 @@ class SellerController extends Controller
                 'product__stock' => 'required',
                 'product__description' => 'required',
                 'product__type' => 'required',
+                'files' => 'required'
             ]);
             if ($data->fails()) {
                 return back()->with('toast_error', $data->messages()->all()[0])->withInput();
@@ -241,7 +244,8 @@ class SellerController extends Controller
             if (request()->old__files) {
                 $p_image = implode('|', request()->old__files);
             }
-            if (!empty($product_image)) {
+
+            if (!empty($product_image) || request()->old__files) {
                 $p_image = implode('|', $product_image) . '|' . implode('|', request()->old__files);
             }
             // compute the number of files added

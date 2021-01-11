@@ -78,7 +78,7 @@ Kwara
                             @php
                                 $image = explode('|', $pro->product_image)
                             @endphp
-                            <img class="card-img-top" src="{{asset('OriginalProductImg/'.$image[0].'')}}" />
+                            <img class="card-img-top" src="{{asset('/storage/images/products/'.$image[0].'')}}" />
                             <div class="card-body">
                                 <p class="card-title p-name">{{ $pro->product_name}}</p>
                                 <p class="card-text">&#8369; {{number_format($pro->product_price)}}</p>
@@ -133,9 +133,9 @@ Kwara
                         @php
                             $image = explode('|', $gad->product_image)
                         @endphp
-                        <img class="card-img-top" src="{{asset('OriginalProductImg/'.$image[0].'')}}" />
+                        <img class="card-img-top" src="{{asset('/storage/images/products/'.$image[0].'')}}" />
                         <div class="card-body">
-                            <p class="card-title p-name">{{ $gad->product_name}}</p>      
+                            <p class="card-title p-name">{{ $gad->product_name}}</p>
                             <p class="card-text">&#8369; {{number_format($gad->product_price)}}</p>
                             <div class="section__five__viewers">
                                     <small>(21 views)</small>

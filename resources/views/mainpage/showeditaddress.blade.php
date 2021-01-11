@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-My Account
+Edit address
 @endsection
 
 @section('userlogin')
