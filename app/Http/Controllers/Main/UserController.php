@@ -176,7 +176,7 @@ class UserController extends Controller
             'address' => $request->address,
             'country' => $request->country,
             'postal_code' => $request->postal_code,
-            'phone_number' => $request->phone_number,
+            'phone_number' => $request->phone_number
         ]);
         return back()->with('toast_success', 'Address successfully added');
     }
@@ -204,7 +204,7 @@ class UserController extends Controller
             'address' => 'required',
             'country' => 'required',
             'postal_code' => 'required|digits:4',
-            'phone_number' => 'required|digits:11',
+            'phone_number' => 'required|digits:11'
         ]);
 
         if ($validator->fails()) {
@@ -217,7 +217,7 @@ class UserController extends Controller
             'address' => $request->address,
             'country' => $request->country,
             'postal_code' => $request->postal_code,
-            'phone_number' => $request->phone_number,
+            'phone_number' => $request->phone_number
         ]);
 
         return redirect()->route('user.shippingaddress')->with('toast_success', 'update address successfully');
