@@ -32,7 +32,7 @@
 </div>
 <nav class="navbar__content navbar sticky-top navbar-expand-lg navbar-light scrolling-navbar">
     <div class="container">
-        <a href="{{ URL::to('/') }}" class="navbar-brand"><img class="navbar__logo" src="{{ asset('/images/logo.png') }}" ></a>
+        <a href="{{ URL::to('/') }}" class="navbar-brand">&#9883; KWARA</a>
 
         @if (Route::current()->getName() == 'Main' || Route::current()->getName() == 'product')
 

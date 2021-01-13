@@ -1,3 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Aclonica&display=swap');
+
+.navbar-brand{
+    font-family: 'Aclonica', sans-serif;
+    font-size: 25px;
+}
+
 input:focus, select:focus{
     box-shadow: none !important;
     outline: none !important;
@@ -34,32 +41,25 @@ input:focus, select:focus{
     border-bottom: 2px solid var(--light-grey);
 }
 .navbar__content .navbar__left__icons {
-    position: relative;
-    margin-right: 1em;
+    width:60px;
 }
 .navbar__content .navbar__left__icons i {
     color: var(--grey);
     cursor: pointer;
 }
 .navbar__content .navbar__left__icons small {
-    position: absolute;
-    right: -5px;
-    top: -5px;
-    background: rgba(255, 0, 0, 0.809);
-    height: 20px;
-    width: 20px;
-    color: #ffffff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    font-size: 12px;
+    margin-left: 6px;
+    color: #000000;
+    border-radius: 10px;
 }
 .navbar__content .input-group .input-group-append button {
     border: 1px solid #ced4da;
 }
+.navbar__content .searchFor .input-group-append button i {
+    font-size: 18px;
+}
 .navbar__content .fa-opencart{
-    font-size: 25px;
+    font-size: 20px;
 }
 .navbar__menu__humberger {
     position: relative;
