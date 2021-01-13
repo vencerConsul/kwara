@@ -150,7 +150,7 @@ Shipping Address
                                                     </div>
                                                 </div>
                                             </div>
-                                            <button type="submit" class="btn btn-sm mt-4 ml-0">Add address</button>
+                                            <input type="submit" class="btn btn-sm ml-0 mt-3" onClick="this.form.submit(); this.disabled=true; this.value='processing....'; document.getElementById('oldpass').disabled=true;document.getElementById('newpass').disabled=true;document.getElementById('confirmpass').disabled=true;" value="add address">
                                         </form>
                                     </div>
                                 </div>

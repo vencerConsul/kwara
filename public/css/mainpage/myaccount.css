@@ -63,9 +63,12 @@
     border-bottom: 1px solid var(--light-grey);
     background: none;
 }
-#my__account .column__two .card .card-body button {
-    border: 1px solid var(--semi-grey);
+#my__account .column__two .card .card-body .btn {
+    background: var(--semi-grey);
     box-shadow: none;
+    color: #fff;
+    border-radius: 0;
+    text-transform: capitalize;
 }
 i {
     cursor: pointer !important;

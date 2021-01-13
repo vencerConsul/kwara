@@ -77,9 +77,14 @@ class UserController extends Controller
 
     public function ChangeProfilePicture(Request $request)
     {
-        $request->validate([
-            'file' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+
+        $validator = Validator::make($request->all(), [
+            'file' => 'required|image|mimes:jpeg,png,jpg|max:2048'
         ]);
+
+        if ($validator->fails()) {
+            return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
+        }
 
         $imageName = uniqid() . '.' . $request->file->extension();
 
@@ -99,9 +104,13 @@ class UserController extends Controller
     // sidebar profile picture to change
     public function ChangeSidebarProfile(Request $request)
     {
-        $request->validate([
-            'sidenavprofile' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        $validator = Validator::make($request->all(), [
+            'sidenavprofile' => 'required|image|mimes:jpeg,png,jpg|max:2048'
         ]);
+
+        if ($validator->fails()) {
+            return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
+        }
 
         $imageName = uniqid() . '.' . $request->sidenavprofile->extension();
 

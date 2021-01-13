@@ -16,11 +16,11 @@ Product
                 @php
                     $img = explode("|", $product->product_image)
                 @endphp
-                <img src="{{asset('OriginalProductImg/'.$img[0].'')}}" alt="{{$product->product_name}}" width="100%" id="index-image" style="width:500;height:390px;">
+                <img src="{{asset('/storage/images/products/'.$img[0].'')}}" alt="{{$product->product_name}}" width="100%" id="index-image" style="width:500;height:390px;">
                 <div class="small-img-row">
                     @foreach($img as $smallImg)
                     <div class="small-img-col">
-                        <img src="{{asset('OriginalProductImg/'.$smallImg.'')}}" alt="{{$product->product_name}}" width="100%" style="width:100%;height:80px;object-fit:cover;object-position:50% 50%;" onclick="proImg(this.src)">
+                        <img src="{{asset('/storage/images/products/'.$smallImg.'')}}" alt="{{$product->product_name}}" width="100%" style="width:100%;height:80px;object-fit:cover;object-position:50% 50%;" onclick="proImg(this.src)">
                     </div>
                     @endforeach
                 </div>
@@ -118,7 +118,7 @@ Product
                                 @php
                                     $image = explode('|', $relatedPro->product_image)
                                 @endphp
-                                <img class="card-img-top" src="{{asset('OriginalProductImg/'.$image[0].'')}}" />
+                                <img class="card-img-top" src="{{asset('/storage/images/products/'.$image[0].'')}}" />
                                 <div class="card-body">
                                     <p class="card-title p-name">{{ $relatedPro->product_name}}</p>
                                     <p class="card-text">&#8369; {{number_format($relatedPro->product_price)}}</p>

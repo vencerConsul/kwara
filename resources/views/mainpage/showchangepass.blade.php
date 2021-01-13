@@ -84,7 +84,7 @@ My Account
                                 </div>
                             </div>
                             <div class="form-group p-2">
-                                <button type="submit" class="btn m-0 btn-sm">Update password</button>
+                                <input type="submit" class="btn btn-sm ml-0" onClick="this.form.submit(); this.disabled=true; this.value='updating....'; document.getElementById('oldpass').disabled=true;document.getElementById('newpass').disabled=true;document.getElementById('confirmpass').disabled=true;" value="update password">
                             </div>
                         </form>
                         {{-- end form --}}

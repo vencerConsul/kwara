@@ -57,11 +57,12 @@
     background: none;
     border: none;
 }
-#user__register .column__two .card .card-footer button {
+#user__register .column__two .card .card-footer .btn {
     border: 1px solid var(--white);
     outline: none;
     color: var(--white);
     border-radius: 40px;
+    text-transform: capitalize;
 }
 #user__register .column__two .card .card-footer .card__footer__signin__with {
     color: var(--white);

@@ -19,7 +19,7 @@ Kwara
                 <h1>Manage your online business</h1>
                 <h2>Be one of our seller!</h2>
                 <p>Sell your product all over (Bolinao Pangasinan)</p>
-                <a href="{{ route('login.seller') }}" class="btn ml-0 mt-2 btn-sm">Sign in as seller</a>
+                <a href="{{ route('login.seller') }}" class="btn ml-0 mt-2">Sign in as seller</a>
             </div>
         </div>
         <div class="col-lg-6 my-3 hero__column__second">
@@ -59,7 +59,7 @@ Kwara
 <div id="section__three">
     <div class="container">
         <br />
-        @if($products->count() > 0)
+        {{-- @if($products->count() > 0)
             <div class="section__three__title text-center">
                 <h5>All Products</h5>
             </div>
@@ -67,34 +67,16 @@ Kwara
             <div class="section__three__title text-center">
                 <h5>There is no product yet</h5>
             </div>
-        @endif
+        @endif --}}
         <br />
         <div class="my-4">
-            <div class="row d-flex justify-content-center">
-                @foreach($products as $pro)
-                <div class="col-lg-2 col-sm-4 col-6 section__three__col">
-                    <a href="product/{{$pro->id}}">
-                        <div class="card mb-2">
-                            @php
-                                $image = explode('|', $pro->product_image)
-                            @endphp
-                            <img class="card-img-top" src="{{asset('/storage/images/products/'.$image[0].'')}}" />
-                            <div class="card-body">
-                                <p class="card-title p-name">{{ $pro->product_name}}</p>
-                                <p class="card-text">&#8369; {{number_format($pro->product_price)}}</p>
-                                <div class="section__three__viewers">
-                                    <small>(21 views)</small>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                @endforeach
+            <div class="row d-flex justify-content-center products">
+
             </div>
         </div>
-        <div class="section__three__pagination text-center"  style="display: flex;align-items: center;justify-content: center;margin-bottom: 1em !important;">
+        {{-- <div class="section__three__pagination text-center"  style="display: flex;align-items: center;justify-content: center;margin-bottom: 1em !important;">
             {{ $products->links() }}
-        </div>
+        </div> --}}
     </div>
 </div>
 <!-- section 4 -->
@@ -117,13 +99,13 @@ Kwara
 <div id="section__five">
     <div class="container">
         <br />
-        @if($products->count() > 0)
+        {{-- @if($products->count() > 0)
             <div class="section__five__title text-center">
                 <h5>Gadgets</h5>
             </div>
         @else
             vowala
-        @endif
+        @endif --}}
         <br />
         <div class="row d-flex justify-content-center">
             @foreach($gadgets as $gad)
@@ -146,9 +128,9 @@ Kwara
             </div>
             @endforeach
         </div>
-        <div class="section__three__pagination text-center"  style="display: flex;align-items: center;justify-content: center;margin-bottom: 1em !important;">
+        {{-- <div class="section__three__pagination text-center"  style="display: flex;align-items: center;justify-content: center;margin-bottom: 1em !important;">
             {{ $products->links() }}
-        </div>
+        </div> --}}
     </div>
 </div>
 @include('layouts.footer')

@@ -11,9 +11,9 @@
         </div>
         <div class="d-flex top__header__loginregister">
             @guest
-                <a class="nav-link text-dark" href="{{ route('login') }}">
+                <a class="nav-link" href="{{ route('login') }}">
                 Sign in</a>
-                <a class="nav-link text-dark" href="{{ route('register') }}">Sign up</a>
+                <a class="nav-link" href="{{ route('register') }}">Sign up</a>
             @endguest
             @auth
                 @if(Route::current()->getName() == 'Main')
@@ -35,33 +35,10 @@
         <a href="{{ URL::to('/') }}" class="navbar-brand"><img class="navbar__logo" src="{{ asset('/images/logo.png') }}" ></a>
 
         @if (Route::current()->getName() == 'Main' || Route::current()->getName() == 'product')
-        <div class="ml-auto searchFor">
-            <div class="input-group">
-                <select class="browser-default custom-select rounded-0">
-                    <option selected>Product type</option>
-                    <option value="Foods">Foods</option>
-                    <option value="Clothes">Clothes</option>
-                    <option value="Foot wears">Foot wears</option>
-                    <option value="Accessories">Accessories</option>
-                    <option value="Home Appliances">Home Appliances</option>
-                    <option value="Hardware">Hardware</option>
-                    <option value="Bike">Bike</option>
-                    <option value="Gadgets">Gadgets</option>
-                    <option value="Groceries">Groceries</option>
-                    <option value="Make up & Fragrances">Make up & Fragrances</option>
-                </select>
-            </div>
-            <div class="input-group">
-                <input type="text" class="form-control rounded-0" placeholder="looking for..."
-                    aria-describedby="searchFor">
-                <div class="input-group-append">
-                    <button class="btn btn-md m-0 px-3 py-2 z-depth-0 waves-effect" type="button" id="searchFor"><i class="fa fa-search"></i></button>
-                </div>
-            </div>
-        </div>
+
         @endif
 
-        <div class="ml-3 ml-auto d-flex navbar__left__icons justify-content-between align-items-baseline">
+        <div class="ml-auto d-flex navbar__left__icons justify-content-between align-items-baseline">
             <div class="icons">
                 <i class="fab fa-opencart" title="cart"></i>
                 <small>0</small>
@@ -96,7 +73,7 @@
                         <input type="file" class="form-control d-none" name="sidenavprofile" id="sidebarProfile" onchange="sidebarProfileChanage()">
                     </div>
                     <img class="img-fluid" src="{{ asset('/images/icons/upload-image.png') }}" onclick="event.preventDefault(); document.getElementById('sidebarProfile').click()">
-                    <button type="submit" id="upload-sidebar-pro" class="btn btn-dark btn-sm disabled">Upload</button>
+                    <input type="submit" class="btn btn-sm" onClick="this.form.submit(); this.disabled=true; this.value='uploading..';" value="upload" style="box-shadow:none;background:#333;color:#fff;text-transform:capitalize;">
                 </form>
             </div>
         </div>

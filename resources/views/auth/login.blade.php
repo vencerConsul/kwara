@@ -50,7 +50,7 @@ Sign in
                         </div>
                     </div>
                     <div class="card-footer text-center">
-                        <button type="submit" class="btn">Sign in</button>
+                        <input type="submit" class="btn ml-0 mt-3" onClick="this.form.submit(); this.disabled=true; this.value='Authenticating..'; document.getElementById('email').disabled=true;document.getElementById('password').disabled=true;" value="Sign in">
                         <div class="card__footer__signin__with mb-3">
                             <p class="my-3">or sign in with</p>
                             <div class="signin__with__content">

@@ -1,16 +1,3 @@
-const uploadButton = document.getElementById("upload-pro");
-
-function profileChanage() {
-    uploadButton.classList.remove("disabled");
-}
-
-// sidebar upload profile
-const uploadSidebarButton = document.getElementById("upload-sidebar-pro");
-
-function sidebarProfileChanage() {
-    uploadSidebarButton.classList.remove("disabled");
-}
-
 // add shipping address
 const shippingCard = document.querySelector("#shippingcard");
 const addshippingaddress = document.querySelector("#addshippingaddress");

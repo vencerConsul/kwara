@@ -40,13 +40,13 @@ class MainController extends Controller
 
                 $DateNow = strtotime($stringDate);
 
-                // dd($DateNow);
+                // dd($EXPIRATION_DATE);
 
                 if ($DateNow >= $EXPIRATION_DATE && $STATUS == "approved") {
-                    // return true;
                     Seller::where('status', 'approved')
-                        ->where('expiration_date', '>=', $DateNow)
+                        ->where('expiration_date', '<=', $DateNow)
                         ->update(['status' => 'resumed']);
+
                 } else {
                     return false;
                 }
@@ -58,9 +58,40 @@ class MainController extends Controller
     {
         $this->CheckStatus();
         $checkPage = $this->checkPage();
-        $products = Product::orderBy('id', 'DESC')->paginate(12);
         $gadgets = Product::orderBy('id', 'DESC')->where('product_type', 'Gadgets')->paginate(12);
-        return view('mainpage.mainpage', compact(['checkPage', 'products', 'gadgets']));
+        return view('mainpage.mainpage', compact(['checkPage', 'gadgets']));
+    }
+
+    public function ShowProducts()
+    {
+        $products = Product::all();
+
+        if ($products->count() > 0) {
+            foreach ($products as $prod) {
+
+
+                $image = explode('|', $prod->product_image);
+
+                echo '<div class="col-lg-2 col-sm-4 col-6 section__three__col">
+                    <a href="product/' . $prod->id . '">
+                        <div class="card mb-2">
+                            <img class="card-img-top" src="' . asset("/storage/images/products/$image[0]") . '" />
+                            <div class="card-body">
+                                <p class="card-title p-name">' . $prod->product_name . '</p>
+                                <p class="card-text">&#8369; ' . number_format($prod->product_price) . '</p>
+                                <div class="section__three__viewers">
+                                    <small>(21 views)</small>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>';
+            }
+        } else {
+            echo '<div class="section__three__title text-center">
+                    <h5>There is no product yet</h5>
+                </div>';
+        }
     }
 
     public function ViewProduct($id)
@@ -81,7 +112,8 @@ class MainController extends Controller
         }
         // dd($product);
         // product related
-        $relatedProduct = Product::where('product_type', $product->product_type)->get();
+        $relatedProduct = Product::orderBy('id', 'desc')->where('product_type', $product->product_type)->where('id', '!=', $id)->get();
+        // dd('storage/images/products/'. $product->product_image);
 
         return view('mainpage.product', compact(['checkPage', 'product', 'pro', 'relatedProduct']));
     }

@@ -142,6 +142,7 @@ class SellerController extends Controller
             } else {
                 $discount = $request->product__discount;
             }
+
             $product = new product();
             $product->seller_id = Auth::id();
             $product->product_name = $request->product__name;
@@ -204,7 +205,6 @@ class SellerController extends Controller
                 'product__stock' => 'required',
                 'product__description' => 'required',
                 'product__type' => 'required',
-                'files' => 'required'
             ]);
             if ($data->fails()) {
                 return back()->with('toast_error', $data->messages()->all()[0])->withInput();
@@ -227,7 +227,7 @@ class SellerController extends Controller
                         $DateNow =  $integer_dateNow + $integer_hourNow;
 
                         $random = substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 7) . $DateNow . $name;
-                        Image::make($file->getRealPath())->save('OriginalProductImg' . '/' . $random);
+                        $file->storeAs('public/images/products/', $random);
                         $product_image[] = $random;
                     } else {
                         return back()->with('toast_error', 'Image must be jpg or png ');
@@ -241,18 +241,29 @@ class SellerController extends Controller
                 $discount = $request->product__discount;
             }
             // print_r(implode('|', request()->old__files));
-            if (request()->old__files) {
+            if (request()->old__files && empty(request()->file('files'))) {
                 $p_image = implode('|', request()->old__files);
             }
-
-            if (!empty($product_image) || request()->old__files) {
+            if ($product_image && request()->old__files) {
                 $p_image = implode('|', $product_image) . '|' . implode('|', request()->old__files);
             }
+            if(request()->file('files') && empty(request()->old__files)){
+                $p_image = implode('|', $product_image);
+            }
+
             // compute the number of files added
-            $countFiles = count(request()->old__files) + count($product_image);
+            if(empty(request()->old__files) && empty(request()->file('files'))){
+                return back()->with('toast_error', 'please upload atleast 1 image');
+            }elseif(empty(request()->old__files)){
+                $countFiles = 0;
+            }elseif(empty(request()->file('files'))){
+                $countFiles = 0;
+            }else{
+                $countFiles = count(request()->old__files) + count(request()->file('files'));
+            }
             //check if the file is greather than 6, then invalid
             if ($countFiles > 4) {
-                return back()->with('toast_error', 'You can only upload 6 images');
+                return back()->with('toast_error', 'You can only upload 4 images');
             }
             Product::where('id', $id)->update([
                 'product_name' => request()->product__name,

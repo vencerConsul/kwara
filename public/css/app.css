@@ -62,7 +62,7 @@ div#swal2-content {
 }
 
 
-/* sweet alert backend popup*/
+/* sweet alert laravel backend popup*/
 .swal2-popup {
     display: none;
     position: relative;
@@ -82,4 +82,5 @@ div#swal2-content {
 .swal2-popup .swal2-header .swal2-title{
     font-weight: 400 !important;
     font-size: 1.125em;
+    margin-bottom: 1em !important;
 }

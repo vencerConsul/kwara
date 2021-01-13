@@ -81,7 +81,7 @@ Edit address
                                 </div>
                             </div>
                             <div class="form-group p-2">
-                                <select class="mdb-select mt-3 md-form form-control" name="country" value="{{ $editshippingaddress[0]->country }}" autocomplete="off">
+                                <select class="mdb-select mt-3 md-form form-control" id="country" name="country" value="{{ $editshippingaddress[0]->country }}" autocomplete="off">
                                     <option value="Philippines" selected>Philippines</option>
                                 </select>
                             </div>
@@ -110,7 +110,7 @@ Edit address
                                 </div>
                             </div>
                             <div class="form-group p-2">
-                                <button type="submit" class="btn m-0 btn-sm">Update address</button>
+                                <input type="submit" class="btn btn-sm ml-0 mt-3" onClick="this.form.submit(); this.disabled=true; this.value='updating....'; document.getElementById('firstname').disabled=true;document.getElementById('lastname').disabled=true;document.getElementById('country').disabled=true;document.getElementById('address').disabled=true;document.getElementById('postal_code').disabled=true;document.getElementById('phone_number').disabled=true;" value="update address">
                             </div>
                         </form>
                         {{-- end form --}}

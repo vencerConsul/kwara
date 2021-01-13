@@ -283,7 +283,7 @@ Dashboard
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <button type="submit" class="btn ml-0 mt-3">Add product</button>
+                                            <input type="submit" class="btn ml-0 mt-3" onClick="this.form.submit(); this.disabled=true; this.value='Loading..'; " value="add product">
                                         </div>
                                     </form>
                                 </div>

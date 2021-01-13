@@ -256,7 +256,7 @@ Edit Product
                                                     @endphp
                                                     <input type="file" id="files" name="files[]" multiple>
                                                     @foreach($productImg as $img)
-                                                    <input type="hidden" class="img{{str_replace(".", "_", $img)}}" name="old__files[]" value="{{$img}}">
+                                                    <input type="hidden" class="img{{str_replace(".", "_", $img)}}" name="old__files[]" value="{{$img}}" multiple>
                                                     <span class="container__multiple"><img class="imageThumb" src="{{ asset('/storage/images/products/'.$img.'') }}"><br><span class="remove" onclick="del(this)" id="{{str_replace(".", "_", $img)}}"><i class="fa fa-times"></i></span></span>
                                                     @endforeach
                                                 </div>
@@ -286,8 +286,7 @@ Edit Product
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <button type="submit" class="btn ml-0 mt-3">update product</button>
-                                        </div>
+                                            <input type="submit" class="btn ml-0 mt-3" onClick="this.form.submit(); this.disabled=true; this.value='Loading..'; " value="update product">
                                     </form>
                                 </div>
                             </div>

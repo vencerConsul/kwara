@@ -20,7 +20,7 @@
 .column__one {
     text-align: center;
     padding: 2em;
-    background: var(--light-grey);
+    background: #eeeeee;
 }
 .column__one h4{
     color: var(--semi-grey);
@@ -44,9 +44,12 @@
 .card .column__two .form-group #files {
     display: none;
 }
-.card .column__two button {
+.card .column__two .btn {
     box-shadow: none;
-    border: 2px solid var(--light-grey);
+    background: #eeeeee;
+    color: #000000;
+    border-radius: 0;
+    text-transform: capitalize;
 }
 /* image previews */
 input[type="file"] {

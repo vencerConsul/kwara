@@ -59,11 +59,12 @@
     background: none;
     border: none;
 }
-#seller__login .column__two .card .card-footer button {
+#seller__login .column__two .card .card-footer .btn {
     border: 1px solid var(--white);
     outline: none;
     color: var(--white);
     border-radius: 40px;
+    text-transform: capitalize;
 }
 #seller__login .column__two .card .card-footer .card__footer__signin__with {
     color: var(--white);

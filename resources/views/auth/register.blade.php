@@ -65,7 +65,7 @@ Sign up
                         </div>
                     </div>
                     <div class="card-footer text-center">
-                        <button type="submit" class="btn">Sign up</button>
+                        <input type="submit" class="btn ml-0 mt-3" onClick="this.form.submit(); this.disabled=true; this.value='loading..'; document.getElementById('firstname').disabled=true;document.getElementById('lastname').disabled=true;document.getElementById('email').disabled=true;document.getElementById('password').disabled=true;document.getElementById('password-confirmation').disabled=true;" value="Sign up">
                         @if (Route::has('register'))
                             <div class="mt-4">
                                     <a class="not__yet__member" href="{{ route('login') }}">

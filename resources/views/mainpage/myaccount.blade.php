@@ -22,18 +22,18 @@ My Account
                 <div class="column__one__content">
                     <div class="card my-5">
                         <div class="dropdown">
-                            <i class="fa fa-align-left pt-2 pl-2" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-align-left pt-2 pl-2" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             </i>
 
                             <div class="dropdown-menu text-center">
                                 <form method="post" action="{{ route('chanageprofile') }}" enctype="multipart/form-data" class="px-4 py-3">
                                     @csrf
-                                    <label>Upload profile</label>
+                                    <label>Change profile</label>
                                     <div class="form-group">
                                         <input type="file" class="form-control d-none" name="file" id="profile" onchange="profileChanage()">
                                     </div>
-                                    <img class="img-fluid" src="/images/icons/upload-image.png" onclick="event.preventDefault(); document.getElementById('profile').click()">
-                                    <button type="submit" id="upload-pro" class="btn btn-dark btn-sm disabled">Upload</button>
+                                    <img class="img-fluid" src="{{asset('/images/icons/upload-image.png')}}" onclick="event.preventDefault(); document.getElementById('profile').click()">
+                                    <input id="upload-pro" type="submit" class="btn btn-sm" onClick="this.form.submit(); this.disabled=true; this.value='uploading..';" value="upload" style="box-shadow:none;background:#333;color:#fff;text-transform:capitalize;">
                                 </form>
                             </div>
                         </div>
@@ -105,7 +105,7 @@ My Account
                                 </div>
                             </div>
                             <div class="form-group p-2">
-                                <button type="submit" class="btn m-0 btn-sm">Update info</button>
+                                <input type="submit" class="btn btn-sm ml-0" onClick="this.form.submit(); this.disabled=true; this.value='updating....'; document.getElementById('firstname').disabled=true;document.getElementById('lastname').disabled=true;" value="update info">
                             </div>
                         </form>
                         {{-- end form --}}

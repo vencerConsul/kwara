@@ -3,7 +3,7 @@ input:focus, select:focus{
     outline: none !important;
 }
 .top__header {
-    background: #fbfbfb;
+    background: #000000;
 }
 .top__header .top__header__content {
     position: relative;
@@ -15,10 +15,11 @@ input:focus, select:focus{
 }
 .top__header .top__header__content .top__header__social a i {
     margin-left: 10px;
-    color: var(--grey) !important;
+    color: #ffffff !important;
 }
-.top__header .top__header__content .top__header__loginregister {
+.top__header .top__header__content .top__header__loginregister a{
     font-size: 15px;
+    color: #ffffff !important;
 }
 .top__header .divider {
     height: 100%;
@@ -33,26 +34,32 @@ input:focus, select:focus{
     border-bottom: 2px solid var(--light-grey);
 }
 .navbar__content .navbar__left__icons {
-    width: 100px;
+    position: relative;
+    margin-right: 1em;
 }
 .navbar__content .navbar__left__icons i {
     color: var(--grey);
     cursor: pointer;
 }
 .navbar__content .navbar__left__icons small {
-    margin-left: 6px;
-    background: var(--light-grey);
-    padding: 10px;
-    border-radius: 10px;
+    position: absolute;
+    right: -5px;
+    top: -5px;
+    background: rgba(255, 0, 0, 0.809);
+    height: 20px;
+    width: 20px;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    font-size: 12px;
 }
 .navbar__content .input-group .input-group-append button {
     border: 1px solid #ced4da;
 }
-.navbar__content .searchFor .input-group-append button i {
-    font-size: 18px;
-}
 .navbar__content .fa-opencart{
-    font-size: 20px;
+    font-size: 25px;
 }
 .navbar__menu__humberger {
     position: relative;
@@ -60,14 +67,14 @@ input:focus, select:focus{
     justify-content: center;
     align-items: center;
     width: 30px;
-    height: 1px;
+    height: 2px;
     cursor: pointer;
     margin-left: 30px !important;
     transition: all 0.5s ease-in-out;
 }
 .navbar__menu__humberger__burger {
     width: 30px;
-    height: 1.099px;
+    height: 2px;
     background: var(--grey);
     transition: all 0.5s ease-in-out;
 }
@@ -76,7 +83,7 @@ input:focus, select:focus{
     content: "";
     position: absolute;
     width: 25px;
-    height: 1.099px;
+    height: 2px;
     background: var(--grey);
     transition: all 0.5s ease-in-out;
 }
