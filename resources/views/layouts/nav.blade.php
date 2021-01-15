@@ -32,22 +32,38 @@
 </div>
 <nav class="navbar__content navbar sticky-top navbar-expand-lg navbar-light scrolling-navbar">
     <div class="container">
-        <a href="{{ URL::to('/') }}" class="navbar-brand">&#9883; KWARA</a>
+        <a href="{{ URL::to('/') }}" class="navbar-brand"><span class="symbol">&#128615;</span> KWARA</a>
 
         @if (Route::current()->getName() == 'Main' || Route::current()->getName() == 'product')
+        <div class="ml-auto d-flex navbar__left__icons ">
+                <div class="dropdown">
+                    <button class="btn btn-sm text-white categories_button text-capitalize" data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false">
+                        Categories &nbsp;
+                        <i class="fas fa-caret-down"></i>
+                    </button>
 
-        @endif
+                    <!--Menu-->
+                    <div class="dropdown-menu dropdown-primary ml-1">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </div>
 
-        <div class="ml-auto d-flex navbar__left__icons justify-content-between align-items-baseline">
-            <div class="icons">
+            <button class="btn btn-sm text-white search_button">
+                <i class="fas fa-search"></i>
+            </button>
+
+            <button class="btn btn-sm text-white cart_button" onclick="cart()">
                 <i class="fab fa-opencart" title="cart"></i>
-                <small>0</small>
-            </div>
-
-            <div class="icons">
-                <i class="fas fa-search mobile__searchFor"></i>
-            </div>
+                <span class="cart_text">cart</span>
+                <span>0</span>
+            </button>
         </div>
+        @endif
 
         <div class="ml-auto navbar__menu__humberger">
             <div class="navbar__menu__humberger__burger"></div>
@@ -55,6 +71,49 @@
 
     </div>
 </nav>
+
+<div class="container__cart" onclick="containerCart(this)">
+    <div class="shopping-cart">
+        <div class="shopping-cart-header">
+            <div class="shopping-cart-total">
+                <span class="lighter-text font-weight-bold">Total:</span>
+                <span class="main-color-text">₱ 2333</span>
+            </div>
+        </div> <!--end shopping-cart-header -->
+
+        <ul class="shopping-cart-items">
+        <li class="clearfix">
+            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/cart-item1.jpg" alt="item1" />
+            <span class="item-name">Sony DSC-RX100M III</span>
+            <span class="item-price">$849.99</span>
+            <span class="item-quantity">x1</span>
+        </li>
+
+        <li class="clearfix">
+            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/cart-item2.jpg" alt="item1" />
+            <span class="item-name">KS Automatic Mechanic...</span>
+            <span class="item-price">$1,249.99</span>
+            <span class="item-quantity">x1</span>
+        </li>
+
+        <li class="clearfix">
+            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/cart-item2.jpg" alt="item1" />
+            <span class="item-name">KS Automatic Mechanic...</span>
+            <span class="item-price">$1,249.99</span>
+            <span class="item-quantity">x1</span>
+        </li>
+
+        <li class="clearfix">
+            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/cart-item3.jpg" alt="item1" />
+            <span class="item-name">Kindle, 6" Glare-Free To...</span>
+            <span class="item-price">$129.99</span>
+            <span class="item-quantity">Quantity: 01</span>
+        </li>
+        </ul>
+
+        <a href="#" class="btn btn-sm">Checkout</a>
+    </div> <!--end shopping-cart -->
+</div> <!--end container -->
 
 <div id="sidebar__overlay"></div>
 <div id="sidebar__content">

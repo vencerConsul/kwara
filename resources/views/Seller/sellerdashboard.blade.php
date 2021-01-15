@@ -113,10 +113,10 @@ Pending appointment
             <div class="column__two__content">
                 <h4 class="mb-2">Hello <span class="font-weight-bold text-capitalize">{{Auth::user()->firstname}}!</h4></span>
                 <h5>
-                    Just a reminder from Kwara about your appointment on <span class="text-info">{{ date('l, F d y', strtotime($pendingAppointment->schedule_date)) }}</span> at <span class="text-info">{{$pendingAppointment->schedule_place}}, {{$pendingAppointment->schedule_time}}</span>. Please note, your appointment is valid until <span class="text-warning">{{date('l, F d y, h:i a', Auth::user()->expiration_date)}}.</span>  If you need to reschedule, contact <a href="tel:09618382290">09618382290 <i class="fa fa-phone"></i></a>, Thanks!
+                    Just a reminder from Kwara about your appointment on <span class="font-weight-bold">{{ date("F j, Y", strtotime($pendingAppointment->schedule_date)) }}</span> at <span class="font-weight-bold">{{$pendingAppointment->schedule_place}}, {{$pendingAppointment->schedule_time}}</span>. Please note, this is valid until <span class="font-weight-bold">{{date('F j, Y, g:i a', Auth::user()->expiration_date)}}.</span>  If you need to reschedule, contact <a href="tel:09618382290" class="font-weight-bold text-white">09618382290</a>, Thanks!
                 </h5>
 
-                <button class="btn btn-sm ml-0 btn-light" onclick="event.preventDefault(); document.getElementById('logout-form').submit()">Sign out</button>
+                <button class="btn btn-sm ml-0 btn-light my-3" onclick="event.preventDefault(); document.getElementById('logout-form').submit()">Sign out</button>
 
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     @csrf
@@ -227,27 +227,45 @@ Dashboard
     <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
-    <aside class="main-sidebar sidebar-light-light elevation-4">
+    <aside class="main-sidebar sidebar-light-light elevation-4 position-fixed">
 
         <!-- Sidebar -->
         <div class="sidebar">
             <!-- Sidebar user panel (optional) -->
-            <div class="user-panel mt-3 pb-3 mb-3 d-flex  align-items-center">
-                <div class="image">
-                    @if(Auth::user()->profile == 0)
-                        <i class="fa fa-user"></i>
-                    @else
-                        <img src="{{ asset('images/admin/venz.jpg') }}" class="img-circle elevation-2" alt="seller profile" style="object-fit: cover; height: 40px; width:40px;">
-                    @endif
-                </div>
-                <div class="info">
-                    <a class="d-block text-capitalize">{{ Auth::user()->store_name }} Store</a>
-                </div>
+            <div class="user-panel d-flex align-items-center justify-content-center">
+                <div class="logo"><span class="symbol">&#128615;</span> KWARA</div>
             </div>
 
             <!-- Sidebar Menu -->
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-user"></i>
+                            <p class="text-capitalize">
+                                {{Auth::user()->firstname . ' ' . Auth::user()->lastname}}
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a class="nav-link text-danger" href="{{ route('logout') }}">
+                                    <i class="nav-icon fas fa-edit"></i>
+                                    <p>Manage account</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-danger" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit()">
+                                    <i class="nav-icon fas fa-sign-in-alt "></i>
+                                    <p>Sign out</p>
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
 
                     <li class="nav-item">
                         <a href="#" class="nav-link">
@@ -333,26 +351,6 @@ Dashboard
                                 Covid Update
                             </p>
                         </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-user"></i>
-                            <p>
-                                Account
-                                <i class="fas fa-angle-left right"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit()">
-                                    <i class="nav-icon fas fa-sign-in-alt "></i>
-                                    <p>Sign out</p>
-                                </a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                    @csrf
-                                </form>
-                            </li>
-                        </ul>
                     </li>
                 </ul>
             </nav>

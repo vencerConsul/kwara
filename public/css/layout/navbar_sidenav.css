@@ -1,16 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Aclonica&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Aclonica&display=swap");
 
-.navbar-brand{
-    font-family: 'Aclonica', sans-serif;
+.navbar-brand {
+    font-family: "Aclonica", sans-serif;
     font-size: 25px;
 }
-
-input:focus, select:focus{
-    box-shadow: none !important;
-    outline: none !important;
+.navbar-brand .symbol {
+    color: #744c40;
+    font-size: 40px;
 }
 .top__header {
-    background: #000000;
+    background: #744c40;
 }
 .top__header .top__header__content {
     position: relative;
@@ -24,7 +23,7 @@ input:focus, select:focus{
     margin-left: 10px;
     color: #ffffff !important;
 }
-.top__header .top__header__content .top__header__loginregister a{
+.top__header .top__header__content .top__header__loginregister a {
     font-size: 15px;
     color: #ffffff !important;
 }
@@ -40,26 +39,22 @@ input:focus, select:focus{
 .navbar__content.top-nav-collapse {
     border-bottom: 2px solid var(--light-grey);
 }
-.navbar__content .navbar__left__icons {
-    width:60px;
+.navbar__content .navbar__left__icons button {
+    box-shadow: none;
+    background: #744c40;
+    border-radius: 5px;
 }
-.navbar__content .navbar__left__icons i {
-    color: var(--grey);
-    cursor: pointer;
+.navbar__content .cart_button i {
+    font-size: 13px;
 }
-.navbar__content .navbar__left__icons small {
-    margin-left: 6px;
-    color: #000000;
-    border-radius: 10px;
+.navbar__content .navbar__left__icons button span {
+    color: #ffffff;
+    margin-left: 5px;
 }
-.navbar__content .input-group .input-group-append button {
-    border: 1px solid #ced4da;
-}
-.navbar__content .searchFor .input-group-append button i {
-    font-size: 18px;
-}
-.navbar__content .fa-opencart{
-    font-size: 20px;
+
+.navbar__content .search_button {
+    padding-left: 13px;
+    padding-right: 13px;
 }
 .navbar__menu__humberger {
     position: relative;
@@ -74,7 +69,7 @@ input:focus, select:focus{
 }
 .navbar__menu__humberger__burger {
     width: 30px;
-    height: 2px;
+    height: 3px;
     background: var(--grey);
     transition: all 0.5s ease-in-out;
 }
@@ -83,7 +78,7 @@ input:focus, select:focus{
     content: "";
     position: absolute;
     width: 25px;
-    height: 2px;
+    height: 3px;
     background: var(--grey);
     transition: all 0.5s ease-in-out;
 }
@@ -103,6 +98,87 @@ input:focus, select:focus{
 }
 .navbar__menu__humberger.open .navbar__menu__humberger__burger::after {
     transform: rotate(-45deg) translate(35px, 35px);
+}
+
+/* cart */
+.container__cart {
+    position: fixed;
+    right: 0;
+    top: 0;
+    margin: auto;
+    width: 100%;
+    height: 100vh;
+}
+.shopping-cart {
+    top: 1em;
+    right: 1em;
+    margin: 20px 0;
+    float: right;
+    background: #ffffff;
+    width: 320px;
+    position: relative;
+    padding: 20px;
+    display: none;
+    box-shadow: 1px 1px 7px 0px rgba(92,92,92,1);
+}
+.shopping-cart-header {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    border-bottom: 1px solid #e8e8e8;
+}
+.shopping-cart-total {
+    float: right;
+}
+.shopping-cart-items {
+    padding-top: 20px;
+    max-height: 250px;
+    overflow-y: scroll
+}
+.shopping-cart ::-webkit-scrollbar {
+    width: 12px;
+}
+.shopping-cart ul{
+    list-style: none;
+}
+.shopping-cart li {
+    margin-bottom: 18px;
+}
+.shopping-cart img {
+    float: left;
+    margin-right: 12px;
+    padding: 2px;
+    height: 50px;
+    width: 50px;
+}
+.item-name {
+    display: block;
+    padding-top: 10px;
+    font-size: 13px;
+}
+.item-price {
+    color: #fd33cb;
+    margin-right: 8px;
+    font-size: 13px;
+}
+.item-quantity {
+    color: #686767;
+    font-size: 13px;
+    float: right;
+}
+.shopping-cart .btn {
+    background: #744c40;
+    box-shadow: none;
+    color: white;
+    display: block;
+}
+.clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.open__cart{
+    display: block;
 }
 
 /* sidebar */
@@ -209,6 +285,9 @@ input:focus, select:focus{
     .navbar__logo {
         width: 100px !important;
     }
+    .navbar__left__icons button {
+        padding: 6px 10px !important;
+    }
 }
 
 @media only screen and (max-width: 767px) {
@@ -216,13 +295,24 @@ input:focus, select:focus{
     .searchFor {
         display: none;
     }
-    .navbar__logo {
-        width: 150px;
+    .search_button i,
+    .cart_button i,
+    .cart_button span {
+        font-size: 10px !important;
     }
-    .navbar__menu__humberger{
-        display: block;
+    .navbar__left__icons .categories_button {
+        display: none;
     }
-    .mobile__searchFor {
+    .navbar__left__icons button {
+        padding: 10px 15px !important;
+    }
+    .navbar-brand {
+        font-size: 13px;
+    }
+    .symbol {
+        font-size: 20px !important;
+    }
+    .navbar__menu__humberger {
         display: block;
     }
     #sidebar__content {

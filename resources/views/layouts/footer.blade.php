@@ -6,7 +6,7 @@
         <div class="row mb-4">
             <div class="col-lg-4 flex__to__center footer__column__one">
                 <div class="footer__context__one">
-                    <img src="{{ asset('/images/logo.png') }}" />
+                    <div class="logo"><span class="symbol">&#128615;</span> KWARA</div>
                     <form>
                         <div class="input-group mt-4 mb-2">
                             <input type="text" class="form-control" placeholder="Your email address">
@@ -33,7 +33,7 @@
             <div id="contact__" class="col-lg-4 flex__to__center footer__column__three">
                 <div class="footer__context__three text-center">
                     <h4>STAY CONNECTED</h4>
-                    <button class="btn btn-light btn-block my-3">Email us</button>
+                    <button class="btn btn-block my-3">Email us</button>
                     <span>or follow us on</span>
                     <div class="d-flex justify-content-center footer__social__media">
                         <a href=""><i class="fab fa-facebook-square"></i></a>

@@ -11,7 +11,7 @@
 }
 #hero__main .hero__column__first .hero__content a {
     box-shadow: none;
-    background: #000000;
+    background: #744c40;
     color: #ffffff;
     font-weight: 300;
     border-radius: 40px;
@@ -19,7 +19,7 @@
     transition: all 0.2s;
 }
 #hero__main .hero__column__first .hero__content a:hover {
-    background: var(--semi-grey);
+    background: #633b2e;
 }
 #hero__main .hero__column__second {
     display: flex;
@@ -67,6 +67,7 @@
     box-shadow: none;
     border: 1px solid var(--light-grey);
     transition: all 0.3s ease-in-out;
+    border-radius: 0;
 }
 #section__three .card:hover,
 #section__five .card:hover {
@@ -79,17 +80,8 @@
 }
 #section__three .card-title,
 #section__five .card-title {
-    color: var(--semi-grey);
-}
-#section__three .section__three__viewers,
-#section__five .section__five__viewers {
-    position: relative;
-    display: flex;
-}
-#section__three .section__three__viewers small,
-#section__five .section__five__viewers small {
-    color: var(--semi-grey);
-    margin-right: 1px;
+    color: #000000;
+    text-transform: capitalize;
 }
 
 /* section 4 */

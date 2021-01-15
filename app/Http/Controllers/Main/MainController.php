@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Main;
 
 use App\Http\Controllers\Controller;
+use App\Http\Traits\ProductTrait;
 use App\Product;
 use App\Seller;
 use App\User;
@@ -79,9 +80,6 @@ class MainController extends Controller
                             <div class="card-body">
                                 <p class="card-title p-name">' . $prod->product_name . '</p>
                                 <p class="card-text">&#8369; ' . number_format($prod->product_price) . '</p>
-                                <div class="section__three__viewers">
-                                    <small>(21 views)</small>
-                                </div>
                             </div>
                         </div>
                     </a>

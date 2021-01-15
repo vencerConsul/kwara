@@ -108,8 +108,11 @@ Product
         <hr class="my-3">
         {{-- related product --}}
         <div class="container related__product">
+            @if($relatedProduct->count() > 0)
             <h5 class="my-3 font-weight-normal">Related product</h5>
-
+            @else
+            <a href="{{ url()->previous() }}" class="btn btn-sm my-4">Go back</a>
+            @endif
             <div class="row">
                 @foreach($relatedProduct as $relatedPro)
                     <div class="col-lg-3 col-sm-4 col-6 ">

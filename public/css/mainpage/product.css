@@ -28,14 +28,14 @@
 }
 .single-product button {
     box-shadow: none;
-    background: var(--grey);
+    background: #744c40;
     color: white;
     border-radius: 30px;
 }
 .single-product button:hover {
     box-shadow: none;
-    background: var(--semi-grey);
-    color: black;
+    background: #553227;
+    color: #ffffff;
     border-radius: 30px;
 }
 
@@ -162,6 +162,18 @@
 }
 .related__product .card .card-body {
     color: #495057;
+}
+.related__product a{
+    box-shadow: none;
+    background: #744c40;
+    color: white;
+    border-radius: 30px;
+}
+.related__product a:hover {
+    box-shadow: none;
+    background: #553227;
+    color: #ffffff;
+    border-radius: 30px;
 }
 
 @media not all and (min-resolution: 0.001dpcm) {

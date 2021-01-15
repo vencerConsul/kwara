@@ -153,6 +153,7 @@ class SellerController extends Controller
             $product->product_description = $request->product__description;
             $product->product_image = implode('|', $product_image);
             $product->save();
+
             if ($request->product__type == 'Clothes' || $request->product__type == 'Foot wears') {
                 $P_Attributes = new productAttributes();
                 $P_Attributes->product_id  = $product->id;

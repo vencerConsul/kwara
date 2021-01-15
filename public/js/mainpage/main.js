@@ -25,4 +25,4 @@ document.addEventListener("DOMContentLoaded", function() {
     showAllProducts();
 });
 
-setInterval(showAllProducts, 3000);
+setInterval(showAllProducts, 8000);

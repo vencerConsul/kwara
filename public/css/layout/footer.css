@@ -1,57 +1,111 @@
-#footer__content{
-    background: var(--light-grey);
+@import url("https://fonts.googleapis.com/css2?family=Aclonica&display=swap");
+
+.logo {
+    font-family: "Aclonica", sans-serif;
+    font-size: 30px;
+    color: #ffffff;
 }
-#footer__content .container-fluid{
+.logo .symbol {
+    color: #ffffff;
+    font-size: 45px;
+}
+
+#footer__content {
+    background: #744c40;
+}
+#footer__content .container-fluid {
     padding-top: 50px;
 }
-#footer__content .container-fluid .flex__to__center{
+#footer__content .container-fluid .flex__to__center {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-#footer__content .container-fluid .flex__to__center .footer__context__one{
-    text-align:center;
+#footer__content .container-fluid .flex__to__center .footer__context__one {
+    text-align: center;
 }
-#footer__content .container-fluid .flex__to__center .footer__context__one input{
+#footer__content .container-fluid .flex__to__center .footer__context__one p {
+    color: #ffffff;
+}
+#footer__content
+    .container-fluid
+    .flex__to__center
+    .footer__context__one
+    input {
     border-radius: 0;
 }
-#footer__content .container-fluid .flex__to__center .footer__context__one button{
+#footer__content
+    .container-fluid
+    .flex__to__center
+    .footer__context__one
+    button {
     border-radius: 0;
     box-shadow: none;
 }
-#footer__content .container-fluid .flex__to__center .footer__context__two{
-    text-align:center;
+#footer__content .container-fluid .flex__to__center .footer__context__two {
+    text-align: center;
 }
-#footer__content .container-fluid .flex__to__center .footer__context__two ul{
+#footer__content .container-fluid .flex__to__center .footer__context__two h5 {
+    color: #ffffff;
+    font-weight: 900;
+}
+#footer__content .container-fluid .flex__to__center .footer__context__two ul {
     list-style: none;
 }
-#footer__content .container-fluid .flex__to__center .footer__context__two ul li a{
-    color: var(--grey);
+#footer__content
+    .container-fluid
+    .flex__to__center
+    .footer__context__two
+    ul
+    li
+    a {
+    color: #ffffff;
 }
-#footer__content .container-fluid .flex__to__center .footer__context__three{
-    color: var(--grey);
+#footer__content .container-fluid .flex__to__center .footer__context__three {
+    color: #ffffff;
 }
-#footer__content .container-fluid .flex__to__center .footer__context__three button{
+#footer__content
+    .container-fluid
+    .flex__to__center
+    .footer__context__three
+    button {
     border-radius: 0;
     box-shadow: none;
+    background: #ffffff;
+    color: #000000;
 }
-#footer__content .container-fluid .flex__to__center .footer__context__three .footer__social__media{
+#footer__content
+    .container-fluid
+    .flex__to__center
+    .footer__context__three
+    .footer__social__media {
     position: relative;
 }
-#footer__content .container-fluid .flex__to__center .footer__context__three .footer__social__media a{
-    color: var(--grey);
+#footer__content
+    .container-fluid
+    .flex__to__center
+    .footer__context__three
+    .footer__social__media
+    a {
+    color: #ffffff;
 }
-#footer__content .container-fluid .flex__to__center .footer__context__three .footer__social__media a i{
+#footer__content
+    .container-fluid
+    .flex__to__center
+    .footer__context__three
+    .footer__social__media
+    a
+    i {
     font-size: 30px;
     margin: 10px;
 }
-#footer__content .container-fluid .footer__copy__right{
+#footer__content .container-fluid .footer__copy__right {
     text-align: center;
 }
-#footer__content .container-fluid .footer__hr{
+#footer__content .container-fluid .footer__hr {
     background: var(--semi-grey);
 }
-#footer__content .container-fluid .footer__copy__right p{
+#footer__content .container-fluid .footer__copy__right p {
     color: var(--light-grey);
     padding: 10px;
 }

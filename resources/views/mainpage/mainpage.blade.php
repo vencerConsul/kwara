@@ -69,6 +69,7 @@ Kwara
             </div>
         @endif --}}
         <br />
+
         <div class="my-4">
             <div class="row d-flex justify-content-center products">
 
@@ -119,9 +120,6 @@ Kwara
                         <div class="card-body">
                             <p class="card-title p-name">{{ $gad->product_name}}</p>
                             <p class="card-text">&#8369; {{number_format($gad->product_price)}}</p>
-                            <div class="section__five__viewers">
-                                    <small>(21 views)</small>
-                            </div>
                         </div>
                     </div>
                 </a>
