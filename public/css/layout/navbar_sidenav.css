@@ -106,8 +106,6 @@
     right: 0;
     top: 0;
     margin: auto;
-    width: 100%;
-    height: 100vh;
 }
 .shopping-cart {
     top: 1em;
@@ -200,7 +198,7 @@
     position: fixed;
     display: none;
     right: -250px;
-    background: var(--light-grey);
+    background: #ffffff;
     border-right: 1px solid var(--semi-grey);
     height: 100vh;
     width: 250px;

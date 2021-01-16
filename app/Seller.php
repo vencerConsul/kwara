@@ -39,7 +39,7 @@ class Seller extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function products()
+    public function product()
     {
         return $this->hasMany('App\Product');
     }

@@ -12,6 +12,8 @@ Auth::routes();
 // show main page
 Route::get('', 'Main\MainController@main')->name('Main');
 
+//add to cart
+Route::post('/add-to-cart', 'Main\MainController@addToCart')->name('add.cart');
 // VIEW PRODUCT
 Route::get('/product/{id}', 'Main\MainController@ViewProduct')->name('product');
 //  show my account page
@@ -29,7 +31,6 @@ Route::get('/edit-address/{id}', 'Main\UserController@EditAddress')->name('user.
 // -------------POST----------- //
 // get all products
 Route::get('/all-products', 'Main\MainController@ShowProducts')->name('all.products');
-Route::get('/check-products', 'Main\MainController@CheckProduct')->name('check.products');
 // to update info
 Route::post('/updateInfo', 'Main\UserController@UpdateInformation')->name('updateInfo');
 //  my account change profile

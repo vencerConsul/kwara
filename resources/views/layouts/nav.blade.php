@@ -60,7 +60,7 @@
             <button class="btn btn-sm text-white cart_button" onclick="cart()">
                 <i class="fab fa-opencart" title="cart"></i>
                 <span class="cart_text">cart</span>
-                <span>0</span>
+                <span id="cart__count">0</span>
             </button>
         </div>
         @endif

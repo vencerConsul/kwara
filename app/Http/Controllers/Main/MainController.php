@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Main;
 
+use App\Cart;
 use App\Http\Controllers\Controller;
 use App\Http\Traits\ProductTrait;
 use App\Product;
@@ -9,6 +10,8 @@ use App\Seller;
 use App\User;
 use Illuminate\Http\Request;
 use Auth;
+use Illuminate\Support\Str;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
@@ -47,7 +50,6 @@ class MainController extends Controller
                     Seller::where('status', 'approved')
                         ->where('expiration_date', '<=', $DateNow)
                         ->update(['status' => 'resumed']);
-
                 } else {
                     return false;
                 }
@@ -99,20 +101,60 @@ class MainController extends Controller
         $pro = Product::whereId($id)->with('productAttributes')->firstOrFail();
 
         if ($pro->productAttributes->count() > 0) {
-            $product = DB::table('products')
-                ->join('sellers', 'sellers.id',  'products.seller_id')
-                ->join('product_attributes', 'product_attributes.product_id',  'products.id')
-                ->where('products.id', $id)->first();
+            $product = Seller::with(['product' => function ($q) use ($id) {
+                $q->where('id', $id)
+                    ->with('productAttributes');
+            }])
+                ->firstOrFail();
         } else {
-            $product = DB::table('products')
-                ->join('sellers', 'sellers.id',  'products.seller_id')
-                ->where('products.id', $id)->first();
+            $product = Seller::with(['product' => function ($q) use ($id) {
+                $q->where('id', $id);
+            }])->firstOrFail();
         }
-        // dd($product);
         // product related
-        $relatedProduct = Product::orderBy('id', 'desc')->where('product_type', $product->product_type)->where('id', '!=', $id)->get();
+        $relatedProduct = Product::orderBy('id', 'desc')->where('product_type', $product->product[0]->product_type)->where('id', '!=', $id)->get();
         // dd('storage/images/products/'. $product->product_image);
-
         return view('mainpage.product', compact(['checkPage', 'product', 'pro', 'relatedProduct']));
+    }
+
+    public function addToCart(Request $request)
+    {
+        $product_id = $request->id;
+        $product = Product::findOrFail($product_id);
+        $sessionId = session()->getId();
+
+        if (Auth::check()) {
+            $userId = Auth::id();
+        } else {
+            $userId = NULL;
+        }
+
+        $image = explode("|", $product->product_image);
+
+        if (Cart::where('product_id', $product_id)->exists()) {
+            Cart::where('product_id', $product_id)->where('product_session_id', $sessionId)->increment('product_quantity', $request->product_quantity);
+            Cart::where('product_id', $product_id)->where('product_session_id', $sessionId)->increment('product_price', $product->product_price);
+            return response()->json(['status' => 'ok']);
+        } else {
+            $request->session()->put('product_session_id', $sessionId);
+            $cartInsert = Cart::create([
+                'user_id' => $userId,
+                'product_session_id' => $sessionId,
+                'product_id' => $product->id,
+                'product_name' => $product->product_name,
+                'product_type' => $product->product_type,
+                'product_price' => $product->product_price,
+                'product_stock' => $product->product_stock,
+                'product_discount' => $product->product_discount,
+                'product_description' => $product->product_description,
+                'product_image' => $image[0],
+                'product_quantity' => $request->product_quantity,
+                'product_size' => $request->product_size,
+                'product_color' => $request->product_color
+            ]);
+            if ($cartInsert) {
+                return response()->json(['status' => 'ok']);
+            }
+        }
     }
 }

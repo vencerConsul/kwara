@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $dateFormat = 'Y-m-d H:i:s';
-    
+
     protected $fillable = [
         'firstname', 'lastname', 'profile', 'email', 'password',
     ];
@@ -43,5 +43,10 @@ class User extends Authenticatable
     public function shippingAddress()
     {
         return $this->hasOne('App\ShippingAddress');
+    }
+
+    public function cart()
+    {
+        return $this->hasMany('App\Cart');
     }
 }

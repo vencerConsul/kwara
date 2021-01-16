@@ -55,10 +55,13 @@ div#swal2-content {
 /* buttons sweet alert */
 .swal2-actions button{
     border: 0;
-    border-radius: 0 !important;
-    background: initial;
+    border-radius: 30px !important;
+    background: #744c40 !important;
     color: #fff;
     font-size: 13px !important;
+    outline: none !important;
+    box-shadow: none !important;
+    margin: 10px 0px !important;
 }
 
 

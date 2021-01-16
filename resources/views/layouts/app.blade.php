@@ -11,9 +11,6 @@
     <title>@yield('title')</title>
 
     <link rel="shortcut icon" href="/images/title-icon.png" type="image/x-icon">
-
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <!-- Google Fonts -->
@@ -55,6 +52,7 @@
     </div>
 
     <!-- scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     {{-- sweet alert --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>

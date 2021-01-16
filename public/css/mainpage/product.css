@@ -26,13 +26,13 @@
     cursor: pointer;
     margin-top: 10px !important;
 }
-.single-product button {
+.single-product .btn-add-to-cart {
     box-shadow: none;
     background: #744c40;
     color: white;
     border-radius: 30px;
 }
-.single-product button:hover {
+.single-product .btn-add-to-cart:hover {
     box-shadow: none;
     background: #553227;
     color: #ffffff;

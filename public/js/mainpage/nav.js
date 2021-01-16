@@ -9,11 +9,14 @@ function cart() {
         document.querySelector(".container__cart").style.zIndex = 1020;
         document.querySelector(".container__cart").style.background =
             "#00000069";
+        document.querySelector(".container__cart").style.height =
+            "100vh";
+        document.querySelector(".container__cart").style.width = "100%";
     }
 }
 function containerCart(container_cart) {
     shoppingCart.classList.remove("open__cart");
-    container_cart.style.zIndex = 0;
+    container_cart.style.zIndex = -1;
     container_cart.style.background = 'none';
 }
 

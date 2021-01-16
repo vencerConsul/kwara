@@ -10,7 +10,7 @@ class Product extends Model
     protected $dateFormat = 'Y-m-d H:i:s';
 
     protected $fillable = [
-        'product_name', 'product_type', 'product_price', 'product_stock', 'product_discount', 'product_description', 'product_image'
+        'id', 'product_name', 'product_type', 'product_price', 'product_stock', 'product_discount', 'product_description', 'product_image'
     ];
 
     public function SellerProduct()
