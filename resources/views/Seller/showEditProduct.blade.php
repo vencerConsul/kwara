@@ -186,7 +186,7 @@ Edit Product
                                 <small>{{ date('F j, Y h:i a', strtotime($products->created_at)) }}</small>
                                 </div>
                                 <div class="col-lg-8 column__two">
-                                <form action="{{ URL('update-product/'.$products->id.'') }}" method="POST" enctype="multipart/form-data">
+                                <form action="{{ URL('update-product/'.$products->p_id.'') }}" method="POST" enctype="multipart/form-data">
                                         @csrf
                                         <div class="row">
                                             <div class="col-lg-6">

@@ -11,6 +11,11 @@ Kwara
 @section('content')
 @include('layouts.nav')
 
+<section class="bg_loader">
+    <div class="loader"></div>
+    <div class="count"></div>
+</section>
+
 <!-- hero -->
 <div id="hero__main" class="container">
     <div class="row">

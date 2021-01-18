@@ -75,6 +75,21 @@
     @yield('makeappointment')
     @yield('showalltablesscript')
 
-</body>
+    <script type="text/javascript">
+        window.addEventListener("load", function () {
+            $.ajax({
+                url: '{{route("set.cookie")}}',
+                type: 'get',
+                success: function(data){
+                    if(data.status === 'ok'){
+                        Swal.fire(
+                            'Allow cookies for better performance'
+                        )
+                    }
+                }
+            })
+        });
+    </script>
 
+</body>
 </html>

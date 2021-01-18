@@ -4,19 +4,33 @@ namespace App\Http\Controllers\Main;
 
 use App\Cart;
 use App\Http\Controllers\Controller;
-use App\Http\Traits\ProductTrait;
 use App\Product;
 use App\Seller;
+use App\ProductAttributes;
 use App\User;
 use Illuminate\Http\Request;
 use Auth;
+use Cookie;
+use Illuminate\Http\Response;
 use Illuminate\Support\Str;
-use Illuminate\Contracts\Session\Session;
+use Session;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 class MainController extends Controller
 {
+    public function setCookie(Request $request)
+    {
+        if (empty($request->cookie('kwara_cookie'))) {
+            $value = Str::random(40);
+            $minutes = 60;
+            Cookie::queue('kwara_cookie', $value, $minutes);
+            return response()->json(['status' => 'ok']);
+        } else {
+            return response()->json(['status' => 'set']);
+        }
+    }
+
     public function checkPage()
     {
         if (Route::current()->getName() == 'user.myaccount' || Route::current()->getName() == 'user.changepassword' || Route::current()->getName() == 'user.shippingaddress' || Route::current()->getName() == 'product') {
@@ -44,8 +58,6 @@ class MainController extends Controller
 
                 $DateNow = strtotime($stringDate);
 
-                // dd($EXPIRATION_DATE);
-
                 if ($DateNow >= $EXPIRATION_DATE && $STATUS == "approved") {
                     Seller::where('status', 'approved')
                         ->where('expiration_date', '<=', $DateNow)
@@ -61,8 +73,13 @@ class MainController extends Controller
     {
         $this->CheckStatus();
         $checkPage = $this->checkPage();
-        $gadgets = Product::orderBy('id', 'DESC')->where('product_type', 'Gadgets')->paginate(12);
-        return view('mainpage.mainpage', compact(['checkPage', 'gadgets']));
+        $gadgets = Product::orderBy('p_id', 'DESC')->where('product_type', 'Gadgets')->paginate(12);
+
+        $cookie_id = request()->cookie('kwara_cookie');
+
+        $carts = Cart::where('user_id', Auth::id())->orWhere('product_cookie_id', $cookie_id)->get();
+
+        return view('mainpage.mainpage', compact(['checkPage', 'gadgets', 'carts']));
     }
 
     public function ShowProducts()
@@ -76,7 +93,7 @@ class MainController extends Controller
                 $image = explode('|', $prod->product_image);
 
                 echo '<div class="col-lg-2 col-sm-4 col-6 section__three__col">
-                    <a href="product/' . $prod->id . '">
+                    <a href="product/' . $prod->p_id . '">
                         <div class="card mb-2">
                             <img class="card-img-top" src="' . asset("/storage/images/products/$image[0]") . '" />
                             <div class="card-body">
@@ -98,49 +115,48 @@ class MainController extends Controller
     {
         $checkPage = $this->checkPage();
         $this->CheckStatus();
-        $pro = Product::whereId($id)->with('productAttributes')->firstOrFail();
+        $pro = Product::where('p_id', $id)->with('productAttributes')->firstOrFail();
 
         if ($pro->productAttributes->count() > 0) {
-            $product = Seller::with(['product' => function ($q) use ($id) {
-                $q->where('id', $id)
-                    ->with('productAttributes');
-            }])
-                ->firstOrFail();
+            $data =
+                Product::join('product_attributes', 'products.p_id', 'product_attributes.product_id')->join('sellers', 'products.seller_id', 'sellers.id')->where('products.p_id', $id)->firstOrFail();
         } else {
-            $product = Seller::with(['product' => function ($q) use ($id) {
-                $q->where('id', $id);
-            }])->firstOrFail();
+            $data = Product::join('sellers', 'products.seller_id', 'sellers.id')->where('products.p_id', $id)->firstOrFail();
         }
+
         // product related
-        $relatedProduct = Product::orderBy('id', 'desc')->where('product_type', $product->product[0]->product_type)->where('id', '!=', $id)->get();
-        // dd('storage/images/products/'. $product->product_image);
-        return view('mainpage.product', compact(['checkPage', 'product', 'pro', 'relatedProduct']));
+        $relatedProduct = Product::orderBy('p_id', 'desc')->where('product_type', $pro->product_type)->where('p_id', '!=', $id)->get();
+        $cookie_id = request()->cookie('kwara_cookie');
+        $carts = Cart::where('user_id', Auth::id())->orWhere('product_cookie_id', $cookie_id)->get();
+
+        return view('mainpage.product', compact(['checkPage', 'data', 'pro', 'relatedProduct', 'carts']));
     }
 
     public function addToCart(Request $request)
     {
         $product_id = $request->id;
-        $product = Product::findOrFail($product_id);
-        $sessionId = session()->getId();
+        $product = Product::where('p_id', $product_id)->firstOrFail();
+
+        $cookie_id = request()->cookie('kwara_cookie');
 
         if (Auth::check()) {
-            $userId = Auth::id();
+            $userId = Auth::user()->id;
         } else {
             $userId = NULL;
         }
 
         $image = explode("|", $product->product_image);
 
-        if (Cart::where('product_id', $product_id)->exists()) {
-            Cart::where('product_id', $product_id)->where('product_session_id', $sessionId)->increment('product_quantity', $request->product_quantity);
-            Cart::where('product_id', $product_id)->where('product_session_id', $sessionId)->increment('product_price', $product->product_price);
-            return response()->json(['status' => 'ok']);
+        if (Cart::where('product_cookie_id', $cookie_id)->where('product_id', $product_id)->exists()) {
+            Cart::where('product_id', $product_id)->where('product_cookie_id', $cookie_id)->increment('product_quantity', $request->product_quantity);
+
+            Cart::where('product_id', $product_id)->where('product_cookie_id', $cookie_id)->increment('product_price', $product->product_price);
+            return response()->json(['status' => 'duplicate']);
         } else {
-            $request->session()->put('product_session_id', $sessionId);
             $cartInsert = Cart::create([
                 'user_id' => $userId,
-                'product_session_id' => $sessionId,
-                'product_id' => $product->id,
+                'product_cookie_id' => $cookie_id,
+                'product_id' => $product_id,
                 'product_name' => $product->product_name,
                 'product_type' => $product->product_type,
                 'product_price' => $product->product_price,
@@ -156,5 +172,36 @@ class MainController extends Controller
                 return response()->json(['status' => 'ok']);
             }
         }
+    }
+
+    public function getToCart()
+    {
+        $cookie_id = request()->cookie('kwara_cookie');
+
+        $carts = Cart::where('user_id', Auth::id())->orWhere('product_cookie_id', $cookie_id)->get();
+
+        foreach ($carts as $cart) {
+
+            echo '<li class="clearfix">
+                <img src="' . asset("/storage/images/products/$cart->product_image") . '" alt="' . $cart->product_name . '" />
+                <span class="item-name">' . $cart->product_name . '</span>
+                <span class="item-price">' . $cart->product_price . '</span>
+                <span class="item-quantity">x' . $cart->product_quantity . ' </span>
+                <input type="hidden" value="' . $cart->product_price * $cart->product_quantity . '" id="subtotal">
+            </li>';
+        }
+    }
+
+    public function getCartSubtotal()
+    {
+        $cookie_id = request()->cookie('kwara_cookie');
+
+        $carts = Cart::where('user_id', Auth::id())->orWhere('product_cookie_id', $cookie_id)->get();
+
+        $total = 0;
+        foreach ($carts as $cart) {
+            $total = $total + ($cart->product_quantity * $cart->product_price);
+        }
+        echo number_format($total, 2);
     }
 }

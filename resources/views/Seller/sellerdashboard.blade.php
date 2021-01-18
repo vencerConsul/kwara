@@ -441,7 +441,7 @@ Dashboard
                                     </thead>
                                     <tbody class="text-center">
                                         @foreach($sellerProducts as $sp)
-                                            <tr id="t__row{{ $sp->id}}">
+                                            <tr id="t__row{{ $sp->p_id}}">
                                                 <td>
                                                     @php $productImageFirst = explode("|", $sp->product_image);
                                                     @endphp
@@ -470,11 +470,11 @@ Dashboard
                                                 </td>
                                                 <td>
                                                     <button class="btn btn-sm">
-                                                        <a href="edit-product/{{ encrypt($sp->id) }}"><i class="fa fa-edit"></i>
+                                                        <a href="edit-product/{{ encrypt($sp->p_id) }}"><i class="fa fa-edit"></i>
                                                         </a>
                                                     </button>
                                                     <button class="btn"
-                                                        id="{{ $sp->id}}"
+                                                        id="{{ $sp->p_id}}"
                                                         onclick="trash(this.id)">
                                                         <i class="fa fa-times text-danger"></i>
                                                     </button>

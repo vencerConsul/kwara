@@ -1,3 +1,44 @@
+/* LOADER */
+.bg_loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: #fff;
+    pointer-events: none;
+    z-index: 999999;
+    animation: fadeout 0.5s linear forwards;
+}
+
+@keyframes fadeout {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+.loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    background: #000000;
+}
+.count {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18vh;
+    color: #ffffff;
+    font-weight: 800;
+    mix-blend-mode: difference;
+    width: 550px;
+    text-align: center;
+}
+
 #hero__main {
     position: relative;
 }

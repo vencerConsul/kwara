@@ -8,6 +8,7 @@ use App\ProductAttributes;
 use App\Seller;
 use App\Appointments;
 use Auth;
+use Cookie;
 use DateTime;
 use File;
 use Image;
@@ -26,6 +27,7 @@ class SellerController extends Controller
     {
         $this->middleware('auth:seller');
     }
+
     public function CheckStatus()
     {
         $seller = Seller::where('id', Auth::id())->get();
@@ -45,7 +47,7 @@ class SellerController extends Controller
             Seller::where('id', Auth::id())->update(['status' => 'resumed']);
         }
     }
-    public function showSellerDashboard()
+    public function showSellerDashboard(Request $request)
     {
         $this->CheckStatus();
         $seller = Seller::where('id', Auth::id())->get();
@@ -57,7 +59,7 @@ class SellerController extends Controller
             return view('Seller.sellerdashboard', compact(['STATUS']));
         }
         // dd($pendingAppointment->schedule_date);
-        $sellerProducts = Product::orderBy('id', 'DESC')->where('seller_id', Auth::id())->with('productAttributes')->get();
+        $sellerProducts = Product::orderBy('p_id', 'DESC')->where('seller_id', Auth::id())->with('productAttributes')->get();
         return view('Seller.sellerdashboard', compact(['STATUS', 'sellerProducts']));
     }
     // make appointments
@@ -143,7 +145,7 @@ class SellerController extends Controller
                 $discount = $request->product__discount;
             }
 
-            $product = new product();
+            $product = new Product;
             $product->seller_id = Auth::id();
             $product->product_name = $request->product__name;
             $product->product_type = $request->product__type;
@@ -153,9 +155,10 @@ class SellerController extends Controller
             $product->product_description = $request->product__description;
             $product->product_image = implode('|', $product_image);
             $product->save();
+            // dd($product);
 
             if ($request->product__type == 'Clothes' || $request->product__type == 'Foot wears') {
-                $P_Attributes = new productAttributes();
+                $P_Attributes = new ProductAttributes;
                 $P_Attributes->product_id  = $product->id;
                 $P_Attributes->product_size  = implode('|', $request->product__size);
                 $P_Attributes->product_color  = implode('|', $request->product__color);
@@ -181,7 +184,7 @@ class SellerController extends Controller
     {
         if (Auth::user()->status == "approved") {
             $seller = Seller::findOrFail(Auth::id());
-            $seller->products()->where('id', $id)->delete();
+            $seller->product()->where('p_id', $id)->delete();
             return response()->json(['status' => "ok"], 200);
         }
         return abort(404);
@@ -191,7 +194,7 @@ class SellerController extends Controller
     public function EditProduct($id)
     {
         if (Auth::user()->status == "approved") {
-            $products = Product::findOrFail(decrypt($id));
+            $products = Product::where('p_id', decrypt($id))->firstOrFail();
             return view('Seller.showEditProduct', compact(['products']));
         }
         return abort(404);
@@ -266,7 +269,7 @@ class SellerController extends Controller
             if ($countFiles > 4) {
                 return back()->with('toast_error', 'You can only upload 4 images');
             }
-            Product::where('id', $id)->update([
+            Product::where('p_id', $id)->update([
                 'product_name' => request()->product__name,
                 'product_type' => request()->product__type,
                 'product_price' => request()->product__price,

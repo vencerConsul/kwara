@@ -17,7 +17,7 @@ trait ProductTrait
                 $image = explode('|', $prod->product_image);
 
                 echo '<div class="col-lg-2 col-sm-4 col-6 section__three__col">
-                    <a href="product/' . $prod->id . '">
+                    <a href="product/' . $prod->p_id . '">
                         <div class="card mb-2">
                             <img class="card-img-top" src="' . asset("/storage/images/products/$image[0]") . '" />
                             <div class="card-body">

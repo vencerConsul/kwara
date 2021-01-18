@@ -14,29 +14,29 @@ Product
         <div class="row-product">
             <div class="col-2-product">
                 @php
-                    $img = explode("|", $product->product[0]->product_image)
+                    $img = explode("|", $data->product_image)
                 @endphp
-                <img src="{{asset('/storage/images/products/'.$img[0].'')}}" alt="{{$product->product_name}}" width="100%" id="index-image" style="width:500;height:390px;">
+                <img src="{{asset('/storage/images/products/'.$img[0].'')}}" alt="{{$data->product_name}}" width="100%" id="index-image" style="width:500;height:390px;">
                 <div class="small-img-row">
                     @foreach($img as $smallImg)
                     <div class="small-img-col">
-                        <img src="{{asset('/storage/images/products/'.$smallImg.'')}}" alt="{{$product->product[0]->product_name}}" width="100%" style="width:100%;height:80px;object-fit:cover;object-position:50% 50%;" onClick="document.getElementById('index-image').src = this.src">
+                        <img src="{{asset('/storage/images/products/'.$smallImg.'')}}" alt="{{$data->product_name}}" width="100%" style="width:100%;height:80px;object-fit:cover;object-position:50% 50%;" onClick="document.getElementById('index-image').src = this.src">
                     </div>
                     </script>
                     @endforeach
                 </div>
             </div>
             <div class="col-2-product p-4">
-                <a href="seller-store/{{$product->id}}" class="text-capitalize font-weight-normal text-dark">
-                    <i class="fas fa-store"></i> {{$product->store_name}} Store
+                <a href="seller-store/{{$data->seller_id}}" class="text-capitalize font-weight-normal text-dark">
+                    <i class="fas fa-store"></i> {{$data->store_name}} Store
                 </a>
-                <p class="mt-2"><span>Main ></span> {{$product->product[0]->product_type}}</p>
-                <h4 class="text-capitalize my-3">{{$product->product[0]->product_name}}</h4>
-                <h5 class="my-1">&#8369; {{number_format($product->product[0]->product_price)}}</h5>
+                <p class="mt-2"><span>Main ></span> {{$data->product_type}}</p>
+                <h4 class="text-capitalize my-3 product__name">{{$data->product_name}}</h4>
+                <h5 class="my-1">&#8369; {{number_format($data->product_price)}}</h5>
                 <form id="cart_form">
                     @csrf
-                @if($pro->productAttributes->count() > 0)
-                    @foreach($pro->productAttributes as $attr)
+                @if($data->productAttributes->count() > 0)
+                    @foreach($data->productAttributes as $attr)
                         @php
                             $size = explode('|', $attr->product_size)
                         @endphp
@@ -67,7 +67,7 @@ Product
                         </div>
                     @endforeach
                 @endif
-                    <input type="hidden" id="cart_id" name="id" value="{{$product->product[0]->id}}">
+                    <input type="hidden" id="cart_id" name="id" value="{{$data->p_id}}">
                 <div class="form-group my-1">
                     <label>Quantity</label>
                     <div class="def-number-input number-input safari_only">
@@ -77,14 +77,14 @@ Product
                     </div>
                     <small class="text-danger" id="quantity-error"></small>
                 </div>
-                    @if($product->status == 'resumed')
+                    @if($data->status == 'resumed')
                     <button class="btn my-3 ml-0 btn-sm" disabled>Not available</button>
                     @else
                     <input type="submit" class="btn my-3 ml-0 btn-sm btn-add-to-cart" value="Add to cart">
                     @endif
                 </form>
                 <hr class="my-2">
-                <p>{{$product->product_description}}</p>
+                <p>{{$data->product_description}}</p>
             </div>
         </div>
 
@@ -162,7 +162,9 @@ Product
                     e.preventDefault();
 
                     let data = $(this).serializeArray();
-                    let image = document.querySelector('#index-image').src;
+                    let productName = document.querySelector('.product__name').innerHTML;
+                    let strCartCount = document.querySelector('#cart__count');
+                    let intCartCount = parseInt(strCartCount.innerHTML)
 
                     $.ajax({
                         type: 'post',
@@ -173,18 +175,51 @@ Product
                             $('.btn-add-to-cart').attr('value', 'loading..').addClass('disabled');
                         },
                         success: function(data){
+                            console.log(data)
                             if(data.status == 'ok'){
                                 $('.btn-add-to-cart').attr('value', 'add to cart').removeClass('disabled');
+                                getCart()
+                                strCartCount.innerHTML = intCartCount + 1
                                 Swal.fire({
                                     icon: 'success',
-                                    title: 'Cart added',
-                                    text: 'Something went wrong!',
-                                    footer: '<a href>Why do I have this issue?</a>'
+                                    title: productName + ' added to your cart'
+                                })
+                            }else{
+                                $('.btn-add-to-cart').attr('value', 'add to cart').removeClass('disabled');
+                                getCart()
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: productName + ' added to your cart'
                                 })
                             }
                         }
                     });
                 });
+
+                function getCart(){
+                    const NavbarCart = document.querySelector(".shopping-cart-items")
+                    $.ajax({
+                        type: 'get',
+                        url: '{{route("get.cart")}}',
+                        success: function(data){
+                            NavbarCart.innerHTML = data
+                            getSubtotal()
+                        }
+                    });
+                }
+                getCart()
+
+                function getSubtotal(){
+                    const NavbarCartSubtotal = document.querySelector("#p_price")
+                    $.ajax({
+                        type: 'get',
+                        url: '{{route("get.cartSubtotal")}}',
+                        success: function(data){
+                            NavbarCartSubtotal.innerHTML = data
+                        }
+                    });
+                }
+                getSubtotal()
             });
 
     </script>

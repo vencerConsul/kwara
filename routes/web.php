@@ -6,14 +6,20 @@ if (App::environment('production')) {
     URL::forceScheme('https');
 }
 
+
 Auth::routes();
 
 // ---------- GET---------- //
+Route::get('/setting-cookie', 'Main\MainController@setCookie')->name('set.cookie');
 // show main page
 Route::get('', 'Main\MainController@main')->name('Main');
 
 //add to cart
 Route::post('/add-to-cart', 'Main\MainController@addToCart')->name('add.cart');
+//get to cart
+Route::get('/get-cart', 'Main\MainController@getToCart')->name('get.cart');
+//get subtotal cart
+Route::get('/get-cart-subtotal', 'Main\MainController@getCartSubtotal')->name('get.cartSubtotal');
 // VIEW PRODUCT
 Route::get('/product/{id}', 'Main\MainController@ViewProduct')->name('product');
 //  show my account page
@@ -97,4 +103,3 @@ Route::group(['guard' => 'admin'], function () {
     // resumed seller registration
     Route::get('/administrator/registered-sellers/resumed-seller-registration/{id}', 'Admin\AdminController@ResumedSellerRegistration')->name('seller.resumed');
 });
-

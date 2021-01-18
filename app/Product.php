@@ -9,18 +9,22 @@ class Product extends Model
 
     protected $dateFormat = 'Y-m-d H:i:s';
 
+    // protected $casts = [
+    //     'p_id' => 'string'
+    // ];
+    // protected $primaryKey = "p_id";
+
     protected $fillable = [
-        'id', 'product_name', 'product_type', 'product_price', 'product_stock', 'product_discount', 'product_description', 'product_image'
+        'product_name', 'product_type', 'product_price', 'product_stock', 'product_discount', 'product_description', 'product_image'
     ];
 
-    public function SellerProduct()
+    public function Seller()
     {
-        return $this->belongsToMany('App\Seller');
+        return $this->belongsTo('App\Seller');
     }
 
     public function productAttributes()
     {
         return $this->hasMany('App\ProductAttributes');
     }
-
 }
