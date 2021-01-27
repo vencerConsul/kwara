@@ -160,7 +160,7 @@ class UserController extends Controller
     public function ShowShippingAddress()
     {
         $checkPage = $this->checkPage();
-        $shippingAddress = DB::table('shipping_addresses')->where('user_id', '=', Auth::id())->get();
+        $shippingAddress = ShippingAddress::where('user_id', '=', Auth::id())->firstOrFail();
         return view('mainpage.shippingaddress', compact(['checkPage', 'shippingAddress']));
     }
 
@@ -202,7 +202,7 @@ class UserController extends Controller
     public function EditAddress($id)
     {
         $checkPage = $this->checkPage();
-        $editshippingaddress = ShippingAddress::where('shipping_id', decrypt($id))->get();
+        $editshippingaddress = ShippingAddress::where('id', $id)->firstOrFail();
         return view('mainpage.showeditaddress', compact(['checkPage', 'editshippingaddress']));
     }
 
@@ -222,7 +222,7 @@ class UserController extends Controller
             return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
         }
 
-        ShippingAddress::where('shipping_id', $request->shipping_id)->update([
+        ShippingAddress::where('id', $request->shipping_id)->update([
             'firstname' => $request->firstname,
             'lastname' => $request->lastname,
             'address' => $request->address,

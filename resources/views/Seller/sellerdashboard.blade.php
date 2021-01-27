@@ -441,7 +441,7 @@ Dashboard
                                     </thead>
                                     <tbody class="text-center">
                                         @foreach($sellerProducts as $sp)
-                                            <tr id="t__row{{ $sp->p_id}}">
+                                            <tr id="t__row{{ $sp->id}}">
                                                 <td>
                                                     @php $productImageFirst = explode("|", $sp->product_image);
                                                     @endphp
@@ -452,13 +452,11 @@ Dashboard
                                                 <td>{{$sp->product_stock}}</td>
                                                 <td>
                                                     {{$sp->product_type}}
-                                                    @if($sp->productAttributes->count() > 0)
-                                                        @foreach($sp->productAttributes as $attr)
+                                                    @if(!empty($sp->product_size && !empty($sp->product_color)))
                                                             <br />
-                                                            {{str_replace("|", ", ", $attr->product_size)}}
+                                                            {{str_replace("|", ", ", $sp->product_size)}}
                                                             <br />
-                                                            {{str_replace("|", ", ", $attr->product_color)}}
-                                                        @endforeach
+                                                            {{str_replace("|", ", ", $sp->product_color)}}
                                                     @endif
                                                 </td>
                                                 <td>
@@ -470,11 +468,11 @@ Dashboard
                                                 </td>
                                                 <td>
                                                     <button class="btn btn-sm">
-                                                        <a href="edit-product/{{ encrypt($sp->p_id) }}"><i class="fa fa-edit"></i>
+                                                        <a href="edit-product/{{ encrypt($sp->id) }}"><i class="fa fa-edit"></i>
                                                         </a>
                                                     </button>
                                                     <button class="btn"
-                                                        id="{{ $sp->p_id}}"
+                                                        id="{{ $sp->id}}"
                                                         onclick="trash(this.id)">
                                                         <i class="fa fa-times text-danger"></i>
                                                     </button>

@@ -11,15 +11,27 @@ Auth::routes();
 
 // ---------- GET---------- //
 Route::get('/setting-cookie', 'Main\MainController@setCookie')->name('set.cookie');
+// check abandon carts
+Route::get('/check-abandon-cart', 'Main\MainController@DeleteAbandonCart')->name('check.AbandonCart');
 // show main page
 Route::get('', 'Main\MainController@main')->name('Main');
 
 //add to cart
 Route::post('/add-to-cart', 'Main\MainController@addToCart')->name('add.cart');
+//count cart
+Route::get('/count-cart', 'Main\MainController@CountCart')->name('count.cart');
 //get to cart
 Route::get('/get-cart', 'Main\MainController@getToCart')->name('get.cart');
 //get subtotal cart
 Route::get('/get-cart-subtotal', 'Main\MainController@getCartSubtotal')->name('get.cartSubtotal');
+// remove cart
+Route::get('/remove-cart/{id}', 'Main\MainController@RemoveCart')->name('remove.cart');
+// view cart
+Route::get('/my-cart', 'Main\MainController@ViewCart')->name('view.cart');
+// get row cart
+Route::get('/get-row-cart', 'Main\MainController@GetRowCart')->name('getRow.cart');
+// delete cart row
+Route::get('/delete-cart-row/{id}', 'Main\MainController@DeleteCartRow')->name('delete.cartRow');
 // VIEW PRODUCT
 Route::get('/product/{id}', 'Main\MainController@ViewProduct')->name('product');
 //  show my account page

@@ -68,8 +68,8 @@ Shipping Address
                                 <i class="float-right fa fa-bars" data-toggle="dropdown"></i>
 
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="edit-address/{{ encrypt($shippingAddress[0]->shipping_id) }}">Edit</a>
-                                    <a class="dropdown-item" href="delete-address/{{ $shippingAddress[0]->shipping_id }}">Delete</a>
+                                    <a class="dropdown-item" href="edit-address/{{ $shippingAddress->id }}">Edit</a>
+                                    <a class="dropdown-item" href="delete-address/{{ $shippingAddress->id }}">Delete</a>
                                 </div>
                             </div>
                         </div>
@@ -77,11 +77,11 @@ Shipping Address
                             <div class="row">
                                 <div class="col-lg-6 ">
                                     <div class="center">
-                                        <p class="text-capitalize">Ship to {{$shippingAddress[0]->firstname .' '.$shippingAddress[0]->lastname }}</p>
-                                        <p>{{ $shippingAddress[0]->address }}</p>
-                                        <p>{{ $shippingAddress[0]->country }}</p>
-                                        <p>{{ $shippingAddress[0]->postal_code }}</p>
-                                        <p>{{ $shippingAddress[0]->phone_number }}</p>
+                                        <p class="text-capitalize">Ship to {{$shippingAddress->firstname .' '.$shippingAddress->lastname }}</p>
+                                        <p>{{ $shippingAddress->address }}</p>
+                                        <p>{{ $shippingAddress->country }}</p>
+                                        <p>{{ $shippingAddress->postal_code }}</p>
+                                        <p>{{ $shippingAddress->phone_number }}</p>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 d-flex justify-content-center align-items-center">
@@ -89,7 +89,7 @@ Shipping Address
                                 </div>
                             </div>
                             <hr>
-                            <small class="float-left">Date created: {{ date('F j, Y', strtotime($shippingAddress[0]->created_at)) }}</small>
+                            <small class="float-left">Date created: {{ date('F j, Y', strtotime($shippingAddress->created_at)) }}</small>
                         </div>
                     </div>
                     @else

@@ -65,30 +65,30 @@ Edit address
                         {{-- form --}}
                         <form method="post" action="{{ route('update_shippingaddress')}}">
                             @csrf
-                            <input type="hidden" name="shipping_id" value="{{ $editshippingaddress[0]->shipping_id }}">
+                            <input type="hidden" name="shipping_id" value="{{ $editshippingaddress->id }}">
                             <div class="form-group p-2">
                                 <div class="form-group">
                                     <div class="md-form">
-                                        <input type="text" id="firstname" class="form-control" name="firstname" value="{{ $editshippingaddress[0]->firstname }}" autocomplete="off">
+                                        <input type="text" id="firstname" class="form-control" name="firstname" value="{{ $editshippingaddress->firstname }}" autocomplete="off">
                                         <label for="firstname">Firstname</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group p-2">
                                 <div class="md-form mt-3">
-                                    <input type="text" id="lastname" class="form-control" name="lastname" value="{{ $editshippingaddress[0]->lastname }}" autocomplete="off">
+                                    <input type="text" id="lastname" class="form-control" name="lastname" value="{{ $editshippingaddress->lastname }}" autocomplete="off">
                                     <label for="lastname">Lastname</label>
                                 </div>
                             </div>
                             <div class="form-group p-2">
-                                <select class="mdb-select mt-3 md-form form-control" id="country" name="country" value="{{ $editshippingaddress[0]->country }}" autocomplete="off">
+                                <select class="mdb-select mt-3 md-form form-control" id="country" name="country" value="{{ $editshippingaddress->country }}" autocomplete="off">
                                     <option value="Philippines" selected>Philippines</option>
                                 </select>
                             </div>
                             <div class="form-group p-2">
                                 <div class="form-group">
                                     <div class="md-form mt-3">
-                                        <input type="text" id="address" class="form-control" name="address" value="{{ $editshippingaddress[0]->address }}" autocomplete="off">
+                                        <input type="text" id="address" class="form-control" name="address" value="{{ $editshippingaddress->address }}" autocomplete="off">
                                         <label for="address">Address(house #, Brgy )</label>
                                     </div>
                                 </div>
@@ -96,7 +96,7 @@ Edit address
                             <div class="form-group p-2">
                                 <div class="form-group">
                                     <div class="md-form mt-3">
-                                        <input type="text" id="postal_code" class="form-control" name="postal_code" value="{{ $editshippingaddress[0]->postal_code }}" maxlength="4" onkeypress="return isNumber(event)" autocomplete="off">
+                                        <input type="text" id="postal_code" class="form-control" name="postal_code" value="{{ $editshippingaddress->postal_code }}" maxlength="4" onkeypress="return isNumber(event)" autocomplete="off">
                                         <label for="postal_code">Postal code</label>
                                     </div>
                                 </div>
@@ -104,7 +104,7 @@ Edit address
                             <div class="form-group p-2">
                                 <div class="form-group">
                                     <div class="md-form mt-3">
-                                        <input type="text" id="phone_number" class="form-control" maxlength="11" name="phone_number" value="{{ $editshippingaddress[0]->phone_number }}" autocomplete="off" onkeypress="return isNumber(event)">
+                                        <input type="text" id="phone_number" class="form-control" maxlength="11" name="phone_number" value="{{ $editshippingaddress->phone_number }}" autocomplete="off" onkeypress="return isNumber(event)">
                                         <label for="phone_number">Phone (number)</label>
                                     </div>
                                 </div>

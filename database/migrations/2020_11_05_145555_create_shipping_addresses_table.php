@@ -14,8 +14,9 @@ class CreateShippingAddressesTable extends Migration
     public function up()
     {
         Schema::create('shipping_addresses', function (Blueprint $table) {
-            $table->bigIncrements('shipping_id');
-            $table->unsignedBigInteger('user_id');
+            $table->uuid('id');
+            $table->primary('id');
+            $table->uuid('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('firstname');
             $table->string('lastname');

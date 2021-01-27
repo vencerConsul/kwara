@@ -10,161 +10,164 @@ Product
 
 @section('content')
 @include('layouts.nav')
-    <div class="container-product single-product mt-4">
-        <div class="row-product">
-            <div class="col-2-product">
-                @php
-                    $img = explode("|", $data->product_image)
-                @endphp
-                <img src="{{asset('/storage/images/products/'.$img[0].'')}}" alt="{{$data->product_name}}" width="100%" id="index-image" style="width:500;height:390px;">
-                <div class="small-img-row">
-                    @foreach($img as $smallImg)
-                    <div class="small-img-col">
-                        <img src="{{asset('/storage/images/products/'.$smallImg.'')}}" alt="{{$data->product_name}}" width="100%" style="width:100%;height:80px;object-fit:cover;object-position:50% 50%;" onClick="document.getElementById('index-image').src = this.src">
+
+    <div class="container container__product my-4">
+
+        <div class="image__container">
+            <div class="row">
+                <div class="col-lg-6 column__one">
+                    @php
+                        $image = explode("|", $data->product_image);
+                    @endphp
+                    <div class="main__image">
+                        <img id="index-image" src="{{asset('/storage/images/products/'.$image[0].'')}}" alt="{{$data->product_name}}" class="img-fluid">
                     </div>
-                    </script>
-                    @endforeach
+                    @if(count($image) > 1)
+                        <div class="main__image__button my-2">
+                            @foreach($image as $img)
+                            <a id="{{asset('/storage/images/products/'.$img.'')}}" class="fa fa-circle @if ($img == reset($image)) active @endif" onclick="btnCirle(this)"></a>
+                            @endforeach
+                        </div>
+                    @endif
                 </div>
-            </div>
-            <div class="col-2-product p-4">
-                <a href="seller-store/{{$data->seller_id}}" class="text-capitalize font-weight-normal text-dark">
-                    <i class="fas fa-store"></i> {{$data->store_name}} Store
-                </a>
-                <p class="mt-2"><span>Main ></span> {{$data->product_type}}</p>
-                <h4 class="text-capitalize my-3 product__name">{{$data->product_name}}</h4>
-                <h5 class="my-1">&#8369; {{number_format($data->product_price)}}</h5>
-                <form id="cart_form">
+
+                <div class="col-lg-6 column__two">
+                    <div class="d-flex align-items-center product__store">
+                        <a href="{{$data->sel_id}}">
+                            <h5 class="font-weight-normal text-capitalize"><i class="fas fa-store"></i> {{$data->store_name}}</h5>
+                        </a>
+                    </div>
+
+                    <small><span>Main ></span> {{$data->product_type}}</small>
+                    <h4 class="text-capitalize font-weight-bold my-2 product__name">{{$data->product_name}}</h4>
+                    <h5 class="my-1">&#8369; {{number_format($data->product_price, 2)}}</h5>
+                    <form id="cart_form">
                     @csrf
-                @if($data->productAttributes->count() > 0)
-                    @foreach($data->productAttributes as $attr)
+                    <input type="hidden" id="cart_id" name="id" value="{{$data->pro_id}}">
+                    @if(!empty($data->product_size) && !empty($data->product_color))
                         @php
-                            $size = explode('|', $attr->product_size)
+                            $size = explode('|', $data->product_size)
                         @endphp
                         @php
-                            $color = explode('|', $attr->product_color)
+                            $color = explode('|', $data->product_color)
                         @endphp
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group my-1">
-                                    <label>Size</label>
-                                    <select class="form-control" name="product_size">
-                                        @foreach($size as $s)
-                                            <option value="{{$s}}">{{$s}}</option>
+                                    <label><h5 class="font-weight-bold mb-3">Color</h5></label>
+                                    <div class="color__container">
+                                        @foreach($color as $c)
+                                            <input class="checkbox-attr" type="radio" name="product_color" id="{{$c}}" @if ($c == reset($color)) checked @endif value="{{$c}}">
+                                            <label class="for-checkbox-attr" for="{{$c}}">
+                                                <span data-hover="{{$c}}">{{$c}}</span>
+                                            </label>
                                         @endforeach
-                                    </select>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group my-1">
-                                    <label>Color</label>
-                                    <select class="form-control" name="product_color">
-                                        @foreach($color as $c)
-                                            <option value="{{$c}}">{{$c}}</option>
+                                    <label><h5 class="font-weight-bold mb-3">Size</h5></label>
+                                    <div class="size__container">
+                                        @foreach($size as $s)
+                                            <input class="checkbox-attr" type="radio" name="product_size" id="{{$s}}" @if ($s == reset($size)) checked @endif value="{{$s}}">
+                                            <label class="for-checkbox-attr" for="{{$s}}">
+                                                <span data-hover="{{$s}}">{{$s}}</span>
+                                            </label>
                                         @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                @endif
-                    <input type="hidden" id="cart_id" name="id" value="{{$data->p_id}}">
-                <div class="form-group my-1">
-                    <label>Quantity</label>
-                    <div class="def-number-input number-input safari_only">
-                        <span onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus btn"></span>
-                        <input class="quantity" id="cart_quantity" min="1" name="product_quantity" value="1" type="number" onchange="Quantity(this.value)">
-                        <span onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus btn"></span>
-                    </div>
-                    <small class="text-danger" id="quantity-error"></small>
-                </div>
-                    @if($data->status == 'resumed')
-                    <button class="btn my-3 ml-0 btn-sm" disabled>Not available</button>
-                    @else
-                    <input type="submit" class="btn my-3 ml-0 btn-sm btn-add-to-cart" value="Add to cart">
-                    @endif
-                </form>
-                <hr class="my-2">
-                <p>{{$data->product_description}}</p>
-            </div>
-        </div>
-
-        {{-- pfoduct reviews --}}
-        <div id="product__reviews">
-            <div class="container">
-                <h5 class="font-weight-normal my-3">Product reviews</h5>
-                <div class="box__review mb-2">
-                    <p>Vencer Olermo</p>
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ullam, provident.</p>
-                    <small>January 1, 2021</small>
-                    <span class="float-right">1/5 <i class="fa fa-star"></i></span>
-                </div>
-                <div class="box__review mb-2">
-                    <p>Vencer Olermo</p>
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ullam, provident.</p>
-                    <small>January 1, 2021</small>
-                    <span class="float-right">1/5 <i class="fa fa-star"></i></span>
-                </div>
-            </div>
-        </div>
-        <hr class="my-3">
-        {{-- related product --}}
-        <div class="container related__product">
-            @if($relatedProduct->count() > 0)
-            <h5 class="my-3 font-weight-normal">Related product</h5>
-            @else
-            <a href="{{ url()->previous() }}" class="btn btn-sm my-4">Go back</a>
-            @endif
-            <div class="row">
-                @foreach($relatedProduct as $relatedPro)
-                    <div class="col-lg-3 col-sm-4 col-6 ">
-                        <a href="{{$relatedPro->id}}">
-                            <div class="card mb-2">
-                                @php
-                                    $image = explode('|', $relatedPro->product_image)
-                                @endphp
-                                <img class="card-img-top" src="{{asset('/storage/images/products/'.$image[0].'')}}" />
-                                <div class="card-body">
-                                    <p class="card-title p-name">{{ $relatedPro->product_name}}</p>
-                                    <p class="card-text">&#8369; {{number_format($relatedPro->product_price)}}</p>
-                                    <div class="product__views">
-                                        <small>(43 reviews)</small>
                                     </div>
                                 </div>
                             </div>
-                        </a>
-                    </div>
-                @endforeach
+                        </div>
+                    @endif
+                        <div class="form-group d-flex justify-content-left align-items-center quantity_parent_control my-2">
+                            <div class="quantity-controls">
+                                <a id="add" class="fa fa-plus"></a>
+                                <strong>quantity</strong>
+                                <a id="remove" class="fa fa-minus"></a>
+                            </div>
+                                <input type="text" value="1" name="product_quantity" id="cart_quantity" class="ml-4 disabled" onchange="if(this.value == 0) this.value = 1">
+                        </div>
+                        @if($data->status == 'resumed')
+                            <button class="btn my-3 ml-0 btn-sm" disabled>Not available</button>
+                        @else
+                            <input type="submit" class="btn my-3 ml-0 btn-md btn-add-to-cart" value="Add to cart &#8594;">
+                        @endif
+                        <hr>
+                        <h5 class="text-uppercase font-weight-bold my-2">Product Description</h5>
+                        <p>{{$data->product_description}}</p>
+                    </form>
+                </div>
+            </div>
+            <div class="text-center m-5">
+                <div class="d-flex justify-content-center
+                ">
+                    <a href="https://www.facebook.com/sharer.php?u={{URL::to('/')}}/products/{{$data->pro_id}}" class="text-dark mr-3"><i class="fab fa-facebook"></i> Share</a>
+                    <a href="" class="text-dark mr-3"><i class="fab fa-twitter"></i> Twitter</a>
+                    <a class="text-dark mr-3"><i class="fa fa-heart"></i> 0</a>
+                </div>
             </div>
         </div>
+        <hr class="my-4">
+        <div class="related__products">
+            <h5 class="my-4 font-weight-normal text-center">Other Related Products</h5>
+            <div class="row d-flex justify-content-center">
+                @if($relatedProduct->count() > 0)
+                    @foreach($relatedProduct as $rp)
+                        @php
+                            $relatedImg = explode("|", $rp->product_image);
+                        @endphp
+                        <div class="col-lg-2 col-sm-4 col-6 related__pro_col">
+                            <a href="{{$rp->id}}">
+                                <div class="card mb-2">
+                                    <img class="card-img-top" src="{{asset('/storage/images/products/'.$relatedImg[0].' ')}} " />
+                                    <div class="card-body">
+                                        <p class="card-title text-capitalize p-name">{{$rp->product_name}}</p>
+                                        <p class="card-text">&#8369; {{number_format($rp->product_price, 2)}}</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    @endforeach
+                @else
+                    <a href="" class="btn btn-sm">Continue shopping</a>
+                @endif
+            </div>
+        </div>
+        <div class="feedback__suggestions">
+            <h5 class="my-4 font-weight-normal">Reviews &#9829;</h5>
+            <div class="box__feedback">
+                <p class="font-weight-bold">Vencer Olermo</p>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nobis recusandae rerum obcaecati architecto, eos ex delectus officia inventore error perspiciatis.</p>
+                <div class="feedback__rate">1/5 <i class="fa fa-star"></i> <small>January 21, 2020</small></div>
+                <hr>
+            </div>
+            <div class="box__feedback">
+                <p class="font-weight-bold">Vencer Olermo</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto, laboriosam?</p>
+                <div class="feedback__rate">1/5 <i class="fa fa-star"></i> <small>January 21, 2020</small></div>
+                <hr>
+            </div>
+        </div>
+        <div class="my-2">
+            <h5 class="font-weight-bold"></h5>
+        </div>
     </div>
+
     @include('layouts.footer')
 
 @endsection
 @section('product')
     <script type="text/javascript">
-        function Quantity(value) {
-                const quantity = document.querySelector(".quantity");
-                const quantityInput = document.querySelector("#quantity");
-                const quantityError = document.querySelector("#quantity-error");
-
-                if (value <= 0) {
-                    quantityError.innerHTML = "minimum quantity is 1";
-
-                    quantity.value = 1;
-                } else {
-                    quantityError.innerHTML = "";
-                    quantityInput.value = quantity.value;
-                }
-            }
 
             $(document).ready(function() {
+                const quantity = document.querySelector("#cart_quantity");
                 $('#cart_form').on('submit', function(e){
                     e.preventDefault();
 
+
                     let data = $(this).serializeArray();
                     let productName = document.querySelector('.product__name').innerHTML;
-                    let strCartCount = document.querySelector('#cart__count');
-                    let intCartCount = parseInt(strCartCount.innerHTML)
 
                     $.ajax({
                         type: 'post',
@@ -175,15 +178,15 @@ Product
                             $('.btn-add-to-cart').attr('value', 'loading..').addClass('disabled');
                         },
                         success: function(data){
-                            console.log(data)
                             if(data.status == 'ok'){
                                 $('.btn-add-to-cart').attr('value', 'add to cart').removeClass('disabled');
                                 getCart()
-                                strCartCount.innerHTML = intCartCount + 1
+                                countCart()
                                 Swal.fire({
                                     icon: 'success',
                                     title: productName + ' added to your cart'
                                 })
+                                quantity.value = 1
                             }else{
                                 $('.btn-add-to-cart').attr('value', 'add to cart').removeClass('disabled');
                                 getCart()
@@ -191,36 +194,63 @@ Product
                                     icon: 'success',
                                     title: productName + ' added to your cart'
                                 })
+                                quantity.value = 1
                             }
                         }
                     });
                 });
 
-                function getCart(){
-                    const NavbarCart = document.querySelector(".shopping-cart-items")
-                    $.ajax({
-                        type: 'get',
-                        url: '{{route("get.cart")}}',
-                        success: function(data){
-                            NavbarCart.innerHTML = data
-                            getSubtotal()
-                        }
-                    });
-                }
-                getCart()
+                var counter = 1;
 
-                function getSubtotal(){
-                    const NavbarCartSubtotal = document.querySelector("#p_price")
-                    $.ajax({
-                        type: 'get',
-                        url: '{{route("get.cartSubtotal")}}',
-                        success: function(data){
-                            NavbarCartSubtotal.innerHTML = data
-                        }
-                    });
-                }
-                getSubtotal()
+                $('#add').click(function() {
+                    if (counter < 100) {
+                        counter++;
+                        $('#cart_quantity').val(counter);
+                        $('#cart_quantity').attr('value', counter);
+                    };
+                });
+                $('#remove').click(function() {
+                    if (counter > 1) {
+                        counter--;
+                        $('#cart_quantity').val(counter);
+                        $('#cart_quantity').attr('value', counter);
+                    };
+                });
+
+
             });
 
+            function btnCirle(btn) {
+                let Iimg = document.getElementById("index-image");
+                let current = document.getElementsByClassName("active");
+
+                current[0].className = current[0].className.replace(" active", "");
+                btn.className += " active";
+
+                Iimg.src = btn.id
+            }
+
+            var slideIndex = 0;
+            showSlides();
+
+            function showSlides() {
+                var i;
+                var indexImg = document.querySelector("#index-image");
+                var dots = document.getElementsByClassName("fa-circle");
+
+                slideIndex++;
+                for (i = 0; i < dots.length; i++) {
+                    dots[i].className = dots[i].className.replace(" active", "");
+                }
+                if (slideIndex > dots.length) {slideIndex = 1}
+                dots[slideIndex-1].className += " active";
+                indexImg.src = dots[slideIndex-1].getAttribute("id")
+
+                setTimeout(showSlides, 4000);
+            }
+
+            document.addEventListener("DOMContentLoaded", function() {
+                countCart()
+            });
     </script>
 @endsection

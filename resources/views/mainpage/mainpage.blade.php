@@ -5,7 +5,9 @@ Kwara
 @endsection
 
 @section('mainpagestyle')
-<link rel="stylesheet" href="{{ asset('css/mainpage/mainpage.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/mainpage/mainpage.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/mainpage/swiper-bundle.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/mainpage/swiper-bundle.min.css') }}">
 @endsection
 
 @section('content')
@@ -17,62 +19,94 @@ Kwara
 </section>
 
 <!-- hero -->
-<div id="hero__main" class="container">
-    <div class="row">
-        <div class="col-lg-6 my-3 hero__column__first">
-            <div class="hero__content">
-                <h1>Manage your online business</h1>
-                <h2>Be one of our seller!</h2>
-                <p>Sell your product all over (Bolinao Pangasinan)</p>
-                <a href="{{ route('login.seller') }}" class="btn ml-0 mt-2">Sign in as seller</a>
-            </div>
-        </div>
-        <div class="col-lg-6 my-3 hero__column__second">
-            <div class="hero__image">
-                <img class="img-fluid" src="{{ asset('/images/hero.png') }}">
-            </div>
-        </div>
-        <div class="col-lg-6 my-3 hero__column__third">
-            <div class="hero__small__screen">
-                <p>Wanted to sell your product online?</p>
-                <a href="{{ route('login.seller') }}" class="btn ml-0 mt-2">Sign in as seller</a>
-            </div>
-        </div>
+<div id="hero__main" class="container-fluid">
+    <div class="hero__content container">
+        <h1>Manage your online business</h1>
+        <h2>Be one of our seller</h2>
+        <p>Sell your product all over (Bolinao Pangasinan)</p>
+        <a href="{{ route('register.seller') }}" class="btn ml-0 mt-2">Register as seller</a>
     </div>
 </div>
 
-<!-- section 2 -->
-<div id="section__two">
-    <div class="container">
-        <hr class="my-4">
-        <div class="row text-center">
-            <div class="col-6">
-                <i class="fas fa-location-arrow"></i>
-                <h5>LOCATION BASE</h5>
-                <small>This app can only be access within Bolinao Pangasinan</small>
-            </div>
-            <div class="col-6">
-                <i class="fas fa-truck"></i>
-                <h5>DELIVERY</h5>
-                <small>Your product will be delivered on time</small>
-            </div>
+<section id="categories">
+    <div class="container my-4 swiper-container">
+        <h5 class="font-weight-normal ml-3 my-4">Categories</h5>
+        <div class="swiper-wrapper">
+            <a href="" class="swiper-slide">
+                <div class="card text-center">
+                    <div class="card-body text-center">
+                        <h4 class="card-title"><i class="fas fa-mobile fa-lg"></i></h4>
+                        <small>Mobile & Gadgets</small>
+                    </div>
+                </div>
+            </a>
+            <a href="" class="swiper-slide">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h4 class="card-title"><i class="fas fa-blender-phone"></i></h4>
+                        <small>Home Appliances</small>
+                    </div>
+                </div>
+            </a>
+            <a href="" class="swiper-slide">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h4 class="card-title"><i class="fas fa-tshirt"></i></h4>
+                        <small>Clothes</small>
+                    </div>
+                </div>
+            </a>
+            <a href="" class="swiper-slide">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h4 class="card-title"><i class="fas fa-shopping-basket"></i></h4>
+                        <small>Foods & Groceries</small>
+                    </div>
+                </div>
+            </a>
+            <a href="" class="swiper-slide">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h4 class="card-title"><i class="fas fa-bicycle"></i></h4>
+                        <small>Bicycle & Accessories</small>
+                    </div>
+                </div>
+            </a>
+            <a href="" class="swiper-slide">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h4 class="card-title"><i class="fas fa-shoe-prints"></i></h4>
+                        <small>Shoes & slippers</small>
+                    </div>
+                </div>
+            </a>
+            <a href="" class="swiper-slide">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h4 class="card-title"><i class="fas fa-tools"></i></h4>
+                        <small>Hardwares</small>
+                    </div>
+                </div>
+            </a>
+            <a href="" class="swiper-slide">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h4 class="card-title"><i class="fas fa-pen"></i></h4>
+                        <small>Make up & Fragrances<</small>
+                    </div>
+                </div>
+            </a>
         </div>
     </div>
-</div>
+</section>
 
 <!-- section 3 -->
-<div id="section__three">
+<section id="section__three">
     <div class="container">
         <br />
-        {{-- @if($products->count() > 0)
-            <div class="section__three__title text-center">
-                <h5>All Products</h5>
-            </div>
-        @else
-            <div class="section__three__title text-center">
-                <h5>There is no product yet</h5>
-            </div>
-        @endif --}}
+        <div>
+            <h5 class="font-weight-normal">All Products</h5>
+        </div>
         <br />
 
         <div class="my-4">
@@ -80,65 +114,53 @@ Kwara
 
             </div>
         </div>
-        {{-- <div class="section__three__pagination text-center"  style="display: flex;align-items: center;justify-content: center;margin-bottom: 1em !important;">
-            {{ $products->links() }}
-        </div> --}}
     </div>
-</div>
+</section>
 <!-- section 4 -->
-<div id="section__four">
+<section id="section__four">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-6 col-sm-6 d-flex justify-content-center align-items-center my-4">
-            <img src="{{ asset('images/feature/christmas-tree.png') }}" class="img-fluid" />
-            </div>
-            <div class="col-lg-6 col-sm-6 d-flex justify-content-center align-items-center my-4">
-                <div class="s4-info text-center">
-                    <p class="display-4">Make your dream come through</p>
-                    <h4>Merry Christmas!</h4>
-                </div>
-            </div>
-        </div>
+        <h1 class="text-white">Register now</h1>
     </div>
-</div>
-<!-- section5 -->
-<div id="section__five">
-    <div class="container">
-        <br />
-        {{-- @if($products->count() > 0)
-            <div class="section__five__title text-center">
-                <h5>Gadgets</h5>
-            </div>
-        @else
-            vowala
-        @endif --}}
-        <br />
-        <div class="row d-flex justify-content-center">
-            @foreach($gadgets as $gad)
-            <div class="col-lg-2 col-sm-4 col-6 section__five__col">
-                <a href="">
-                    <div class="card mb-2">
-                        @php
-                            $image = explode('|', $gad->product_image)
-                        @endphp
-                        <img class="card-img-top" src="{{asset('/storage/images/products/'.$image[0].'')}}" />
-                        <div class="card-body">
-                            <p class="card-title p-name">{{ $gad->product_name}}</p>
-                            <p class="card-text">&#8369; {{number_format($gad->product_price)}}</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            @endforeach
-        </div>
-        {{-- <div class="section__three__pagination text-center"  style="display: flex;align-items: center;justify-content: center;margin-bottom: 1em !important;">
-            {{ $products->links() }}
-        </div> --}}
-    </div>
-</div>
+</section>
+
 @include('layouts.footer')
 @endsection
 
 @section('mainpagescript')
-    <script src="{{asset('js/mainpage/main.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/mainpage/main.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/mainpage/swiper-bundle.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/mainpage/swiper-bundle.min.js')}}"></script>
+    <script>
+        window.onload = function(){
+
+            var swiper = new Swiper('.swiper-container', {
+                normalizeSlideIndex: true,
+                breakpoints: {
+                    // when window width is >= 320px
+                    320: {
+                    slidesPerView: 3,
+                    spaceBetween: 20
+                    },
+                    // when window width is >= 480px
+                    480: {
+                    slidesPerView: 3,
+                    spaceBetween: 30
+                    },
+                    // when window width is >= 640px
+                    640: {
+                    slidesPerView: 3,
+                    spaceBetween: 40
+                    },
+                    800: {
+                    slidesPerView: 4,
+                    spaceBetween: 40
+                    },
+                    1000: {
+                    slidesPerView: 6,
+                    spaceBetween: 40
+                    }
+                }
+            });
+        }
+    </script>
 @endsection

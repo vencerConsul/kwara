@@ -2,56 +2,12 @@
 <link rel="stylesheet" href="{{ asset('css/layout/navbar_sidenav.css') }}">
 @endsection
 
-<div id="home__" class="top__header">
-    <div class="top__header__content d-flex justify-content-between container">
-        <div class="top__header__social d-flex">
-            <a href="" title="facebook"><i class="fab fa-facebook"></i></a>
-            <a href="" title="twitter"><i class="fab fa-twitter"></i></a>
-            <a href="" title="google"><i class="fab fa-google-plus"></i></a>
-        </div>
-        <div class="d-flex top__header__loginregister">
-            @guest
-                <a class="nav-link" href="{{ route('login') }}">
-                Sign in</a>
-                <a class="nav-link" href="{{ route('register') }}">Sign up</a>
-            @endguest
-            @auth
-                @if(Route::current()->getName() == 'Main')
-                    <a class="nav-link text-dark" href="{{ route('user.myaccount') }}"><i class="fa fa-user"></i> My account</a>
-                @else
-                    <a class="nav-link text-dark" href="{{ route('Main') }}">Home</a>
-                @endif
-                    <span class="divider"></span>
-                    <a class="nav-link text-dark" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit()">Sign out</a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
-            @endauth
-        </div>
-    </div>
-</div>
-<nav class="navbar__content navbar sticky-top navbar-expand-lg navbar-light scrolling-navbar">
+<nav class="navbar__content navbar sticky-top navbar-expand-lg scrolling-navbar">
     <div class="container">
         <a href="{{ URL::to('/') }}" class="navbar-brand"><span class="symbol">&#128615;</span> KWARA</a>
 
-        @if (Route::current()->getName() == 'Main' || Route::current()->getName() == 'product')
+        @if (Route::current()->getName() == 'Main' || Route::current()->getName() == 'product' || Route::current()->getName() == 'view.cart')
         <div class="ml-auto d-flex navbar__left__icons ">
-                <div class="dropdown">
-                    <button class="btn btn-sm text-white categories_button text-capitalize" data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false">
-                        Categories &nbsp;
-                        <i class="fas fa-caret-down"></i>
-                    </button>
-
-                    <!--Menu-->
-                    <div class="dropdown-menu dropdown-primary ml-1">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </div>
 
             <button class="btn btn-sm text-white search_button">
                 <i class="fas fa-search"></i>
@@ -60,10 +16,26 @@
             <button class="btn btn-sm text-white cart_button" onclick="cart()">
                 <i class="fab fa-opencart" title="cart"></i>
                 <span class="cart_text">cart</span>
-                <span id="cart__count">{{$carts->count()}}</span>
+                <span id="cart__count"></span>
             </button>
         </div>
         @endif
+        <div class="auth-menu d-flex">
+            @guest
+            <a class="nav-link" href="{{ route('login') }}">Sign in</a>
+            @endguest
+            @auth
+                @if(Route::current()->getName() == 'Main')
+                    <a class="nav-link mr-2" href="{{ route('user.myaccount') }}"><i class="fa fa-user"></i> My account</a>
+                @else
+                    <a class="nav-link mr-2" href="{{ route('Main') }}">Home</a>
+                @endif
+                    <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit()">Sign out</a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+            @endauth
+        </div>
 
         <div class="ml-auto navbar__menu__humberger">
             <div class="navbar__menu__humberger__burger"></div>
@@ -72,22 +44,25 @@
     </div>
 </nav>
 
-<div class="container__cart" onclick="containerCart(this)">
-    <div class="shopping-cart">
-        <div class="shopping-cart-header">
-            <div class="shopping-cart-total">
-                <span class="lighter-text font-weight-normal">Subtotal:</span>
-                <span class="main-color-text">₱ <small id="p_price"></small></span>
-            </div>
-        </div> <!--end shopping-cart-header -->
+{{-- cart --}}
+<div class="cart__overlay"></div>
+<div class="cart__container">
+    <div class="cart__header d-flex justify-content-center align-items-center">
+        <h5 class="text-uppercase font-weight-normal my-4">My cart</h5>
+        <div class="close__cart" style="font-size: 20px">
+            &#215;
+        </div>
+    </div>
+    <hr>
+    <div class="cart__body my-3 p-2 text-white">
 
-        <ul class="shopping-cart-items">
-
-        </ul>
-
-        <a href="#" class="btn btn-sm">Checkout</a>
-    </div> <!--end shopping-cart -->
-</div> <!--end container -->
+    </div>
+    <div class="cart__footer">
+        <h5>Subtotal: &#8369; <span id="Subtotal"> </span></h5>
+        <hr>
+        <a href="{{route('view.cart')}}" class="btn btn-md mt-3 btn-block">View cart &#8594;</a>
+    </div>
+</div>
 
 <div id="sidebar__overlay"></div>
 <div id="sidebar__content">
@@ -220,4 +195,92 @@
 
 @section('NavbarScript')
 <script src="{{ asset('/js/mainpage/nav.js') }}" defer></script>
+<script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+        @if(Route::current()->getName() == 'Main' || Route::current()->getName() == 'view.cart' || Route::current()->getName() == 'product')
+            countCart()
+            getCart()
+            getSubtotal()
+        @endif
+        @if(Route::current()->getName() == 'Main')
+            document.querySelector('.products').innerHTML = '<div class="text-center big "><div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div></div>';
+        @endif
+        @if(Route::current()->getName() == 'view.cart')
+            document.querySelector(".container__cart").innerHTML = '<div class="text-center big "><div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div></div>';
+        @endif
+    });
+
+    async function getCart(){
+        const cartBody = document.querySelector(".cart__body")
+        const cartFooter = document.querySelector(".cart__footer")
+
+        await fetch('{{route("get.cart")}}', {
+                method: "GET",
+            })
+            .then(result => {
+                return result.text()
+            }).then(data =>{
+                cartBody.innerHTML = data
+                getSubtotal()
+                if(data == '<h5 class="text-center">Your cart is empty</h5>'){
+                    cartFooter.style.display = 'none';
+                }else{
+                    cartFooter.style.display = 'block';
+                }
+        })
+    }
+
+    async function countCart(){
+        let countCart = document.querySelector('#cart__count');
+
+        await fetch('{{route("count.cart")}}', {
+                method: "GET",
+            })
+            .then(result => {
+                return result.json()
+            }).then(data =>{
+                countCart.innerHTML = data.count
+        })
+    }
+
+
+    async function getSubtotal(){
+        const cartSubtotal = document.querySelector("#Subtotal")
+
+        await fetch('{{route("get.cartSubtotal")}}', {
+                method: "GET",
+            })
+            .then(result => {
+                return result.text()
+            }).then(data =>{
+                cartSubtotal.innerHTML = data
+        })
+    }
+
+    function removeCart(id) {
+        let parent = document.querySelector("#parent" + id);
+
+        $.ajax({
+            url: '{{ URL("remove-cart") }}/'+id,
+            type: "get",
+            dataType: "JSON",
+            success: function(data){
+                if(data.status == 'ok'){
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'cart deleted'
+                    })
+                    parent.remove()
+                    getCart()
+                    countCart()
+                    @if(Route::current()->getName() == 'view.cart')
+                        getRowCart()
+                    @endif
+                }
+            }
+        });
+    }
+
+</script>
 @endsection

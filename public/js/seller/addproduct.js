@@ -5,7 +5,7 @@ $(document).ready(function() {
             if ($(this)[0].files.length > 4) {
                 Swal.fire({
                     icon: "warning",
-                    text: "You can only upload 6 images"
+                    text: "You can only upload 4 images"
                 });
             } else {
                 var files = e.target.files,
@@ -25,7 +25,7 @@ $(document).ready(function() {
                                 '<br/><span class="remove"><i class="fa fa-times"></i></span>' +
                                 "</span>"
                         ).insertAfter("#files");
-                        $(".remove").click(function () {
+                        $(".remove").click(function() {
                             $(this)
                                 .parent(".container__multiple")
                                 .remove();
@@ -60,7 +60,7 @@ function changeProductType(type) {
 function addMore() {
     const attribute = document.querySelector("#attribute");
     let child = document.createElement("DIV");
-    child.classList.add("childAttr")
+    child.classList.add("childAttr");
     let x = 1;
     let maxAttr = 10;
 
@@ -69,14 +69,12 @@ function addMore() {
         child.innerHTML +=
             '<div class="d-flex"><div class="col-lg-3"><div class="form-group mt-3"><div class="md-form md-outline input-with-post-icon"><i class="fas fa-arrows-alt-h input-prefix"></i> <input type="text" name="product__size[]" id="product__size" class="form-control" ><label for="product__size">Add Size</label></div></div></div><div class="col-lg-3"><div class="form-group mt-3"><div class="md-form md-outline input-with-post-icon"><i class="fas fa-palette input-prefix"></i><input type="text" name="product__color[]" id="product__color" class="form-control" ><label for="product__color">Add Color</label></div></div></div><div class="form-group"><a href="javascript:void(0);" class="form-control bg-danger mt-3" onclick="removeAttr(this)"><i class="fa fa-trash"></i></a></div></div>';
 
-        attribute.appendChild(child)
+        attribute.appendChild(child);
     }
 }
 
 //remove child attributes
 function removeAttr(e) {
-    // const childAttr = document.querySelector('.childAttr')
-
     e.parentNode.parentNode.parentNode.removeChild(e.parentNode.parentNode);
 }
 

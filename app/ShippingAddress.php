@@ -2,11 +2,16 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Model;
+use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Uuid;
 
 class ShippingAddress extends Model
 {
-    protected $primaryKey = 'shipping_id';
+    use Uuid;
+
+    protected $keyType = 'string';
+    public $incrementing = false;
+    protected $guarded = [];
 
     protected $fillable = [
         'firstname', 'lastname', 'address', 'country', 'postal_code', 'phone_number',

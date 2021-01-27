@@ -2,16 +2,20 @@
 
 namespace App;
 
-use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+// use Illuminate\Foundation\Auth\User as Authenticatable;
+use GoldSpecDigital\LaravelEloquentUUID\Foundation\Auth\User as Authenticatable;
+use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Uuid;
 use Illuminate\Notifications\Notifiable;
 
 class Seller extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, Uuid;
 
     protected $guard = 'seller';
+    protected $keyType = 'string';
+    public $incrementing = false;
+    protected $guarded = [];
 
     /**
      * The attributes that are mass assignable.
@@ -19,7 +23,7 @@ class Seller extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'firstname', 'lastname', 'store_name', 'profile', 'email', 'password', 'expiration_date'
+        'id', 'firstname', 'lastname', 'store_name', 'profile', 'email', 'password', 'expiration_date'
     ];
     /**
      * The attributes that should be hidden for arrays.

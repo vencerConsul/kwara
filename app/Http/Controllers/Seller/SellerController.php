@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\Controller;
 use App\Product;
-use App\ProductAttributes;
 use App\Seller;
 use App\Appointments;
 use Auth;
@@ -59,7 +58,7 @@ class SellerController extends Controller
             return view('Seller.sellerdashboard', compact(['STATUS']));
         }
         // dd($pendingAppointment->schedule_date);
-        $sellerProducts = Product::orderBy('p_id', 'DESC')->where('seller_id', Auth::id())->with('productAttributes')->get();
+        $sellerProducts = Product::orderBy('id', 'DESC')->where('seller_id', Auth::id())->get();
         return view('Seller.sellerdashboard', compact(['STATUS', 'sellerProducts']));
     }
     // make appointments
@@ -145,25 +144,30 @@ class SellerController extends Controller
                 $discount = $request->product__discount;
             }
 
-            $product = new Product;
-            $product->seller_id = Auth::id();
-            $product->product_name = $request->product__name;
-            $product->product_type = $request->product__type;
-            $product->product_price = $request->product__price;
-            $product->product_stock = $request->product__stock;
-            $product->product_discount = $discount;
-            $product->product_description = $request->product__description;
-            $product->product_image = implode('|', $product_image);
-            $product->save();
-            // dd($product);
-
-            if ($request->product__type == 'Clothes' || $request->product__type == 'Foot wears') {
-                $P_Attributes = new ProductAttributes;
-                $P_Attributes->product_id  = $product->id;
-                $P_Attributes->product_size  = implode('|', $request->product__size);
-                $P_Attributes->product_color  = implode('|', $request->product__color);
-                $P_Attributes->save();
+            if($request->product__size){
+                $size = implode('|', $request->product__size);
+            }else{
+                $size = NULL;
             }
+            if ($request->product__color) {
+                $color = implode('|', $request->product__color);
+            } else {
+                $color = NULL;
+            }
+
+            $data = auth()->user()->product()->create([
+                'product_name' => $request->product__name,
+                'product_type' => $request->product__type,
+                'product_price' => $request->product__price,
+                'product_stock' => $request->product__stock,
+                'product_discount' => $discount,
+                'product_description' => $request->product__description,
+                'product_image' => implode('|', $product_image),
+                'product_size' => $size,
+                'product_color' => $color
+            ]);
+
+            // dd($data);
             return redirect(route('seller.dashboard'))->with('toast_success', 'You have added a product');
         }
         return abort(404);
@@ -184,7 +188,7 @@ class SellerController extends Controller
     {
         if (Auth::user()->status == "approved") {
             $seller = Seller::findOrFail(Auth::id());
-            $seller->product()->where('p_id', $id)->delete();
+            $seller->product()->where('id', $id)->delete();
             return response()->json(['status' => "ok"], 200);
         }
         return abort(404);
@@ -194,7 +198,7 @@ class SellerController extends Controller
     public function EditProduct($id)
     {
         if (Auth::user()->status == "approved") {
-            $products = Product::where('p_id', decrypt($id))->firstOrFail();
+            $products = Product::where('id', decrypt($id))->firstOrFail();
             return view('Seller.showEditProduct', compact(['products']));
         }
         return abort(404);
@@ -269,7 +273,7 @@ class SellerController extends Controller
             if ($countFiles > 4) {
                 return back()->with('toast_error', 'You can only upload 4 images');
             }
-            Product::where('p_id', $id)->update([
+            Product::where('id', $id)->update([
                 'product_name' => request()->product__name,
                 'product_type' => request()->product__type,
                 'product_price' => request()->product__price,

@@ -45,7 +45,7 @@
         </div>
         <hr class="footer__hr">
         <div class="footer__copy__right">
-            <p>&copy; Gotchu 2020</p>
+            <p>&copy; Kwara 2021</p>
         </div>
     </div>
 </div>

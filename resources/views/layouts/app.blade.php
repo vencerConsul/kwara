@@ -12,9 +12,9 @@
 
     <link rel="shortcut icon" href="/images/title-icon.png" type="image/x-icon">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <!-- Google Fonts -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
     <!-- Bootstrap core CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
     <!-- Material Design Bootstrap -->
@@ -28,6 +28,7 @@
     @yield('navbar_sidenavtyle')
     @yield('mainpagestyle')
     @yield('footerstyle')
+    @yield('mycart')
 
     {{-- user style --}}
     @yield('userlogin')
@@ -75,21 +76,34 @@
     @yield('makeappointment')
     @yield('showalltablesscript')
 
-    <script type="text/javascript">
+    @if(Auth::guard('web')->check())
+        <script type="text/javascript">
         window.addEventListener("load", function () {
-            $.ajax({
-                url: '{{route("set.cookie")}}',
-                type: 'get',
-                success: function(data){
-                    if(data.status === 'ok'){
-                        Swal.fire(
-                            'Allow cookies for better performance'
-                        )
-                    }
-                }
-            })
+            setCookie()
+            checkAbandonCart()
+
+            async function setCookie(){
+                await fetch('{{route("set.cookie")}}', {
+                        method: "GET",
+                    })
+                    .then(result => {
+                        return result.json()
+                    }).then(data =>{
+                        if(data.status === 'ok'){
+                            Swal.fire(
+                                'Allow cookies for better performance'
+                            )
+                        }
+                })
+            }
+            async function checkAbandonCart(){
+                await fetch('{{route("check.AbandonCart")}}', {
+                        method: "GET",
+                    });
+            }
         });
     </script>
+    @endif
 
 </body>
 </html>
