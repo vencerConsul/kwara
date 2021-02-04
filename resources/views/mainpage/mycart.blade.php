@@ -10,7 +10,16 @@ My cart
 
 @section('content')
 @include('layouts.nav')
-
+    <div class="container my-4 indicator">
+        <div class="progress-indicator">
+            <ul class="progress-box">
+                <li class="active"><i class="fab fa-opencart"></i><p>Cart</p></li>
+                <li><i class="fas fa-address-card"></i><p>Billing Address</p></li>
+                <li><i class="far fa-credit-card"></i><p>Payment</p></li>
+            </ul>
+        </div>
+    </div>
+    
     <div class="container container__cart my-4">
         {{-- cart table --}}
 

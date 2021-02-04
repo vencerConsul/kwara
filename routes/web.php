@@ -11,6 +11,8 @@ Auth::routes();
 
 // ---------- GET---------- //
 Route::get('/setting-cookie', 'Main\MainController@setCookie')->name('set.cookie');
+// get all products
+Route::get('/all-products', 'Main\MainController@ShowProducts')->name('all.products');
 // check abandon carts
 Route::get('/check-abandon-cart', 'Main\MainController@DeleteAbandonCart')->name('check.AbandonCart');
 // show main page
@@ -35,32 +37,37 @@ Route::get('/delete-cart-row/{id}', 'Main\MainController@DeleteCartRow')->name('
 // VIEW PRODUCT
 Route::get('/product/{id}', 'Main\MainController@ViewProduct')->name('product');
 //  show my account page
-Route::get('/my-account', 'Main\UserController@myAccount')->name('user.myaccount');
-// show change password
-Route::get('/change-password', 'Main\UserController@ShowChangePass')->name('user.changepassword');
-//  show add shipping address page
-Route::get('/shipping-address', 'Main\UserController@ShowshippingAddress')->name('user.shippingaddress');
-// delete shipping AddAddress
-Route::get('/delete-address/{id}', 'Main\UserController@DeleteAddress')->name('delete-address');
-// edit address
-Route::get('/edit-address/{id}', 'Main\UserController@EditAddress')->name('user.editaddress');
 
+Route::group(['middleware' => 'auth'], function () {
+    // checkout cart
+    Route::get('/check-out', 'Main\UserController@CheckOut')->name('user.checkout');
+    // use default billing address
+    Route::get('/use-billing-address', 'Main\UserController@UseAddress')->name('user.useAddress');
+    // my account
+    Route::get('/my-account', 'Main\UserController@myAccount')->name('user.myaccount');
+    // show change password
+    Route::get('/change-password', 'Main\UserController@ShowChangePass')->name('user.changepassword');
+    // show add shipping address page
+    Route::get('/shipping-address', 'Main\UserController@ShowshippingAddress')->name('user.shippingaddress');
+    // delete shipping AddAddress
+    Route::get('/delete-address/{id}', 'Main\UserController@DeleteAddress')->name('delete-address');
+    // edit address
+    Route::get('/edit-address/{id}', 'Main\UserController@EditAddress')->name('user.editaddress');
 
-// -------------POST----------- //
-// get all products
-Route::get('/all-products', 'Main\MainController@ShowProducts')->name('all.products');
-// to update info
-Route::post('/updateInfo', 'Main\UserController@UpdateInformation')->name('updateInfo');
-//  my account change profile
-Route::post('/chanageprofile', 'Main\UserController@ChangeProfilePicture')->name('chanageprofile');
-// sidebar chnage profile
-Route::post('/changeSidebarProfile', 'Main\UserController@ChangeSidebarProfile')->name('changeSidebarProfile');
-// to change password
-Route::post('/changepassword', 'Main\UserController@ChangePassword')->name('changepassword');
-//  to add shipping address
-Route::post('/addaddress', 'Main\UserController@AddAddress')->name('addaddress');
-// update shipping address address
-Route::post('/update_shippingaddress', 'Main\UserController@UpdateAddress')->name('update_shippingaddress');
+    // -------------POST----------- //
+    // to update info
+    Route::post('/updateInfo', 'Main\UserController@UpdateInformation')->name('updateInfo');
+    //  my account change profile
+    Route::post('/chanageprofile', 'Main\UserController@ChangeProfilePicture')->name('chanageprofile');
+    // sidebar chnage profile
+    Route::post('/changeSidebarProfile', 'Main\UserController@ChangeSidebarProfile')->name('changeSidebarProfile');
+    // to change password
+    Route::post('/changepassword', 'Main\UserController@ChangePassword')->name('changepassword');
+    //  to add shipping address
+    Route::post('/addaddress', 'Main\UserController@AddAddress')->name('addaddress');
+    // update shipping address address
+    Route::post('/update_shippingaddress', 'Main\UserController@UpdateAddress')->name('update_shippingaddress');
+});
 
 
 Route::group(['guard' => 'seller'], function () {

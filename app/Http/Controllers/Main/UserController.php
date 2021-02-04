@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Main;
 
+use App\Cart;
 use App\Http\Controllers\Controller;
 use App\Product;
 use App\ShippingAddress;
@@ -36,7 +37,7 @@ class UserController extends Controller
      */
     public function checkPage()
     {
-        if (Route::current()->getName() == 'user.myaccount' || Route::current()->getName() == 'user.changepassword'|| Route::current()->getName() == 'user.editaddress') {
+        if (Route::current()->getName() == 'user.myaccount' || Route::current()->getName() == 'user.changepassword' || Route::current()->getName() == 'user.editaddress') {
             return true;
         }
     }
@@ -160,7 +161,7 @@ class UserController extends Controller
     public function ShowShippingAddress()
     {
         $checkPage = $this->checkPage();
-        $shippingAddress = ShippingAddress::where('user_id', '=', Auth::id())->firstOrFail();
+        $shippingAddress = ShippingAddress::where('user_id', '=', Auth::id())->get();
         return view('mainpage.shippingaddress', compact(['checkPage', 'shippingAddress']));
     }
 
@@ -194,7 +195,7 @@ class UserController extends Controller
     //delete the address
     public function DeleteAddress($id)
     {
-        ShippingAddress::where('shipping_id', $id)->delete();
+        ShippingAddress::where('id', $id)->delete();
         return back()->with('toast_success', 'Shipping address successfully deleted');
     }
 
@@ -232,5 +233,39 @@ class UserController extends Controller
         ]);
 
         return redirect()->route('user.shippingaddress')->with('toast_success', 'update address successfully');
+    }
+
+    // checkout product cart
+    public function CheckOut()
+    {
+        $cookie_id = request()->cookie('kwara_cookie');
+
+        if (Auth::check()) {
+            $orders = Cart::where('user_id', Auth::id())->orwhere('product_cookie_id', $cookie_id)->get();
+        } else {
+            $orders = Cart::where('product_cookie_id', $cookie_id)->get();
+        }
+        if ($orders->count() == 0) {
+            return redirect(route('Main'));
+        } else {
+            $shippingAddress = ShippingAddress::where('user_id', Auth::id())->get();
+            // dd($shippingAddress->count());
+            return view('mainpage.checkout', compact(['orders', 'shippingAddress']));
+        }
+    }
+
+    public function UseAddress(){
+        $data = ShippingAddress::where('user_id', Auth::id())->first();
+
+        $address = [
+            'firstname' => $data->firstname,
+            'lastname' => $data->lastname,
+            'address' => $data->address,
+            'country' => $data->country,
+            'postal_code' => $data->postal_code,
+            'phone_number' => $data->phone_number,
+        ];
+
+        return response()->json($address);
     }
 }

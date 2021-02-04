@@ -119,7 +119,14 @@ Kwara
 <!-- section 4 -->
 <section id="section__four">
     <div class="container">
-        <h1 class="text-white">Register now</h1>
+        <form>
+            <div class="input-group">
+                <input type="text" class="form-control rounded-0 border-0" placeholder="Your email address" style="width: 100px !important;" >
+            </div>
+            <h5 class="text-white my-3">Subscribe today to get the latest update & news</h5>
+            <button class="btn btn-lg btn-white m-0 waves-effect my-4" type="button">Subscribe</button>
+        </form>
+
     </div>
 </section>
 

@@ -18,8 +18,9 @@ class CreateCartsTable extends Migration
             $table->uuid('id');
             $table->primary('id');
             $table->uuid('user_id')->nullable();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('set null');
             $table->uuid('product_id');
+            $table->uuid('seller_id');
             $table->string('product_name');
             $table->string('product_type');
             $table->integer('product_price');
@@ -31,6 +32,7 @@ class CreateCartsTable extends Migration
             $table->integer('product_quantity');
             $table->text('product_size')->nullable();
             $table->text('product_color')->nullable();
+            $table->integer('cartExpiration');
             $table->timestamps();
         });
     }

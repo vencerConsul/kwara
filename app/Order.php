@@ -5,7 +5,7 @@ namespace App;
 use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Model;
 use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Uuid;
 
-class Cart extends Model
+class Order extends Model
 {
     use Uuid;
 
@@ -15,7 +15,7 @@ class Cart extends Model
     protected $guarded = [];
 
     protected $fillable = [
-        'product_name', 'product_type', 'product_price', 'product_stock', 'product_discount', 'product_description', 'product_image', 'product_cookie_id', 'user_id', 'seller_id', 'product_id', 'product_quantity', 'product_size', 'product_color', 'cartExpiration'
+        'product_name', 'product_type', 'product_price', 'product_stock', 'product_discount', 'product_description', 'product_image', 'product_cookie_id', 'user_id', 'seller_id', 'product_id', 'product_quantity', 'product_size', 'product_color'
     ];
 
     public function user()

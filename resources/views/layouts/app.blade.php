@@ -74,9 +74,8 @@
     @yield('sellerscript')
     @yield('sellerlogAndreg')
     @yield('makeappointment')
+    @yield('checkoutJs')
     @yield('showalltablesscript')
-
-    @if(Auth::guard('web')->check())
         <script type="text/javascript">
         window.addEventListener("load", function () {
             setCookie()
@@ -103,7 +102,6 @@
             }
         });
     </script>
-    @endif
 
 </body>
 </html>

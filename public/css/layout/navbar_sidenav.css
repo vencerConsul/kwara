@@ -11,19 +11,15 @@
 }
 .navbar__content {
     box-shadow: none !important;
-    background: #000000;
+    background: var(--primary);
 }
 .navbar__content .navbar__left__icons button {
     box-shadow: none;
     background: none;
 }
 .navbar__content .nav-link {
-    color: #000000 !important;
+    color: #ffffff !important;
     font-size: 14px;
-    background: #ffffff !important;
-    border-radius: 30px;
-    font-weight: bold;
-    padding: 5px 10px;
 }
 .navbar__content .cart_button i {
     font-size: 13px;
@@ -96,7 +92,7 @@
     position: fixed;
     top: 0;
     left: -340px;
-    background: #000000;
+    background: var(--primary);
     height: 100vh;
     width: 340px;
     z-index: 1022;
@@ -180,8 +176,7 @@
     position: fixed;
     display: none;
     right: -250px;
-    background: #ffffff;
-    border-right: 1px solid var(--semi-grey);
+    background: var(--primary);
     height: 100vh;
     width: 250px;
     z-index: 3;
@@ -210,7 +205,7 @@
     .sidebar__header
     .sidebar__user__info
     .sidebar__user__basic__info {
-    color: var(--grey);
+    color: var(--light-grey);
 }
 #sidebar__content .sidebar__header .sidebar__buttons {
     display: flex;
@@ -221,7 +216,7 @@
     height: 30px;
     padding: 5px 10px;
     box-shadow: none;
-    color: var(--grey);
+    color: var(--light-grey);
 }
 #sidebar__content .sidebar__header hr.header__divider {
     height: 1px solid;
@@ -239,12 +234,12 @@
     padding: 10px 0px;
 }
 #sidebar__content .header__body ul li i {
-    color: var(--semi-grey);
+    color: var(--light-grey);
     margin-right: 10px;
     font-size: 12px;
 }
 #sidebar__content .header__body ul a {
-    color: var(--grey);
+    color: var(--light-grey);
 }
 #sidebar__content .header__body i.fas.fa-caret-left {
     position: absolute;

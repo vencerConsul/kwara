@@ -26,7 +26,7 @@
             @endguest
             @auth
                 @if(Route::current()->getName() == 'Main')
-                    <a class="nav-link mr-2" href="{{ route('user.myaccount') }}"><i class="fa fa-user"></i> My account</a>
+                    <a class="nav-link mr-2" href="{{ route('user.myaccount') }}">My account</a>
                 @else
                     <a class="nav-link mr-2" href="{{ route('Main') }}">Home</a>
                 @endif

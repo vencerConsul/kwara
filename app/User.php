@@ -11,7 +11,7 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use Notifiable, Uuid;
-    
+
     protected $guard = 'user';
     protected $keyType = 'string';
     public $incrementing = false;
@@ -54,5 +54,10 @@ class User extends Authenticatable
     public function cart()
     {
         return $this->hasMany('App\Cart');
+    }
+
+    public function orders()
+    {
+        return $this->hasMany('App\Order');
     }
 }

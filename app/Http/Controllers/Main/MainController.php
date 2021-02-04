@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Main;
 
 use App\Cart;
+use App\Order;
 use App\Http\Controllers\Controller;
 use App\Product;
 use App\Seller;
@@ -22,7 +23,7 @@ class MainController extends Controller
     {
         if (empty($request->cookie('kwara_cookie'))) {
             $value = Str::random(40);
-            $minutes = 60;
+            $minutes = 1440;
             Cookie::queue('kwara_cookie', $value, $minutes);
             return response()->json(['status' => 'ok']);
         } else {
@@ -34,10 +35,10 @@ class MainController extends Controller
     {
         $cookie_id = request()->cookie('kwara_cookie');
         $cart = Cart::get();
-        $dateToNumber = strtotime(date("Y-m-d H:i:s"));//date ngayon na naconvert sa number
-        if(Auth::guest() && empty($cart[0]->user_id)){
+        $dateToNumber = strtotime(date("Y-m-d H:i:s")); //date ngayon na naconvert sa number
+        if (Auth::guest() && empty($cart[0]->user_id)) {
             Cart::where('cartExpiration', '<=', $dateToNumber)->delete();
-        }// kapag na meet ni date ngayon ung expiration date,madedelete ang mga cart
+        } // kapag na meet ni date ngayon ung expiration date,madedelete ang mga cart
     }
 
     public function checkPage()
@@ -179,14 +180,17 @@ class MainController extends Controller
 
         $image = explode("|", $product->product_image);
 
-        if (Cart::where('product_cookie_id', $cookie_id)->where('product_id', $product_id)->exists()) {
+        if (Cart::where('product_cookie_id', $cookie_id)->where('product_id', $product_id)->exists() || Cart::where('user_id', Auth::id())->where('product_id', $product_id)->exists()) {
             Cart::where('product_id', $product_id)->where('product_cookie_id', $cookie_id)->increment('product_quantity', $request->product_quantity);
+
+            Cart::where('product_id', $product_id)->where('user_id', Auth::id())->increment('product_quantity', $request->product_quantity);
             return response()->json(['status' => 'duplicate']);
         } else {
             $cartInsert = Cart::create([
                 'user_id' => $userId,
                 'product_cookie_id' => $cookie_id,
                 'product_id' => $product_id,
+                'seller_id' => $product->seller_id,
                 'product_name' => $product->product_name,
                 'product_type' => $product->product_type,
                 'product_price' => $product->product_price,
@@ -199,6 +203,7 @@ class MainController extends Controller
                 'product_color' => $request->product_color,
                 'cartExpiration' => strtotime(date('Y-m-d H:i:s', strtotime('+60 minutes', strtotime($dateNow))))
             ]);
+
             if ($cartInsert) {
                 return response()->json(['status' => 'ok']);
             }
@@ -277,11 +282,15 @@ class MainController extends Controller
         $cookie_id = request()->cookie('kwara_cookie');
 
         if (Auth::check()) {
-            $mycart = Cart::where('user_id', Auth::id())->orwhere('product_cookie_id', $cookie_id)->get();
+            $carts = Cart::where('user_id', Auth::id())->orwhere('product_cookie_id', $cookie_id)->get();
         } else {
-            $mycart = Cart::where('product_cookie_id', $cookie_id)->get();
+            $carts = Cart::where('product_cookie_id', $cookie_id)->get();
         }
-        return view('mainpage.mycart', compact('mycart'));
+        if ($carts->count() == 0) {
+            return redirect(route('Main'));
+        } else {
+            return view('mainpage.mycart');
+        }
     }
 
     public function GetRowCart()
@@ -337,13 +346,14 @@ class MainController extends Controller
             echo '</tbody>
                     </table>
                     <div class="total-table">
-                    <table>
-                        <tr>
-                            <td>Total</td>
-                            <td>&#8369; ' . number_format($total, 2) . '</td>
-                        </tr>
-                    </table>
-                </div>';
+                        <table>
+                            <tr>
+                                <td>Total</td>
+                                <td>&#8369; ' . number_format($total, 2) . '</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="d-flex justify-content-end"><a href="' . route('user.checkout') . '" class="btn mr-0">Check out</a></div> ';
         } else {
             echo '<div class="d-flex justify-content-center align-items-center">
                     <div class="text-center">

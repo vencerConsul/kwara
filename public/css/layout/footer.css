@@ -11,7 +11,7 @@
 }
 
 #footer__content {
-    background: #000000;
+    background: var(--primary);
 }
 #footer__content .container-fluid {
     padding-top: 50px;
@@ -72,7 +72,7 @@
     border-radius: 0;
     box-shadow: none;
     background: #ffffff;
-    color: #000000;
+    color: var(--primary);
 }
 #footer__content
     .container-fluid
@@ -103,7 +103,7 @@
     text-align: center;
 }
 #footer__content .container-fluid .footer__hr {
-    background: var(--semi-grey);
+    background: var(--light-grey);
 }
 #footer__content .container-fluid .footer__copy__right p {
     color: var(--light-grey);

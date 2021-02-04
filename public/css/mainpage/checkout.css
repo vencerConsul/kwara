@@ -1,0 +1,113 @@
+body {
+    background: #f3f3f3;
+}
+.indicator {
+    background: #ffffff;
+}
+.progress-box {
+    position: relative;
+    counter-reset: step;
+    z-index: 1;
+}
+.progress-indicator ul {
+    display: flex;
+    padding: 1em 1em;
+}
+
+.progress-indicator ul li {
+    list-style: none;
+    width: 33.33%;
+    text-align: center;
+    position: relative;
+}
+.progress-indicator ul li i {
+    font-size: 25px;
+    color: #c0c0c0;
+}
+.progress-indicator ul li::before {
+    content: counter(step);
+    counter-increment: step;
+    width: 40px;
+    height: 40px;
+    display: block;
+    border: 2px solid #c0c0c0;
+    margin: 0 auto 10px auto;
+    line-height: 40px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    font-weight: bold;
+}
+.progress-indicator ul li::after {
+    content: "";
+    position: absolute;
+    height: 5px;
+    width: 100%;
+    background-color: #c0c0c0;
+    left: -50%;
+    top: 20px;
+    z-index: -1;
+}
+.progress-indicator ul li:first-child:after {
+    content: none;
+}
+.progress-box li.active i {
+    color: #000000 !important;
+    font-weight: bold !important;
+}
+.progress-box li.active::before {
+    border: 2px solid #000000;
+    background: #000000;
+    color: #ffffff;
+}
+.progress-box li.active + li::after {
+    background: #000000;
+}
+.container .card{
+    box-shadow: none;
+}
+.container .card .card-header{
+    background: none;
+}
+.container .card .box-billing-address{
+    border: 1px solid #dadce0;
+    border-radius: 5px;
+    width: auto;
+    cursor: pointer;
+}
+.container .card .box-billing-address p{
+    font-size: 13px;
+}
+.container .card .box-billing-address button{
+    background: var(--primary);
+    color: #ffffff;
+    box-shadow: none;
+}
+.container .card .card-body .box-order{
+    position: relative;
+    display: flex;
+    justify-content: left;
+    padding: 5px;
+}
+.container .card .card-body .box-order img{
+    height: 50px;
+    width: 50px;
+}
+.container .card .card-body .box-order .box-order-content{
+    margin-left: 10px;
+    display: flex;
+    text-align: left;
+    justify-content: center;
+    flex-direction: column;
+}
+.container .card .card-body .box-order .box-order-content p{
+    font-size: 12px;
+    text-transform: capitalize;
+}
+.container .card .card-footer{
+    background: none;
+}
+.container .card .card-footer button{
+    box-shadow: none;
+    background: var(--primary);
+    color: #ffffff;
+}
