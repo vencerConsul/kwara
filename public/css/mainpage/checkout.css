@@ -78,8 +78,8 @@ body {
     font-size: 13px;
 }
 .container .card .box-billing-address button{
-    background: var(--primary);
-    color: #ffffff;
+    background: var(--light-grey);
+    color: #000000;
     box-shadow: none;
 }
 .container .card .card-body .box-order{

@@ -56,7 +56,7 @@ class User extends Authenticatable
         return $this->hasMany('App\Cart');
     }
 
-    public function orders()
+    public function order()
     {
         return $this->hasMany('App\Order');
     }

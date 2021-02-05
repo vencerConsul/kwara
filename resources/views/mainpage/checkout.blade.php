@@ -20,45 +20,47 @@ Checkout
         </div>
     </div>
     <div class="container my-4 pl-0 pr-0">
+        <form action="{{route('billing.information')}}" method="post">
+            @csrf
         <div class="row">
             <div class="col-lg-8">
                 <div class="card rounded-0">
                     <div class="card-header">
-                        Biling Address
+                        Set Default Biling Address
                     </div>
                     <div class="card-body">
                         <form action="">
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group my-2">
-                                        <input type="text" id="firstname" class="form-control" placeholder="First Name">
+                                        <input type="text" id="firstname" value="{{old('firstname')}}" name="firstname" class="form-control" placeholder="First Name">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group my-2">
-                                        <input type="text" id="lastname" class="form-control" placeholder="Last Name">
+                                        <input type="text" id="lastname" value="{{old('lastname')}}" name="lastname" class="form-control" placeholder="Last Name">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group my-2">
-                                        <input type="text" id="address" class="form-control" placeholder="Complete Address">
+                                        <input type="text" id="address" value="{{old('address')}}" name="address" class="form-control" placeholder="Complete Address">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group my-2">
-                                        <select class="form-control" id="country">
+                                        <select class="form-control" value="{{old('country')}}" name="country" id="country">
                                             <option value="Philippines">Philippines</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group my-2">
-                                        <input type="text" id="phone" class="form-control" placeholder="Phone number">
+                                        <input type="text" id="phone" value="{{old('phone')}}" name="phone" class="form-control" placeholder="Phone number">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group my-2">
-                                        <input type="text" id="postal" class="form-control" placeholder="Postal code">
+                                        <input type="text" id="postal" value="{{old('postal')}}" name="postal" class="form-control" placeholder="Postal code">
                                     </div>
                                 </div>
                             </div>
@@ -73,7 +75,7 @@ Checkout
                         <p>{{$shippingAddress[0]->country}}</p>
                         <p>{{$shippingAddress[0]->postal_code}}</p>
                         <p>{{$shippingAddress[0]->phone_number}}</p>
-                        <button class="btn btn-sm ml-0" onclick="useAddress()">Use Billing Address</button>
+                        <button type="button" class="btn btn-sm ml-0" onclick="useAddress(this)">Use Billing Address</button>
                     </div>
                     @endif
                 </div>
@@ -103,19 +105,20 @@ Checkout
                     </div>
                     <div class="card-footer">
                         <p>Subtotal: &#8369; {{number_format($total, 2)}}</p>
-                        <button class="btn btn-sm btn-block">Proceed</button>
+                        <button type="submit" class="btn btn-sm btn-block">Proceed</button>
                     </div>
                 </div>
             </div>
         </div>
+        </form>
     </div>
     @include('layouts.footer')
 @endsection
 
 @section('checkoutJs')
     <script>
-        async function useAddress() {
-
+        async function useAddress(btn) {
+            btn.innerHTML = 'loading';
 
             await fetch('{{route("user.useAddress")}}', {
                 method: "GET"
@@ -124,12 +127,16 @@ Checkout
                     return result.json();
                 })
                 .then(data => {
-                    document.getElementById('firstname').value = data.firstname;
-                    document.getElementById('lastname').value = data.lastname;
-                    document.getElementById('address').value = data.address;
-                    document.getElementById('country').value = data.country;
-                    document.getElementById('postal').value = data.postal_code;
-                    document.getElementById('phone').value = data.phone_number;
+                    if(data.status == 'ok'){
+                        btn.disabled = true;
+                        btn.innerHTML = 'address applied';
+                        document.getElementById('firstname').value = data.firstname;
+                        document.getElementById('lastname').value = data.lastname;
+                        document.getElementById('address').value = data.address;
+                        document.getElementById('country').value = data.country;
+                        document.getElementById('postal').value = data.postal_code;
+                        document.getElementById('phone').value = data.phone_number;
+                    }
                 });
         }
     </script>

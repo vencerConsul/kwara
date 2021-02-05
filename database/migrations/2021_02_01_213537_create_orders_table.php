@@ -20,6 +20,7 @@ class CreateOrdersTable extends Migration
             $table->uuid('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('set null');
             $table->text('cart');
+            $table->text('status');
             $table->timestamps();
         });
     }

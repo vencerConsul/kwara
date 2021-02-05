@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Main;
 
 use App\Cart;
 use App\Http\Controllers\Controller;
+use App\Order;
 use App\Product;
 use App\ShippingAddress;
 use App\User;
@@ -254,7 +255,8 @@ class UserController extends Controller
         }
     }
 
-    public function UseAddress(){
+    public function UseAddress()
+    {
         $data = ShippingAddress::where('user_id', Auth::id())->first();
 
         $address = [
@@ -264,8 +266,48 @@ class UserController extends Controller
             'country' => $data->country,
             'postal_code' => $data->postal_code,
             'phone_number' => $data->phone_number,
+            'status' => 'ok'
         ];
 
         return response()->json($address);
+    }
+
+    public function ProceedToCheckout(Request $request)
+    {
+        $cookie_id = request()->cookie('kwara_cookie');
+
+        $cart = Cart::where('user_id', Auth::id())->orwhere('product_cookie_id', $cookie_id)->get();
+
+        $validator = Validator::make($request->all(), [
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'address' => 'required',
+            'country' => 'required',
+            'postal' => 'required|digits:4',
+            'phone' => 'required|digits:11'
+        ]);
+
+        if ($validator->fails()) {
+            return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
+        }
+
+        $defaultAddress = ShippingAddress::where('user_id', Auth::id())->exists();
+        if(!$defaultAddress){
+
+            Auth::user()->ShippingAddress()->create([
+                'firstname' => $request->firstname,
+                'lastname' => $request->lastname,
+                'address' => $request->address,
+                'country' => $request->country,
+                'postal_code' => $request->postal,
+                'phone_number' => $request->phone
+            ]);
+            echo "ok";
+        }
+
+        // $order = Auth::user()->order()->create([
+        //     'cart' => serialize($cart),
+        //     // 'status' => 'pending'
+        // ]);
     }
 }
