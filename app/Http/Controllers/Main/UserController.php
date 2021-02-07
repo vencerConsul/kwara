@@ -276,8 +276,6 @@ class UserController extends Controller
     {
         $cookie_id = request()->cookie('kwara_cookie');
 
-        $cart = Cart::where('user_id', Auth::id())->orwhere('product_cookie_id', $cookie_id)->get();
-
         $validator = Validator::make($request->all(), [
             'firstname' => 'required',
             'lastname' => 'required',
@@ -292,7 +290,7 @@ class UserController extends Controller
         }
 
         $defaultAddress = ShippingAddress::where('user_id', Auth::id())->exists();
-        if(!$defaultAddress){
+        if (!$defaultAddress) {
 
             Auth::user()->ShippingAddress()->create([
                 'firstname' => $request->firstname,
@@ -302,12 +300,30 @@ class UserController extends Controller
                 'postal_code' => $request->postal,
                 'phone_number' => $request->phone
             ]);
-            echo "ok";
         }
+        return redirect(route('checkout.product'));
 
         // $order = Auth::user()->order()->create([
         //     'cart' => serialize($cart),
         //     // 'status' => 'pending'
         // ]);
+    }
+
+    public function CheckoutProduct()
+    {
+        $cookie_id = request()->cookie('kwara_cookie');
+
+        if (Auth::check()) {
+            $orders = Cart::where('user_id', Auth::id())->orwhere('product_cookie_id', $cookie_id)->get();
+        } else {
+            $orders = Cart::where('product_cookie_id', $cookie_id)->get();
+        }
+        if ($orders->count() == 0) {
+            return redirect(route('Main'));
+        } else {
+            $shippingAddress = ShippingAddress::where('user_id', Auth::id())->get();
+            // dd($shippingAddress->count());
+            return view('mainpage.checkoutProduct', compact(['orders', 'shippingAddress']));
+        }
     }
 }
