@@ -65,49 +65,69 @@ body {
 .progress-box li.active + li::after {
     background: #000000;
 }
-.container .card{
+.container .card {
     box-shadow: none;
     border-radius: 0;
 }
-.container .card .card-header{
+.container .card .card-header {
     background: none;
 }
-.container .card button{
+.container .card button {
     box-shadow: none;
     background: #ededed;
 }
-.container .card button i{
+.container .card button i {
     font-size: 60px;
 }
-.container .card button P{
+.container .card button p {
     font-weight: bold;
 }
-.container .card .card-body .box-order{
+.container .card .card-body input[type="radio"]:checked + button {
+    background: #575757;
+    color: #ffffff !important;
+}
+.container .card .card-body .box-order {
     position: relative;
     display: flex;
     justify-content: left;
     padding: 5px;
 }
-.container .card .card-body .box-order img{
+.container .card .card-body .box-order img {
     height: 50px;
     width: 50px;
 }
-.container .card .card-body .box-order .box-order-content{
+.container .card .card-body .box-order .box-order-content {
     margin-left: 10px;
     display: flex;
     text-align: left;
     justify-content: center;
     flex-direction: column;
 }
-.container .card .card-body .box-order .box-order-content p{
+.container .card .card-body .box-order .box-order-content p {
     font-size: 12px;
     text-transform: capitalize;
 }
-.container .card .card-footer{
+.container .card .card-footer {
     background: none;
 }
-.container .card .card-footer button{
+.container .card .card-footer button {
     box-shadow: none;
     background: var(--primary);
     color: #ffffff;
+}
+@media only screen and (max-width: 600px) {
+    .container .card button {
+        box-shadow: none;
+        background: #ededed;
+    }
+    .container .card button i {
+        font-size: 30px;
+    }
+    .container .card button p {
+        font-weight: bold;
+        font-size: 11px;
+    }
+    .summary {
+        margin-top: 1em !important;
+    }
 }

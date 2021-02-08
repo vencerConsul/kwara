@@ -44,9 +44,9 @@ Route::group(['middleware' => 'auth'], function () {
     // use default billing address
     Route::get('/use-billing-address', 'Main\UserController@UseAddress')->name('user.useAddress');
     // billing address post
-    Route::post('/insert-billing-address', 'Main\UserController@ProceedToCheckout')->name('billing.information');
+    Route::get('/checkout/proceed-billing-address', 'Main\UserController@ProceedToCheckout')->name('billing.information');
     // checkout product
-    Route::get('checkout/product-checkout', 'Main\UserController@CheckoutProduct')->name('checkout.product');
+    Route::post('checkout/place-order', 'Main\UserController@PlaceOrder')->name('place.order');
     // my account
     Route::get('/my-account', 'Main\UserController@myAccount')->name('user.myaccount');
     // show change password

@@ -20,7 +20,7 @@ Checkout
         </div>
     </div>
     <div class="container my-4 pl-0 pr-0">
-        <form action="{{route('billing.information')}}" method="post">
+        <form action="{{route('billing.information')}}" method="get">
             @csrf
         <div class="row">
             <div class="col-lg-8">

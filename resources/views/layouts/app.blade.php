@@ -75,6 +75,7 @@
     @yield('sellerlogAndreg')
     @yield('makeappointment')
     @yield('checkoutJs')
+    @yield('checkoutProductJs')
     @yield('showalltablesscript')
         <script type="text/javascript">
         window.addEventListener("load", function () {

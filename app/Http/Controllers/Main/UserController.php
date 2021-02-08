@@ -289,30 +289,6 @@ class UserController extends Controller
             return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
         }
 
-        $defaultAddress = ShippingAddress::where('user_id', Auth::id())->exists();
-        if (!$defaultAddress) {
-
-            Auth::user()->ShippingAddress()->create([
-                'firstname' => $request->firstname,
-                'lastname' => $request->lastname,
-                'address' => $request->address,
-                'country' => $request->country,
-                'postal_code' => $request->postal,
-                'phone_number' => $request->phone
-            ]);
-        }
-        return redirect(route('checkout.product'));
-
-        // $order = Auth::user()->order()->create([
-        //     'cart' => serialize($cart),
-        //     // 'status' => 'pending'
-        // ]);
-    }
-
-    public function CheckoutProduct()
-    {
-        $cookie_id = request()->cookie('kwara_cookie');
-
         if (Auth::check()) {
             $orders = Cart::where('user_id', Auth::id())->orwhere('product_cookie_id', $cookie_id)->get();
         } else {
@@ -321,9 +297,25 @@ class UserController extends Controller
         if ($orders->count() == 0) {
             return redirect(route('Main'));
         } else {
-            $shippingAddress = ShippingAddress::where('user_id', Auth::id())->get();
-            // dd($shippingAddress->count());
+            $shippingAddress = [
+                'firstname' => $request->firstname,
+                'lastname' => $request->lastname,
+                'address' => $request->address,
+                'country' => $request->country,
+                'postal' => $request->postal,
+                'phone' => $request->phone
+            ];
             return view('mainpage.checkoutProduct', compact(['orders', 'shippingAddress']));
         }
+
+        // $order = Auth::user()->order()->create([
+        //     'cart' => serialize($cart),
+        //     // 'status' => 'pending'
+        // ]);
+    }
+
+    public function PlaceOrder(Request $request)
+    {
+        dd($request->all());
     }
 }

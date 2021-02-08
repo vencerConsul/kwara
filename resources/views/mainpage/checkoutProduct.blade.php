@@ -20,6 +20,8 @@ Checkout
         </div>
     </div>
     <div class="container my-4 pl-0 pr-0">
+        <form action="{{route('place.order')}}" method="post">
+            @csrf
         <div class="row">
             <div class="col-lg-8">
                 <div class="card">
@@ -28,26 +30,30 @@ Checkout
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-lg-6 p-1">
-                                <button class="btn btn-block">
+                            <div class="col-lg-6 col-6 p-1">
+                                <input type="radio" id="paypal" style="display: none;" name="payment_method" value="paypal">
+                                <button type="button" class="btn btn-block" onclick="document.getElementById('paypal').checked = true; selected('paypal')">
                                     <i class="fab fa-paypal"></i>
                                     <p>PAYPAL</p>
                                 </button>
                             </div>
-                            <div class="col-lg-6 p-1">
-                                <button class="btn btn-block">
+                            <div class="col-lg-6 col-6 p-1">
+                                    <input type="radio" id="creditCard" style="display: none;" name="payment_method" value="Credit / debit card">
+                                <button type="button" class="btn btn-block" onclick="document.getElementById('creditCard').checked = true; selected('creditCard')">
                                     <i class="fas fa-credit-card"></i>
                                     <p>Credit / debit card</p>
                                 </button>
                             </div>
-                            <div class="col-lg-6 p-1">
-                                <button class="btn btn-block">
+                            <div class="col-lg-6 col-6 p-1">
+                                    <input type="radio" id="cod" style="display: none;" name="payment_method" value="Cash On Delivery">
+                                <button type="button" class="btn btn-block" onclick="document.getElementById('cod').checked = true; selected('cod')">
                                     <i class="fas fa-truck"></i>
                                     <p>CASH ON DELIVERY</p>
                                 </button>
                             </div>
-                            <div class="col-lg-6 p-1">
-                                <button class="btn btn-block">
+                            <div class="col-lg-6 col-6 p-1">
+                                    <input type="radio" id="otc" style="display: none;" name="payment_method" value="Over the Counter">
+                                <button type="button" class="btn btn-block" onclick="document.getElementById('otc').checked = true; selected('otc')">
                                     <i class="far fa-building"></i>
                                     <p>Over the Counter</p>
                                 </button>
@@ -55,22 +61,29 @@ Checkout
                         </div>
                     </div>
                 </div>
+                <div class="row" id="cashOnDelivery">
+
+
+
+
+                    
+                </div>
             </div>
             <div class="col-lg-4">
-                <div class="card rounded-0 ">
+                <div class="card rounded-0 summary">
                     <div class="card-header">
                         Summary
                     </div>
                     <div class="card-body">
                         <div class="address">
                             <h6>Shipping Address</h6>
-                            <small>{{$shippingAddress[0]->firstname . ' ' . $shippingAddress[0]->lastname}}</small><br />
-                            <small>{{$shippingAddress[0]->address}}</small><br />
-                            <small>{{$shippingAddress[0]->country}}</small><br />
-                            <small>{{$shippingAddress[0]->postal_code}}</small><br />
-                            <small>{{$shippingAddress[0]->phone_number}}</small><br />
+                            <small>{{$shippingAddress['firstname'] . ' ' . $shippingAddress['lastname']}}</small><br />
+                            <small>{{$shippingAddress['address']}}</small><br />
+                            <small>{{$shippingAddress['country']}}</small><br />
+                            <small>{{$shippingAddress['postal']}}</small><br />
+                            <small>{{$shippingAddress['phone']}}</small><br />
                         </div>
-                        <hr>
+                        <hr class="my-3">
                         <h6>Product</h6>
                         @php
                             $total = 0;
@@ -79,7 +92,7 @@ Checkout
                         @php
                             $total = $total + ($order->product_quantity * $order->product_price);
                         @endphp
-                        <div class="box-order">
+                        <div class="box-order w-100">
                             <img class="img-fluid" src="{{  asset('/storage/images/products/'.$order->product_image.'') }}" alt="{{$order->product_name}}">
                             <div class="box-order-content">
                                 <p>{{$order->product_name}}</p>
@@ -90,24 +103,17 @@ Checkout
                         @endforeach
                     </div>
                     <div class="card-footer">
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="Enter coupon code">
-                            <div class="input-group-append">
-                                <button class="btn btn-md m-0 px-3 py-2" type="button" id="button-addon2">Apply</button>
-                            </div>
-                        </div>
-                        <p>Subtotal: &#8369; {{number_format($total, 2)}}</p>
-                        <button type="submit" class="btn btn-sm btn-block">Place order</button>
+                            <p>Subtotal: &#8369; {{number_format($total, 2)}}</p>
+                            <button type="submit" class="btn btn-sm btn-block">Place order</button>
                     </div>
                 </div>
             </div>
         </div>
+        </form>
     </div>
     @include('layouts.footer')
 @endsection
 
-@section('checkoutJs')
-    <script>
-
-    </script>
+@section('checkoutProductJs')
+    <script src="{{asset('/js/mainpage/checkoutProduct.js')}}" defer></script>
 @endsection
