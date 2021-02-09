@@ -246,11 +246,11 @@ class UserController extends Controller
         } else {
             $orders = Cart::where('product_cookie_id', $cookie_id)->get();
         }
+
         if ($orders->count() == 0) {
             return redirect(route('Main'));
         } else {
             $shippingAddress = ShippingAddress::where('user_id', Auth::id())->get();
-            // dd($shippingAddress->count());
             return view('mainpage.checkout', compact(['orders', 'shippingAddress']));
         }
     }
@@ -316,6 +316,23 @@ class UserController extends Controller
 
     public function PlaceOrder(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'payment_method' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
+        }
+
+        if($request->payment_method == 'Cash On Delivery'){
+            $validator = Validator::make($request->all(), [
+                'buyer_photo' => 'required|mimes:jpeg,png,jpg|max:2048',
+                'identity' => 'required|mimes:jpeg,png,jpg|max:2048',
+            ]);
+            if ($validator->fails()) {
+                return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
+            }
+        }
+
         dd($request->all());
     }
 }

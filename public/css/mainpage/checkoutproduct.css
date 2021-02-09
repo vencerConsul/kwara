@@ -110,7 +110,7 @@ body {
 .container .card .card-footer {
     background: none;
 }
-.container .card .card-footer button {
+.container .place__order {
     box-shadow: none;
     background: var(--primary);
     color: #ffffff;

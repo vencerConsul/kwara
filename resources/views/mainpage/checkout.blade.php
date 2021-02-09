@@ -23,7 +23,7 @@ Checkout
         <form action="{{route('billing.information')}}" method="get">
             @csrf
         <div class="row">
-            <div class="col-lg-8">
+            <div class="col-lg-8 pr-1">
                 <div class="card rounded-0">
                     <div class="card-header">
                         Set Default Biling Address
@@ -80,7 +80,7 @@ Checkout
                     @endif
                 </div>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-4 pl-1">
                 <div class="card rounded-0 ">
                     <div class="card-header">
                         Your Order

@@ -20,10 +20,10 @@ Checkout
         </div>
     </div>
     <div class="container my-4 pl-0 pr-0">
-        <form action="{{route('place.order')}}" method="post">
+        <form action="{{route('place.order')}}" method="post" enctype="multipart/form-data">
             @csrf
         <div class="row">
-            <div class="col-lg-8">
+            <div class="col-lg-8 pr-1">
                 <div class="card">
                     <div class="card-header">
                         Choose payment method
@@ -63,13 +63,9 @@ Checkout
                 </div>
                 <div class="row" id="cashOnDelivery">
 
-
-
-
-                    
                 </div>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-4 pl-1">
                 <div class="card rounded-0 summary">
                     <div class="card-header">
                         Summary
@@ -82,6 +78,15 @@ Checkout
                             <small>{{$shippingAddress['country']}}</small><br />
                             <small>{{$shippingAddress['postal']}}</small><br />
                             <small>{{$shippingAddress['phone']}}</small><br />
+
+                            <div class="d-none">
+                                <input type="hidden" name="firstname" value="{{$shippingAddress['firstname']}}">
+                                <input type="hidden" name="lastname" value="{{$shippingAddress['lastname']}}">
+                                <input type="hidden" name="address" value="{{$shippingAddress['address']}}">
+                                <input type="hidden" name="country" value="{{$shippingAddress['country']}}">
+                                <input type="hidden" name="postal" value="{{$shippingAddress['postal']}}">
+                                <input type="hidden" name="phone" value="{{$shippingAddress['phone']}}">
+                            </div>
                         </div>
                         <hr class="my-3">
                         <h6>Product</h6>
@@ -104,7 +109,11 @@ Checkout
                     </div>
                     <div class="card-footer">
                             <p>Subtotal: &#8369; {{number_format($total, 2)}}</p>
-                            <button type="submit" class="btn btn-sm btn-block">Place order</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <button type="submit" class="btn btn-sm btn-block mt-2 place__order">Place order</button>
                     </div>
                 </div>
             </div>

@@ -119,7 +119,6 @@ class SellerController extends Controller
                         $random = substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 7) . $DateNow . $name;
 
                         $file->storeAs('public/images/products/', $random);
-                        // Image::make($file->getRealPath())->save('OriginalProductImg' . '/' . $random);
                         $product_image[] = $random;
                     } else {
                         return back()->with('toast_error', 'Image must be jpg or png ');
