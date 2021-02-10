@@ -307,32 +307,71 @@ class UserController extends Controller
             ];
             return view('mainpage.checkoutProduct', compact(['orders', 'shippingAddress']));
         }
-
-        // $order = Auth::user()->order()->create([
-        //     'cart' => serialize($cart),
-        //     // 'status' => 'pending'
-        // ]);
     }
 
     public function PlaceOrder(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'payment_method' => 'required'
-        ]);
-        if ($validator->fails()) {
-            return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
+        $cookie_id = request()->cookie('kwara_cookie');
+
+        if (Auth::check()) {
+            $cart = Cart::where('user_id', Auth::id())->orwhere('product_cookie_id', $cookie_id)->get();
+        } else {
+            $cart = Cart::where('product_cookie_id', $cookie_id)->get();
         }
 
-        if($request->payment_method == 'Cash On Delivery'){
+        if ($cart->count() == 0) {
+            return redirect(route('Main'));
+        } else {
             $validator = Validator::make($request->all(), [
-                'buyer_photo' => 'required|mimes:jpeg,png,jpg|max:2048',
-                'identity' => 'required|mimes:jpeg,png,jpg|max:2048',
+                'payment_method' => 'required'
             ]);
+
             if ($validator->fails()) {
                 return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
             }
-        }
 
-        dd($request->all());
+            if ($request->payment_method == 'Cash On Delivery') {
+                $validator = Validator::make($request->all(), [
+                    'buyer_photo' => 'required|mimes:jpeg,png,jpg|max:2048',
+                    'identity' => 'required|mimes:jpeg,png,jpg|max:2048',
+                ]);
+                if ($validator->fails()) {
+                    return back()->with('toast_error', $validator->messages()->all()[0])->withInput();
+                }
+            }
+
+
+            // check if there is a buyer photos and valid ID
+            if ($request->buyer_photo && $request->identity) {
+                date_default_timezone_set('Asia/Manila');
+                $string_dateNow = date('y-m-d');
+                $string_hourNow = date('h:i a');
+                // TO INTEGER
+                $integer_dateNow = strtotime($string_dateNow);
+                $integer_hourNow = strtotime($string_hourNow);
+                $DateNow =  $integer_dateNow + $integer_hourNow;
+
+                $b_photo = substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 7) . $DateNow .
+                    $request->buyer_photo->getClientOriginalName();
+
+                $b_id = substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 7) . $DateNow .
+                    $request->identity->getClientOriginalName();
+
+                // $file->storeAs('public/images/products/', $random);
+                $order = Auth::user()->order()->create([
+                    'firstname' => $request->firstname,
+                    'lastname' => $request->lastname,
+                    'firstname' => $request->firstname,
+                    'address' => $request->address,
+                    'country' => $request->country,
+                    'postal_code' => $request->postal_code,
+                    'phone_number' => $request->phone_number,
+                    'buyer_photo' => $b_photo,
+                    'buyer_indentity' => $b_id,
+                    'cart' => serialize($cart),
+                    'status' => 'pending'
+                ]);
+            }
+        }
     }
 }
