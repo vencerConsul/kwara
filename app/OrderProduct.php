@@ -5,7 +5,7 @@ namespace App;
 use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Model;
 use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Uuid;
 
-class Order extends Model
+class OrderProduct extends Model
 {
     use Uuid;
 
@@ -15,17 +15,13 @@ class Order extends Model
     protected $guarded = [];
 
     protected $fillable = [
-        'firstname', 'lastname', 'address', 'country', 'postal_code', 'phone_number',
-        'buyer_photo', 'buyer_identity', 'payment_method'
+        'seller_id', 'order_number', 'product_id', 'product_name', 'product_price', 'product_image', 'product_quantity',
+        'total_price', 'status'
     ];
 
-    public function user()
-    {
-        return $this->belongsTo('App\User');
-    }
 
-    public function orderProduct()
+    public function order()
     {
-        return $this->hasMany('App\OrderProduct');
+        return $this->belongsTo('App\Order');
     }
 }

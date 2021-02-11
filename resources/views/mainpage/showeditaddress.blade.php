@@ -18,7 +18,7 @@ Edit address
         {{-- row --}}
         <div class="row">
             {{-- column 1 --}}
-            <div class="col-lg-3 col-md-5 column__one">
+            <div class="col-lg-3 col-md-5 column__one pr-1">
                 <div class="column__one__content">
                     <div class="card my-5">
 
@@ -35,7 +35,12 @@ Edit address
                                         <div class="md-v-line"></div><i class="fas fa-user-edit mr-3"></i>Manage profile
                                     </li>
                                 </a>
-                                <a href="">
+                                <a href="{{route('user.order')}}">
+                                    <li class="list-group-item">
+                                        <div class="md-v-line"></div><i class="fas fa-shopping-bag mr-4"></i>My Order
+                                    </li>
+                                </a>
+                                <a href="{{route('user.mypurchases')}}">
                                     <li class="list-group-item">
                                         <div class="md-v-line"></div><i class="fas fa-money-bill-alt mr-3"></i>My purchases
                                     </li>
@@ -58,9 +63,9 @@ Edit address
             {{-- end column 1 --}}
 
             {{-- column 2 --}}
-            <div class="col-lg-9 col-md-7 column__two">
-                <div class="card my-5">
-                    <p class="card-header">Edit Shipping Address</p>
+            <div class="col-lg-9 col-md-7 column__two pl-1">
+                <p class="mt-5 mb-3">My Shipping Address</p>
+                <div class="card mb-2">
                     <div class="card-body">
                         {{-- form --}}
                         <form method="post" action="{{ route('update_shippingaddress')}}">

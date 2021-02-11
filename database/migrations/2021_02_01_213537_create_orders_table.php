@@ -18,17 +18,16 @@ class CreateOrdersTable extends Migration
             $table->uuid('id');
             $table->primary('id');
             $table->uuid('user_id')->nullable();
-            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('set null');
-            $table->text('cart');
-            $table->text('firstname');
-            $table->text('lastname');
-            $table->text('address');
-            $table->text('county');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->string('firstname');
+            $table->string('lastname');
+            $table->string('address');
+            $table->string('country');
             $table->text('postal_code');
             $table->text('phone_number');
-            $table->text('buyer_photo');
-            $table->text('buyer_indentity');
-            $table->text('status');
+            $table->text('payment_method');
+            $table->text('buyer_photo')->nullable();
+            $table->text('buyer_identity')->nullable();
             $table->timestamps();
         });
     }

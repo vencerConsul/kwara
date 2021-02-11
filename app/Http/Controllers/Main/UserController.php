@@ -5,12 +5,13 @@ namespace App\Http\Controllers\Main;
 use App\Cart;
 use App\Http\Controllers\Controller;
 use App\Order;
+use App\OrderProduct;
 use App\Product;
 use App\ShippingAddress;
 use App\User;
 use File;
+use Illuminate\Support\Str;
 use Validator;
-use Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -47,6 +48,22 @@ class UserController extends Controller
     {
         $checkPage = $this->checkPage();
         return view('mainpage.myaccount', compact(['checkPage']));
+    }
+
+    public function myOrder()
+    {
+        return view('mainpage.myorder');
+    }
+
+    public function myPurchases()
+    {
+        $orders = Auth::user()->order;
+        $orders->transform(function ($i, $key) {
+            $i->cart = unserialize($i->cart);
+            return $i;
+        });
+
+        return view('mainpage.mypurchases');
     }
 
     public function ShowChangePass()
@@ -313,11 +330,7 @@ class UserController extends Controller
     {
         $cookie_id = request()->cookie('kwara_cookie');
 
-        if (Auth::check()) {
-            $cart = Cart::where('user_id', Auth::id())->orwhere('product_cookie_id', $cookie_id)->get();
-        } else {
-            $cart = Cart::where('product_cookie_id', $cookie_id)->get();
-        }
+        $cart = Cart::where('user_id', Auth::id())->orwhere('product_cookie_id', $cookie_id)->get();
 
         if ($cart->count() == 0) {
             return redirect(route('Main'));
@@ -354,24 +367,51 @@ class UserController extends Controller
                 $b_photo = substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 7) . $DateNow .
                     $request->buyer_photo->getClientOriginalName();
 
-                $b_id = substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 7) . $DateNow .
-                    $request->identity->getClientOriginalName();
-
-                // $file->storeAs('public/images/products/', $random);
-                $order = Auth::user()->order()->create([
-                    'firstname' => $request->firstname,
-                    'lastname' => $request->lastname,
-                    'firstname' => $request->firstname,
-                    'address' => $request->address,
-                    'country' => $request->country,
-                    'postal_code' => $request->postal_code,
-                    'phone_number' => $request->phone_number,
-                    'buyer_photo' => $b_photo,
-                    'buyer_indentity' => $b_id,
-                    'cart' => serialize($cart),
-                    'status' => 'pending'
-                ]);
+                $b_id = substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 7) . $DateNow . $request->identity->getClientOriginalName();
             }
+
+            $new = new Order();
+            $new->user_id = Auth::user()->id;
+            $new->firstname = $request->firstname;
+            $new->lastname = $request->lastname;
+            $new->address = $request->address;
+            $new->country = $request->country;
+            $new->postal_code = $request->postal;
+            $new->phone_number = $request->phone;
+            $new->payment_method = $request->payment_method;
+            $new->save();
+
+            $order_id = $new->id;
+
+            foreach ($cart as $data) {
+                $totalPrice = $data->product_price * $data->product_quantity;
+
+                if (!empty($data->product_price) && !empty($data->product_size)) {
+                    $size = $data->product_price;
+                    $color = $data->product_color;
+                } else {
+                    $size = NULL;
+                    $color = NULL;
+                }
+                $OrderPro = new OrderProduct;
+                $OrderPro->order_id = $order_id;
+                $OrderPro->order_number = 'K-' . strtoupper($DateNow . Str::random(10));
+                $OrderPro->product_id = $data->product_id;
+                $OrderPro->seller_id = $data->seller_id;
+                $OrderPro->product_name = $data->product_name;
+                $OrderPro->product_price = $data->product_price;
+                $OrderPro->product_image = $data->product_image;
+                $OrderPro->product_quantity = $data->product_quantity;
+                $OrderPro->product_size = $size;
+                $OrderPro->product_color = $color;
+                $OrderPro->total_price = $totalPrice;
+                $OrderPro->save();
+            }
+            $request->buyer_photo->storeAs('public/images/buyer_photo/', $b_photo);
+            $request->identity->storeAs('public/images/buyer_identity/', $b_id);
+
+            Cart::truncate();
+            return redirect(route('user.myorder'));
         }
     }
 }

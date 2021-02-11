@@ -49,6 +49,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('checkout/place-order', 'Main\UserController@PlaceOrder')->name('place.order');
     // my account
     Route::get('/my-account', 'Main\UserController@myAccount')->name('user.myaccount');
+    //my Order
+    Route::get('/my-order', 'Main\UserController@myOrder')->name('user.order');
+    // my purchases
+    Route::get('/my-purchases', 'Main\UserController@myPurchases')->name('user.mypurchases');
     // show change password
     Route::get('/change-password', 'Main\UserController@ShowChangePass')->name('user.changepassword');
     // show add shipping address page

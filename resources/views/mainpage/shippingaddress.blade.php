@@ -18,7 +18,7 @@ Shipping Address
         {{-- row --}}
         <div class="row">
             {{-- column 1 --}}
-            <div class="col-lg-3 col-md-5 column__one">
+            <div class="col-lg-3 col-md-5 column__one pr-1">
                 <div class="column__one__content">
                     <div class="card my-5">
 
@@ -35,7 +35,12 @@ Shipping Address
                                         <div class="md-v-line"></div><i class="fas fa-user-edit mr-3"></i>Manage profile
                                     </li>
                                 </a>
-                                <a href="">
+                                <a href="{{route('user.order')}}">
+                                    <li class="list-group-item">
+                                        <div class="md-v-line"></div><i class="fas fa-shopping-bag mr-4"></i>My Order
+                                    </li>
+                                </a>
+                                <a href="{{route('user.mypurchases')}}">
                                     <li class="list-group-item">
                                         <div class="md-v-line"></div><i class="fas fa-money-bill-alt mr-3"></i>My purchases
                                     </li>
@@ -58,11 +63,11 @@ Shipping Address
             {{-- end column 1 --}}
 
             {{-- column 2 --}}
-            <div class="col-lg-9 col-md-7 column__two">
+            <div class="col-lg-9 col-md-7 column__two pl-1">
                 @if($shippingAddress->count() > 0)
-                    <div class="card my-5" id="addshippingaddress">
+                    <p class="mt-5 mb-3">My Shipping Address</p>
+                    <div class="card mb-2" id="addshippingaddress">
                         <div class="card-header">
-                            <h6 class="float-left font-weight-bold mt-2">My Shipping Address</h6>
                             <div class="dropdown">
 
                                 <i class="float-right fa fa-bars" data-toggle="dropdown"></i>
@@ -93,9 +98,7 @@ Shipping Address
                         </div>
                     </div>
                     @else
-                    <div class=" card mb-3  mt-5">
-                        <div class="card-body">No Shipping Address yet, fill up the form below</div>
-                            </div>
+                    <p class="mt-5 mb-3">No Shipping Address yet, fill up the form below</p>
                                 <div class="card" id="shippingcard">
                                     <div class="card-body">
                                         <h4 class="card-title">Add Shipping Address</h4>
