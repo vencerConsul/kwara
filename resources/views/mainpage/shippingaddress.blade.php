@@ -18,7 +18,7 @@ Shipping Address
         {{-- row --}}
         <div class="row">
             {{-- column 1 --}}
-            <div class="col-lg-3 col-md-5 column__one pr-1">
+            <div class="col-lg-3 col-md-5 column__one pr-1 pl-1">
                 <div class="column__one__content">
                     <div class="card my-5">
 
@@ -63,7 +63,7 @@ Shipping Address
             {{-- end column 1 --}}
 
             {{-- column 2 --}}
-            <div class="col-lg-9 col-md-7 column__two pl-1">
+            <div class="col-lg-9 col-md-7 column__two pr-1 pl-1">
                 @if($shippingAddress->count() > 0)
                     <p class="mt-5 mb-3">My Shipping Address</p>
                     <div class="card mb-2" id="addshippingaddress">
@@ -99,64 +99,64 @@ Shipping Address
                     </div>
                     @else
                     <p class="mt-5 mb-3">No Shipping Address yet, fill up the form below</p>
-                                <div class="card" id="shippingcard">
-                                    <div class="card-body">
-                                        <h4 class="card-title">Add Shipping Address</h4>
-                                        <form action="{{ route('addaddress') }}" method="POST">
-                                            @csrf
-                                            <div class="row">
-                                                <div class="col-lg-6">
-                                                    <div class="form-group">
-                                                        <div class="md-form mt-3">
-                                                            <input type="text" id="firstname" class="form-control" name="firstname" value="{{ old('firstname') }}" autocomplete="off">
-                                                            <label for="firstname">Firstname</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <div class="form-group">
-                                                        <div class="md-form mt-3">
-                                                            <input type="text" id="lastname" class="form-control" name="lastname" value="{{ old('lastname') }}" autocomplete="off">
-                                                            <label for="lastname">Lastname</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <div class="form-group">
-                                                        <select class="mdb-select mt-3 md-form form-control" name="country" value="Philippines" autocomplete="off">
-                                                            <option value="Philippines" selected>Philippines</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <div class="form-group">
-                                                        <div class="md-form mt-3">
-                                                            <input type="text" id="address" class="form-control" name="address" value="{{ old('address') }}" autocomplete="off">
-                                                            <label for="address">Address(house #, Brgy )</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <div class="form-group">
-                                                        <div class="md-form mt-3">
-                                                            <input type="text" id="postal_code" class="form-control" name="postal_code" value="{{ old('postal_code') }}" maxlength="4" onkeypress="return isNumber(event)" autocomplete="off">
-                                                            <label for="postal_code">Postal code</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <div class="form-group">
-                                                        <div class="md-form mt-3">
-                                                            <input type="text" id="phone_number" class="form-control" maxlength="11" name="phone_number" value="{{ old('phone_number') }}" autocomplete="off" onkeypress="return isNumber(event)">
-                                                            <label for="phone_number">Phone (number)</label>
-                                                        </div>
+                    <form action="{{ route('addaddress') }}" method="POST">
+                        @csrf
+                            <div class="card" id="shippingcard">
+                                <div class="card-body">
+                                    <h4 class="card-title">Add Shipping Address</h4>
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <div class="md-form mt-3">
+                                                        <input type="text" id="firstname" class="form-control" name="firstname" value="{{ old('firstname') }}" autocomplete="off">
+                                                        <label for="firstname">Firstname</label>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <input type="submit" class="btn btn-sm ml-0 mt-3" onClick="this.form.submit(); this.disabled=true; this.value='processing....'; document.getElementById('oldpass').disabled=true;document.getElementById('newpass').disabled=true;document.getElementById('confirmpass').disabled=true;" value="add address">
-                                        </form>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <div class="md-form mt-3">
+                                                        <input type="text" id="lastname" class="form-control" name="lastname" value="{{ old('lastname') }}" autocomplete="off">
+                                                        <label for="lastname">Lastname</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <select class="mdb-select mt-3 md-form form-control" name="country" value="Philippines" autocomplete="off">
+                                                        <option value="Philippines" selected>Philippines</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <div class="md-form mt-3">
+                                                        <input type="text" id="address" class="form-control" name="address" value="{{ old('address') }}" autocomplete="off">
+                                                        <label for="address">Address(house #, Brgy )</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <div class="md-form mt-3">
+                                                        <input type="text" id="postal_code" class="form-control" name="postal_code" value="{{ old('postal_code') }}" maxlength="4" onkeypress="return isNumber(event)" autocomplete="off">
+                                                        <label for="postal_code">Postal code</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <div class="md-form mt-3">
+                                                        <input type="text" id="phone_number" class="form-control" maxlength="11" name="phone_number" value="{{ old('phone_number') }}" autocomplete="off" onkeypress="return isNumber(event)">
+                                                        <label for="phone_number">Phone (number)</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+                                <input type="submit" class="btn btn-sm ml-0 my-2" onClick="this.form.submit(); this.disabled=true; this.value='processing....'; document.getElementById('oldpass').disabled=true;document.getElementById('newpass').disabled=true;document.getElementById('confirmpass').disabled=true;" value="add address">
+                                </form>
                                 @endif
                             </div>
                         </div>

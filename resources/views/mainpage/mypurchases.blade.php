@@ -18,7 +18,7 @@ My Purchases
         {{-- row --}}
         <div class="row">
             {{-- column 1 --}}
-            <div class="col-lg-3 col-md-5 column__one pr-1">
+            <div class="col-lg-3 col-md-5 column__one pr-1 pl-1">
                 <div class="column__one__content">
                     <div class="card my-5">
                         @if(Auth::user()->profile == 0)
@@ -61,7 +61,7 @@ My Purchases
             {{-- end column 1 --}}
 
             {{-- column 2 --}}
-            <div class="col-lg-9 col-md-7 column__two pl-1">
+            <div class="col-lg-9 col-md-7 column__two pr-1 pl-1">
                 <p class="mt-5 mb-3">My Purchases</p>
 
                 <div class="card mb-2">

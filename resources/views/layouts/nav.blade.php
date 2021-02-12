@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="{{ asset('css/layout/navbar_sidenav.css') }}">
 @endsection
 
-<nav class="navbar__content navbar sticky-top navbar-expand-lg scrolling-navbar">
+<nav class="navbar__content navbar fixed-top navbar-expand-lg scrolling-navbar">
     <div class="container">
         <a href="{{ URL::to('/') }}" class="navbar-brand"><span class="symbol">&#128615;</span> KWARA</a>
 

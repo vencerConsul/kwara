@@ -18,7 +18,7 @@ My Account
         {{-- row --}}
         <div class="row">
             {{-- column 1 --}}
-            <div class="col-lg-3 col-md-5 column__one pr-1">
+            <div class="col-lg-3 col-md-5 column__one pr-1 pl-1">
                 <div class="column__one__content">
                     <div class="card my-5">
 
@@ -63,38 +63,36 @@ My Account
             {{-- end column 1 --}}
 
             {{-- column 2 --}}
-            <div class="col-lg-9 col-md-7 column__two pl-1">
+            <div class="col-lg-9 col-md-7 column__two pr-1 pl-1">
                 <p class="mt-5 mb-3">Change my password</p>
+                {{-- form --}}
+                <form method="post" action="{{ route('changepassword')}}">
+                        @csrf
                 <div class="card mb-2">
                     <div class="card-body">
-                        {{-- form --}}
-                        <form method="post" action="{{ route('changepassword')}}">
-                                @csrf
-                            <div class="form-group p-2">
-                                <div class="md-form">
-                                    <input type="password" name="oldpassword" value="{{ old('oldpassword') }}" id="oldpass" class="form-control" autocomplete="off">
-                                    <label for="oldpass">Old password</label>
-                                </div>
+                        <div class="form-group p-2">
+                            <div class="md-form">
+                                <input type="password" name="oldpassword" value="{{ old('oldpassword') }}" id="oldpass" class="form-control" autocomplete="off">
+                                <label for="oldpass">Old password</label>
                             </div>
-                            <div class="form-group p-2">
-                                <div class="md-form">
-                                    <input type="password" name="newpassword" id="newpass" class="form-control">
-                                    <label for="newpass">New password</label>
-                                </div>
+                        </div>
+                        <div class="form-group p-2">
+                            <div class="md-form">
+                                <input type="password" name="newpassword" id="newpass" class="form-control">
+                                <label for="newpass">New password</label>
                             </div>
-                            <div class="form-group p-2">
-                                <div class="md-form">
-                                    <input type="password" name="confirmpassword" id="confirmpass" class="form-control">
-                                    <label for="confirmpass">Confirm password</label>
-                                </div>
+                        </div>
+                        <div class="form-group p-2">
+                            <div class="md-form">
+                                <input type="password" name="confirmpassword" id="confirmpass" class="form-control">
+                                <label for="confirmpass">Confirm password</label>
                             </div>
-                            <div class="form-group p-2">
-                                <input type="submit" class="btn btn-sm ml-0" onClick="this.form.submit(); this.disabled=true; this.value='updating....'; document.getElementById('oldpass').disabled=true;document.getElementById('newpass').disabled=true;document.getElementById('confirmpass').disabled=true;" value="update password">
-                            </div>
-                        </form>
-                        {{-- end form --}}
+                        </div>
                     </div>
                 </div>
+                <input type="submit" class="btn btn-sm ml-0 mb-2" onClick="this.form.submit(); this.disabled=true; this.value='updating....'; document.getElementById('oldpass').disabled=true;document.getElementById('newpass').disabled=true;document.getElementById('confirmpass').disabled=true;" value="update password">
+                </form>
+                {{-- end form --}}
             </div>
             {{-- end column 2 --}}
         </div>

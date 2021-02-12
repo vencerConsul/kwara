@@ -50,9 +50,11 @@ class UserController extends Controller
         return view('mainpage.myaccount', compact(['checkPage']));
     }
 
+    // get all the user order
     public function myOrder()
     {
-        return view('mainpage.myorder');
+        $orderProduct = OrderProduct::orderBy('order_products.created_at', 'desc')->join('orders', 'order_products.order_id', 'orders.id')->where('orders.user_id', Auth::id())->get();
+        return view('mainpage.myorder', compact(['orderProduct']));
     }
 
     public function myPurchases()
@@ -353,21 +355,23 @@ class UserController extends Controller
                 }
             }
 
+            date_default_timezone_set('Asia/Manila');
+            $string_dateNow = date('y-m-d');
+            $string_hourNow = date('h:i a');
+            // TO INTEGER
+            $integer_dateNow = strtotime($string_dateNow);
+            $integer_hourNow = strtotime($string_hourNow);
+            $DateNow =  $integer_dateNow + $integer_hourNow;
 
             // check if there is a buyer photos and valid ID
             if ($request->buyer_photo && $request->identity) {
-                date_default_timezone_set('Asia/Manila');
-                $string_dateNow = date('y-m-d');
-                $string_hourNow = date('h:i a');
-                // TO INTEGER
-                $integer_dateNow = strtotime($string_dateNow);
-                $integer_hourNow = strtotime($string_hourNow);
-                $DateNow =  $integer_dateNow + $integer_hourNow;
-
                 $b_photo = substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 7) . $DateNow .
                     $request->buyer_photo->getClientOriginalName();
 
                 $b_id = substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 7) . $DateNow . $request->identity->getClientOriginalName();
+
+                $request->buyer_photo->storeAs('public/images/buyer_photo/', $b_photo);
+                $request->identity->storeAs('public/images/buyer_identity/', $b_id);
             }
 
             $new = new Order();
@@ -407,11 +411,8 @@ class UserController extends Controller
                 $OrderPro->total_price = $totalPrice;
                 $OrderPro->save();
             }
-            $request->buyer_photo->storeAs('public/images/buyer_photo/', $b_photo);
-            $request->identity->storeAs('public/images/buyer_identity/', $b_id);
 
-            Cart::truncate();
-            return redirect(route('user.myorder'));
+            return redirect(route('user.order'));
         }
     }
 }

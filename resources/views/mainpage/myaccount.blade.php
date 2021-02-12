@@ -18,7 +18,7 @@ My Account
         {{-- row --}}
         <div class="row">
             {{-- column 1 --}}
-            <div class="col-lg-3 col-md-5 column__one pr-1">
+            <div class="col-lg-3 col-md-5 column__one pr-1 pl-1">
                 <div class="column__one__content">
                     <div class="card my-5">
                         <div class="dropdown">
@@ -78,13 +78,13 @@ My Account
             {{-- end column 1 --}}
 
             {{-- column 2 --}}
-            <div class="col-lg-9 col-md-7 column__two pl-1">
+            <div class="col-lg-9 col-md-7 column__two pl-1 pr-1">
                 <p class="mt-5 mb-3">My Account</p>
-                <div class="card mb-2">
-                    <div class="card-body">
-                        {{-- form --}}
-                        <form action="{{ route('updateInfo') }}" method="POST">
-                            @csrf
+                {{-- form --}}
+                <form action="{{ route('updateInfo') }}" method="POST">
+                    @csrf
+                    <div class="card mb-2">
+                        <div class="card-body">
                             <div class="form-group p-2">
                                 <div class="md-form">
                                     <input type="email" id="email" class="form-control" value="{{ Auth::user()->email }}" disabled>
@@ -109,13 +109,11 @@ My Account
                                     <label for="lastname">Lastname</label>
                                 </div>
                             </div>
-                            <div class="form-group p-2">
-                                <input type="submit" class="btn btn-sm ml-0" onClick="this.form.submit(); this.disabled=true; this.value='updating....'; document.getElementById('firstname').disabled=true;document.getElementById('lastname').disabled=true;" value="update info">
-                            </div>
-                        </form>
-                        {{-- end form --}}
+                        </div>
                     </div>
-                </div>
+                <input type="submit" class="btn btn-sm ml-0 mb-2" onClick="this.form.submit(); this.disabled=true; this.value='updating....'; document.getElementById('firstname').disabled=true;document.getElementById('lastname').disabled=true;" value="update info">
+                </form>
+                {{-- end form --}}
             </div>
             {{-- end column 2 --}}
         </div>

@@ -18,7 +18,7 @@ Edit address
         {{-- row --}}
         <div class="row">
             {{-- column 1 --}}
-            <div class="col-lg-3 col-md-5 column__one pr-1">
+            <div class="col-lg-3 col-md-5 column__one pr-1 pl-1">
                 <div class="column__one__content">
                     <div class="card my-5">
 
@@ -63,64 +63,62 @@ Edit address
             {{-- end column 1 --}}
 
             {{-- column 2 --}}
-            <div class="col-lg-9 col-md-7 column__two pl-1">
+            <div class="col-lg-9 col-md-7 column__two pr-1 pl-1">
                 <p class="mt-5 mb-3">My Shipping Address</p>
+                {{-- form --}}
+                <form method="post" action="{{ route('update_shippingaddress')}}">
+                    @csrf
                 <div class="card mb-2">
                     <div class="card-body">
-                        {{-- form --}}
-                        <form method="post" action="{{ route('update_shippingaddress')}}">
-                            @csrf
-                            <input type="hidden" name="shipping_id" value="{{ $editshippingaddress->id }}">
-                            <div class="form-group p-2">
-                                <div class="form-group">
-                                    <div class="md-form">
-                                        <input type="text" id="firstname" class="form-control" name="firstname" value="{{ $editshippingaddress->firstname }}" autocomplete="off">
-                                        <label for="firstname">Firstname</label>
-                                    </div>
+                        <input type="hidden" name="shipping_id" value="{{ $editshippingaddress->id }}">
+                        <div class="form-group p-2">
+                            <div class="form-group">
+                                <div class="md-form">
+                                    <input type="text" id="firstname" class="form-control" name="firstname" value="{{ $editshippingaddress->firstname }}" autocomplete="off">
+                                    <label for="firstname">Firstname</label>
                                 </div>
                             </div>
-                            <div class="form-group p-2">
+                        </div>
+                        <div class="form-group p-2">
+                            <div class="md-form mt-3">
+                                <input type="text" id="lastname" class="form-control" name="lastname" value="{{ $editshippingaddress->lastname }}" autocomplete="off">
+                                <label for="lastname">Lastname</label>
+                            </div>
+                        </div>
+                        <div class="form-group p-2">
+                            <select class="mdb-select mt-3 md-form form-control" id="country" name="country" value="{{ $editshippingaddress->country }}" autocomplete="off">
+                                <option value="Philippines" selected>Philippines</option>
+                            </select>
+                        </div>
+                        <div class="form-group p-2">
+                            <div class="form-group">
                                 <div class="md-form mt-3">
-                                    <input type="text" id="lastname" class="form-control" name="lastname" value="{{ $editshippingaddress->lastname }}" autocomplete="off">
-                                    <label for="lastname">Lastname</label>
+                                    <input type="text" id="address" class="form-control" name="address" value="{{ $editshippingaddress->address }}" autocomplete="off">
+                                    <label for="address">Address(house #, Brgy )</label>
                                 </div>
                             </div>
-                            <div class="form-group p-2">
-                                <select class="mdb-select mt-3 md-form form-control" id="country" name="country" value="{{ $editshippingaddress->country }}" autocomplete="off">
-                                    <option value="Philippines" selected>Philippines</option>
-                                </select>
-                            </div>
-                            <div class="form-group p-2">
-                                <div class="form-group">
-                                    <div class="md-form mt-3">
-                                        <input type="text" id="address" class="form-control" name="address" value="{{ $editshippingaddress->address }}" autocomplete="off">
-                                        <label for="address">Address(house #, Brgy )</label>
-                                    </div>
+                        </div>
+                        <div class="form-group p-2">
+                            <div class="form-group">
+                                <div class="md-form mt-3">
+                                    <input type="text" id="postal_code" class="form-control" name="postal_code" value="{{ $editshippingaddress->postal_code }}" maxlength="4" onkeypress="return isNumber(event)" autocomplete="off">
+                                    <label for="postal_code">Postal code</label>
                                 </div>
                             </div>
-                            <div class="form-group p-2">
-                                <div class="form-group">
-                                    <div class="md-form mt-3">
-                                        <input type="text" id="postal_code" class="form-control" name="postal_code" value="{{ $editshippingaddress->postal_code }}" maxlength="4" onkeypress="return isNumber(event)" autocomplete="off">
-                                        <label for="postal_code">Postal code</label>
-                                    </div>
+                        </div>
+                        <div class="form-group p-2">
+                            <div class="form-group">
+                                <div class="md-form mt-3">
+                                    <input type="text" id="phone_number" class="form-control" maxlength="11" name="phone_number" value="{{ $editshippingaddress->phone_number }}" autocomplete="off" onkeypress="return isNumber(event)">
+                                    <label for="phone_number">Phone (number)</label>
                                 </div>
                             </div>
-                            <div class="form-group p-2">
-                                <div class="form-group">
-                                    <div class="md-form mt-3">
-                                        <input type="text" id="phone_number" class="form-control" maxlength="11" name="phone_number" value="{{ $editshippingaddress->phone_number }}" autocomplete="off" onkeypress="return isNumber(event)">
-                                        <label for="phone_number">Phone (number)</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group p-2">
-                                <input type="submit" class="btn btn-sm ml-0 mt-3" onClick="this.form.submit(); this.disabled=true; this.value='updating....'; document.getElementById('firstname').disabled=true;document.getElementById('lastname').disabled=true;document.getElementById('country').disabled=true;document.getElementById('address').disabled=true;document.getElementById('postal_code').disabled=true;document.getElementById('phone_number').disabled=true;" value="update address">
-                            </div>
-                        </form>
-                        {{-- end form --}}
+                        </div>
                     </div>
                 </div>
+                <input type="submit" class="btn btn-sm ml-0 mb-2" onClick="this.form.submit(); this.disabled=true; this.value='updating....'; document.getElementById('firstname').disabled=true;document.getElementById('lastname').disabled=true;document.getElementById('country').disabled=true;document.getElementById('address').disabled=true;document.getElementById('postal_code').disabled=true;document.getElementById('phone_number').disabled=true;" value="update address">
+                </form>
+                {{-- end form --}}
             </div>
             {{-- end column 2 --}}
         </div>
