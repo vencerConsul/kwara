@@ -53,19 +53,14 @@ class UserController extends Controller
     // get all the user order
     public function myOrder()
     {
-        $orderProduct = OrderProduct::orderBy('order_products.created_at', 'desc')->join('orders', 'order_products.order_id', 'orders.id')->where('orders.user_id', Auth::id())->get();
+        $orderProduct = OrderProduct::orderBy('order_products.created_at', 'desc')->join('orders', 'order_products.order_id', 'orders.id')->where('orders.user_id', Auth::id())->where('order_products.status', '!=', 'delivered')->get();
         return view('mainpage.myorder', compact(['orderProduct']));
     }
 
-    public function myPurchases()
+    public function OrderedHistory()
     {
-        $orders = Auth::user()->order;
-        $orders->transform(function ($i, $key) {
-            $i->cart = unserialize($i->cart);
-            return $i;
-        });
-
-        return view('mainpage.mypurchases');
+        $orderProduct = OrderProduct::orderBy('order_products.created_at', 'desc')->join('orders', 'order_products.order_id', 'orders.id')->where('orders.user_id', Auth::id())->where('order_products.status', 'delivered')->get();
+        return view('mainpage.orderhistory', compact(['orderProduct']));
     }
 
     public function ShowChangePass()
@@ -372,6 +367,9 @@ class UserController extends Controller
 
                 $request->buyer_photo->storeAs('public/images/buyer_photo/', $b_photo);
                 $request->identity->storeAs('public/images/buyer_identity/', $b_id);
+            }else{
+                $b_photo = NULL;
+                $b_id = NULL;
             }
 
             $new = new Order();
@@ -383,6 +381,8 @@ class UserController extends Controller
             $new->postal_code = $request->postal;
             $new->phone_number = $request->phone;
             $new->payment_method = $request->payment_method;
+            $new->buyer_photo = $b_photo;
+            $new->buyer_identity = $b_id;
             $new->save();
 
             $order_id = $new->id;

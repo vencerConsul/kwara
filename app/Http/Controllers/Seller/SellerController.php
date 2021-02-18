@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Product;
 use App\Seller;
 use App\Appointments;
+use App\OrderProduct;
 use Auth;
 use Cookie;
 use DateTime;
@@ -36,7 +37,7 @@ class SellerController extends Controller
         // date and time now
         $string_dateNow = date('y-m-d');
         $string_hourNow = date('h:i a');
-        $stringDate =  $string_dateNow .' '. $string_hourNow;
+        $stringDate =  $string_dateNow . ' ' . $string_hourNow;
         $DateNow = strtotime($stringDate);
         if ($DateNow >= $EXPIRATION_DATE && $STATUS == "not-approve" || $DateNow >= $EXPIRATION_DATE && $STATUS == "pending") {
             Seller::where('id', Auth::id())->delete();
@@ -143,9 +144,9 @@ class SellerController extends Controller
                 $discount = $request->product__discount;
             }
 
-            if($request->product__size){
+            if ($request->product__size) {
                 $size = implode('|', $request->product__size);
-            }else{
+            } else {
                 $size = NULL;
             }
             if ($request->product__color) {
@@ -254,18 +255,18 @@ class SellerController extends Controller
             if ($product_image && request()->old__files) {
                 $p_image = implode('|', $product_image) . '|' . implode('|', request()->old__files);
             }
-            if(request()->file('files') && empty(request()->old__files)){
+            if (request()->file('files') && empty(request()->old__files)) {
                 $p_image = implode('|', $product_image);
             }
 
             // compute the number of files added
-            if(empty(request()->old__files) && empty(request()->file('files'))){
+            if (empty(request()->old__files) && empty(request()->file('files'))) {
                 return back()->with('toast_error', 'please upload atleast 1 image');
-            }elseif(empty(request()->old__files)){
+            } elseif (empty(request()->old__files)) {
                 $countFiles = 0;
-            }elseif(empty(request()->file('files'))){
+            } elseif (empty(request()->file('files'))) {
                 $countFiles = 0;
-            }else{
+            } else {
                 $countFiles = count(request()->old__files) + count(request()->file('files'));
             }
             //check if the file is greather than 6, then invalid
@@ -290,5 +291,18 @@ class SellerController extends Controller
             return redirect()->route('seller.dashboard')->with('toast_success', 'Product updated');
         }
         return abort(404);
+    }
+
+    // product buyer view
+    public function Buyer()
+    {
+        if (Auth::user()->status == "approved") {
+            $orderProduct = OrderProduct::orderBy('order_products.created_at', 'desc')->join('orders', 'order_products.order_id', 'orders.id')->where('order_products.seller_id', Auth::id())->where('order_products.status', '!=', 'delivered')->get();
+
+            // dd($orderProduct);
+            return view('seller.buyer', compact(['orderProduct']));
+        } else {
+            return abort(404);
+        }
     }
 }

@@ -19,11 +19,11 @@ Checkout
             </ul>
         </div>
     </div>
-    <div class="container my-4 pl-0 pr-0">
+    <div class="container my-4">
         <form action="{{route('place.order')}}" method="post" enctype="multipart/form-data">
             @csrf
         <div class="row">
-            <div class="col-lg-8 pr-1">
+            <div class="col-lg-8">
                 <div class="card">
                     <div class="card-header">
                         Choose payment method
@@ -65,7 +65,7 @@ Checkout
 
                 </div>
             </div>
-            <div class="col-lg-4 pl-1">
+            <div class="col-lg-4">
                 <div class="card rounded-0 summary">
                     <div class="card-header">
                         Summary

@@ -19,7 +19,7 @@ My Account
         <div class="row">
             {{-- column 1 --}}
             <div class="col-lg-3 col-md-5 column__one pr-1 pl-1">
-                <div class="column__one__content">
+                <div class="column__one__content sticky-top mb-2">
                     <div class="card my-5">
                         <div class="dropdown">
                             <i class="fa fa-align-left pt-1 pl-1" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -43,7 +43,7 @@ My Account
                         @else
                         <img class="img-fluid ml-5 mr-5 mx-auto column__one__profile" src="/profile_images/{{ Auth::user()->profile }}">
                         @endif
-                        <h5 class="text-capitalize text-center my-3">{{ Auth::user()->firstname .' '. Auth::user()->lastname }}</h5>
+                        <small class="text-capitalize text-center my-3">{{ Auth::user()->firstname .' '. Auth::user()->lastname }}</small>
                         <div class="card-body p-0">
                             <ul class="list-group">
                                 <a class="disabled">
@@ -56,9 +56,9 @@ My Account
                                         <div class="md-v-line"></div><i class="fas fa-shopping-bag mr-4"></i>My Order
                                     </li>
                                 </a>
-                                <a href="{{route('user.mypurchases')}}">
+                                <a href="{{route('user.orderHistory')}}">
                                     <li class="list-group-item">
-                                        <div class="md-v-line"></div><i class="fas fa-money-bill-alt mr-3"></i>My purchases
+                                        <div class="md-v-line"></div><i class="fas fa-money-bill-alt mr-3"></i>Order History
                                     </li>
                                 </a>
                                 <a href="{{ route('user.changepassword') }}">
@@ -111,7 +111,7 @@ My Account
                             </div>
                         </div>
                     </div>
-                <input type="submit" class="btn btn-sm ml-0 mb-2" onClick="this.form.submit(); this.disabled=true; this.value='updating....'; document.getElementById('firstname').disabled=true;document.getElementById('lastname').disabled=true;" value="update info">
+                <input type="submit" class="btn btn-sm ml-0 mb-2" onClick="this.form.submit(); this.disabled=true; this.value='updating....'; document.getElementById('firstname').disabled=true;document.getElementById('lastname').disabled=true;" value="update info &#10230;">
                 </form>
                 {{-- end form --}}
             </div>

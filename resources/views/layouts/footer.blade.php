@@ -7,12 +7,20 @@
             <div class="col-lg-4 flex__to__center footer__column__one">
                 <div class="footer__context__one">
                     <div class="logo"><span class="symbol">&#128615;</span> KWARA</div>
-                    
+                    <form>
+                        <div class="input-group mt-4 mb-2">
+                            <input type="text" class="form-control" placeholder="Your email address">
+                            <div class="input-group-append">
+                                <button class="btn btn-sm btn-light m-0 waves-effect" type="button">Subscribe</button>
+                            </div>
+                        </div>
+                    </form>
+                    <small>Subscribe today to get the latest news & updates.</small>
                 </div>
             </div>
             <div class="col-lg-4 flex__to__center footer__column__two">
                 <div class="footer__context__two">
-                    <h5>WEBSITE PAGES</h5>
+                    <h5 class="my-2">WEBSITE PAGES</h5>
                     <ul>
                         <li><a href="#home__">HOME</a></li>
                         <li><a href="#about__">ABOUT</a></li>

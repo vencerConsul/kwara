@@ -1,10 +1,11 @@
 #my__account {
     background: #f3f3f3;
 }
-#my__account .column__one, #my__account .column__two{
+#my__account .column__one,
+#my__account .column__two {
     margin-top: 5em !important;
 }
-#my__account .column__one .sticky-top{
+#my__account .column__one .sticky-top {
     position: sticky;
     top: 6em !important;
 }
@@ -35,7 +36,7 @@
     .list-group
     .list-group-item:hover {
     background: var(--light-grey);
-    transition: all 0.5s ease-in;
+    transition: 0.1s;
 }
 #my__account
     .column__one
@@ -47,8 +48,9 @@
     border: none !important;
     border-top: 1px solid var(--light-grey) !important;
     border-radius: 0 !important;
-    color: var(--grey);
-    font-weight: 100;
+    color: #000000;
+    font-weight: normal;
+    font-size: 13px;
 }
 #my__account
     .column__one
@@ -58,8 +60,6 @@
     .list-group
     .list__group__active {
     background: var(--light-grey);
-    border-right: 2px solid #ffffff !important;
-    border-left: 2px solid #ffffff !important;
 }
 #my__account .column__two .card {
     box-shadow: none;
@@ -77,12 +77,12 @@
     border-radius: 0;
     text-transform: capitalize;
 }
-#my__account .column__two .order__details small{
+#my__account .column__two .order__details small {
     color: #7b7b7b;
     text-transform: capitalize;
     line-height: 1.5rem;
 }
-#my__account .column__two .order__details small span{
+#my__account .column__two .order__details small span {
     color: #000000;
 }
 i {
@@ -97,5 +97,9 @@ i {
 @media only screen and (max-width: 767px) {
     #my__account .column__one .column__one__content .card {
         display: none;
+    }
+    #my__account .column__one,
+    #my__account .column__two {
+        margin-top: 1em !important;
     }
 }

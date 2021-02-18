@@ -23,6 +23,23 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style>
+        .cookies{
+            position: fixed;
+            background: #000000;
+            color: #ffffff;
+            bottom: 0;
+            width: 100%;
+            height: 51px;
+            z-index: 1040;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .cookies button{
+            border: 1px solid #ffffff;
+        }
+    </style>
 
     {{-- mainpage style --}}
     @yield('navbar_sidenavtyle')
@@ -77,32 +94,5 @@
     @yield('checkoutJs')
     @yield('checkoutProductJs')
     @yield('showalltablesscript')
-        <script type="text/javascript">
-        window.addEventListener("load", function () {
-            setCookie()
-            checkAbandonCart()
-
-            async function setCookie(){
-                await fetch('{{route("set.cookie")}}', {
-                        method: "GET",
-                    })
-                    .then(result => {
-                        return result.json()
-                    }).then(data =>{
-                        if(data.status === 'ok'){
-                            Swal.fire(
-                                'Allow cookies for better performance'
-                            )
-                        }
-                })
-            }
-            async function checkAbandonCart(){
-                await fetch('{{route("check.AbandonCart")}}', {
-                        method: "GET",
-                    });
-            }
-        });
-    </script>
-
 </body>
 </html>

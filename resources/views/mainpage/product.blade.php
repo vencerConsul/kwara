@@ -20,7 +20,7 @@ Product
                         $image = explode("|", $data->product_image);
                     @endphp
                     <div class="main__image">
-                        <img id="index-image" src="{{asset('/storage/images/products/'.$image[0].'')}}" alt="{{$data->product_name}}" class="img-fluid">
+                        <img id="index-image" data-src="{{asset("/storage/images/products/$image[0]")}}" src="https://lh3.googleusercontent.com/proxy/qaxLXd0TwCu_wIn1b2WML2c5QQaDZdhHrb9WCL85TBwkCn7bfz2ogi2SHXAjDrS7cUt-91goTLA1PXI33DzOQARrvsLbFuJl8JNX19oPdkvvHg" alt="{{$data->product_name}}" class="img-fluid p__image">
                     </div>
                     @if(count($image) > 1)
                         <div class="main__image__button my-2">

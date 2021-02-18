@@ -3,8 +3,9 @@ body {
     background: #f3f3f3;
 }
 .container__product {
-    background: #ffffff;
     padding: 1em 1em;
+    background: #ffffff;
+    margin-top: 6em !important;
 }
 .container__product .column__one {
     display: flex;

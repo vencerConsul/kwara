@@ -24,7 +24,7 @@
 #footer__content .container-fluid .flex__to__center .footer__context__one {
     text-align: center;
 }
-#footer__content .container-fluid .flex__to__center .footer__context__one p {
+#footer__content .container-fluid .flex__to__center .footer__context__one small {
     color: #ffffff;
 }
 #footer__content
@@ -60,6 +60,7 @@
     li
     a {
     color: #ffffff;
+    font-size: .8rem;
 }
 #footer__content .container-fluid .flex__to__center .footer__context__three {
     color: #ffffff;

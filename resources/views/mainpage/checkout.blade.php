@@ -19,14 +19,14 @@ Checkout
             </ul>
         </div>
     </div>
-    <div class="container my-4 pl-0 pr-0">
+    <div class="container my-4">
         <form action="{{route('billing.information')}}" method="get">
             @csrf
         <div class="row">
-            <div class="col-lg-8 pr-1">
-                <div class="card rounded-0">
+            <div class="col-lg-8">
+                <div class="card rounded-0 mb-2">
                     <div class="card-header">
-                        Set Default Biling Address
+                        Biling Address
                     </div>
                     <div class="card-body">
                         <form action="">
@@ -80,8 +80,8 @@ Checkout
                     @endif
                 </div>
             </div>
-            <div class="col-lg-4 pl-1">
-                <div class="card rounded-0 ">
+            <div class="col-lg-4">
+                <div class="card rounded-0">
                     <div class="card-header">
                         Your Order
                     </div>

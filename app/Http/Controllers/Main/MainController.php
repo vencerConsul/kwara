@@ -23,7 +23,7 @@ class MainController extends Controller
     {
         if (empty($request->cookie('kwara_cookie'))) {
             $value = Str::random(40);
-            $minutes = 1440;
+            $minutes = 43800;
             Cookie::queue('kwara_cookie', $value, $minutes);
             return response()->json(['status' => 'ok']);
         } else {
@@ -100,10 +100,11 @@ class MainController extends Controller
                 echo '<div class="col-lg-2 col-sm-4 col-6 section__three__col">
                     <a href="product/' . $prod->id . '">
                         <div class="card mb-2">
-                            <img class="card-img-top" src="' . asset("/storage/images/products/$image[0]") . '" />
+                            <img class="card-img-top p__image" data-src="' . asset("/storage/images/products/$image[0]") . '" src="https://lawnsolutionsaustralia.com.au/wp-content/themes/lsamaster/images/ajax-loader.gif"/>
                             <div class="card-body">
-                                <p class="card-title p-name">' . $prod->product_name . '</p>
-                                <p class="card-text">&#8369; ' . number_format($prod->product_price) . '</p>
+                                <small class="card-title p-name">' . $prod->product_name . '</small>
+                                <br />
+                                <small class="card-text">&#8369; ' . number_format($prod->product_price, 2) . '</small>
                             </div>
                         </div>
                     </a>
@@ -180,10 +181,10 @@ class MainController extends Controller
 
         $image = explode("|", $product->product_image);
 
-        if (Cart::where('product_cookie_id', $cookie_id)->where('product_id', $product_id)->exists() || Cart::where('user_id', Auth::id())->where('product_id', $product_id)->exists()) {
+        if (Cart::where('product_cookie_id', $cookie_id)->where('user_id', NULL)->where('product_id', $product_id)->exists() || Cart::where('user_id', Auth::id())->where('product_id', $product_id)->exists()) {
             Cart::where('product_id', $product_id)->where('product_cookie_id', $cookie_id)->increment('product_quantity', $request->product_quantity);
 
-            Cart::where('product_id', $product_id)->where('user_id', Auth::id())->increment('product_quantity', $request->product_quantity);
+            // Cart::where('product_id', $product_id)->where('user_id', Auth::id())->increment('product_quantity', $request->product_quantity);
             return response()->json(['status' => 'duplicate']);
         } else {
             $cartInsert = Cart::create([
@@ -210,7 +211,7 @@ class MainController extends Controller
         }
     }
 
-    public function CountCart()
+    public function CountCart(Request $request)
     {
         $cookie_id = request()->cookie('kwara_cookie');
         if (Auth::check()) {
@@ -236,9 +237,9 @@ class MainController extends Controller
             foreach ($carts as $cart) {
 
                 echo '<div class="box__cart d-flex mb-2" width="70px" id="parent' . $cart->id . '">
-                    <img src="' . asset("/storage/images/products/$cart->product_image") . '" alt="' . $cart->product_name . '" class="img-fluid mb-3" style="height: 70px; width:70px; object-fit:cover;">
+                    <img data-src="' . asset("/storage/images/products/$cart->product_image") . '" src="https://lawnsolutionsaustralia.com.au/wp-content/themes/lsamaster/images/ajax-loader.gif"  alt="' . $cart->product_name . '"  class="img-fluid mb-3 p__image" style="height: 70px; width:70px; object-fit:cover;">
                     <div class="box__cart__body ml-4 d-flex flex-column">
-                        <h6 class="text-capitalize font-weight-bold">' . $cart->product_name . '</h6>
+                        <small class="text-capitalize font-weight-bold p-name">' . $cart->product_name . '</small>
                         <small>' . number_format($cart->product_price) . '</small>
                         <small>x ' . $cart->product_quantity . '</small>
                     </div>
@@ -269,9 +270,9 @@ class MainController extends Controller
         echo number_format($total, 2);
     }
 
-    public function RemoveCart($id)
+    public function RemoveCart(Request $request)
     {
-        $delete = Cart::where('id', $id)->delete();
+        $delete = Cart::where('id', $request->id)->delete();
         if ($delete) {
             return response()->json(['status' => 'ok']);
         }
@@ -318,7 +319,7 @@ class MainController extends Controller
                 echo '<tr id="cart__row__' . $cart->id . '" class="animated ">
                     <td>
                         <div class="cart__info">
-                            <img src="' . asset("/storage/images/products/$cart->product_image") . '" alt="' . $cart->product_name . '">
+                            <img class="p__image" data-src="' . asset("/storage/images/products/$cart->product_image") . '" src="https://lawnsolutionsaustralia.com.au/wp-content/themes/lsamaster/images/ajax-loader.gif" alt="' . $cart->product_name . '" style="height:80px;width:80px;">
                             <div>
                                 <p>' . $cart->product_name  . '</p>
                                 <small>&#8369; ' . number_format($cart->product_price, 2) . '</small>

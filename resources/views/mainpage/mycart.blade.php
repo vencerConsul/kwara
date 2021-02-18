@@ -19,10 +19,9 @@ My cart
             </ul>
         </div>
     </div>
-    
+
     <div class="container container__cart my-4">
         {{-- cart table --}}
-
     </div>
 
     @include('layouts.footer')
@@ -48,6 +47,7 @@ My cart
                     return result.text()
                 }).then(data =>{
                     containerCart.innerHTML = data
+                    observee()
             })
         }
 

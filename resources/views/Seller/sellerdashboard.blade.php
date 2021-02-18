@@ -268,21 +268,13 @@ Dashboard
                     </li>
 
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-chart-pie"></i>
+                        <a href="{{route('product.buyer')}}" class="nav-link">
+                            <i class="fas fa-users nav-icon"></i>
                             <p>
-                                Charts
-                                <i class="right fas fa-angle-left"></i>
+                                Buyer
+                                <i class="fas fa-long-arrow-alt-right right"></i>
                             </p>
                         </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="pages/charts/chartjs.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>ChartJS</p>
-                                </a>
-                            </li>
-                        </ul>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link">
@@ -367,7 +359,7 @@ Dashboard
                     <div class="col-lg-3 col-6">
                         <div class="small-box bg-light mb-3">
                             <div class="inner">
-                                <h3>150</h3>
+                                <h3>455</h3>
                                 <p>Total Sales</p>
                             </div>
                             <div class="icon">

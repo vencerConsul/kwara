@@ -26,8 +26,6 @@ body {
     flex-wrap: wrap;
 }
 .container__cart table td .cart__info img {
-    height: 80px;
-    width: 80px;
     margin-right: 10px;
     object-fit: cover;
 }
@@ -80,6 +78,7 @@ td:last-child{
 }
 .indicator {
     background: #ffffff;
+    margin-top: 6em !important;
 }
 .progress-box {
     position: relative;

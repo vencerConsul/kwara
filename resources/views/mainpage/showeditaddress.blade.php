@@ -19,7 +19,7 @@ Edit address
         <div class="row">
             {{-- column 1 --}}
             <div class="col-lg-3 col-md-5 column__one pr-1 pl-1">
-                <div class="column__one__content">
+                <div class="column__one__content sticky-top mb-2">
                     <div class="card my-5">
 
                         @if(Auth::user()->profile == 0)
@@ -27,7 +27,7 @@ Edit address
                         @else
                         <img class="img-fluid ml-5 mr-5 mx-auto column__one__profile mt-4" src="/profile_images/{{ Auth::user()->profile }}">
                         @endif
-                        <h5 class="text-capitalize text-center my-3">{{ Auth::user()->firstname .' '. Auth::user()->lastname }}</h5>
+                        <small class="text-capitalize text-center my-3">{{ Auth::user()->firstname .' '. Auth::user()->lastname }}</small>
                         <div class="card-body p-0">
                             <ul class="list-group">
                             <a href="{{ route('user.myaccount') }}">
@@ -40,9 +40,9 @@ Edit address
                                         <div class="md-v-line"></div><i class="fas fa-shopping-bag mr-4"></i>My Order
                                     </li>
                                 </a>
-                                <a href="{{route('user.mypurchases')}}">
+                                <a href="{{route('user.orderHistory')}}">
                                     <li class="list-group-item">
-                                        <div class="md-v-line"></div><i class="fas fa-money-bill-alt mr-3"></i>My purchases
+                                        <div class="md-v-line"></div><i class="fas fa-money-bill-alt mr-3"></i>Order History
                                     </li>
                                 </a>
                             <a href="{{ route('user.changepassword') }}">

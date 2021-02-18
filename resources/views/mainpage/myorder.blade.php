@@ -26,7 +26,7 @@ My Orders
                         @else
                         <img class="img-fluid ml-5 mr-5 mx-auto column__one__profile" src="/profile_images/{{ Auth::user()->profile }}">
                         @endif
-                        <h5 class="text-capitalize text-center my-3">{{ Auth::user()->firstname .' '. Auth::user()->lastname }}</h5>
+                        <small class="text-capitalize text-center my-3">{{ Auth::user()->firstname .' '. Auth::user()->lastname }}</small>
                         <div class="card-body p-0">
                             <ul class="list-group">
                                 <a href="{{ route('user.myaccount') }}">
@@ -39,9 +39,9 @@ My Orders
                                         <div class="md-v-line"></div><i class="fas fa-shopping-bag mr-4"></i>My Order
                                     </li>
                                 </a>
-                                <a href="{{route('user.mypurchases')}}">
+                                <a href="{{route('user.orderHistory')}}">
                                     <li class="list-group-item">
-                                        <div class="md-v-line"></div><i class="fas fa-money-bill-alt mr-3"></i>My purchases
+                                        <div class="md-v-line"></div><i class="fas fa-money-bill-alt mr-3"></i>Order History
                                     </li>
                                 </a>
                                 <a href="{{ route('user.changepassword') }}">
@@ -64,36 +64,39 @@ My Orders
             <div class="col-lg-9 col-md-7 column__two pr-1 pl-1">
                 <p class="mt-5 mb-3">My Orders</p>
 
-                @foreach($orderProduct as $order)
-                <div class="card mb-2">
-                    <div class="card-header">
-                        <small>Tracking number: <span class="font-weight-bold">{{$order->order_number}}</span></small>
-                    </div>
-                    <div class="card-body order__details">
-                        <div class="row">
-                            <div class="col-lg-4 d-flex flex-column align-items-center justify-content-center">
-                                <img src="{{ asset("/storage/images/products/$order->product_image")}}" alt="{{$order->product_name}}" style="width: 100px; height: 100px; object-fit:cover;">
-                            </div>
-                            <div class="col-lg-4 d-flex flex-column align-items-start justify-content-center">
-                                <small>Product Name: <span>{{$order->product_name}}</span></small>
-                                <small>Product Price: <span>&#8369; {{number_format($order->product_price, 2)}}</span></small>
-                                <small>Product Quantity: <span>{{$order->product_quantity}}</span></small>
-                                @if($order->product_size && $order->product_color)
-                                <small>Product Size: <span>{{$order->product_size}}</span></small>
-                                <small>Product Color: <span>{{$order->product_color}}</span></small>
-                                @endif
-                            </div>
-                            <div class="col-lg-4 d-flex flex-column justify-content-center">
-                                <small>Order Status: <span class="bg-warning p-1 rounded">{{$order->status}}</span></small>
-                                <small>Created: <span>{{date('F d, y, h:i', strtotime($order->created_at))}}</span></small>
-                                <small>Total Price: <span>&#8369; {{number_format($order->product_price * $order->product_quantity, 2)}}</span></small>
+                @if($orderProduct->count() > 0)
+                    @foreach($orderProduct as $order)
+                    <div class="card mb-2">
+                        <div class="card-header">
+                            <small>Tracking number: <span class="font-weight-bold">{{$order->order_number}}</span></small>
+                        </div>
+                        <div class="card-body order__details">
+                            <div class="row">
+                                <div class="col-lg-4 d-flex flex-column align-items-center justify-content-center">
+                                    <img src="{{ asset("/storage/images/products/$order->product_image")}}" alt="{{$order->product_name}}" style="width: 100px; height: 100px; object-fit:cover;">
+                                </div>
+                                <div class="col-lg-4 d-flex flex-column align-items-start justify-content-center">
+                                    <small>Product Name: <span>{{$order->product_name}}</span></small>
+                                    <small>Product Price: <span>&#8369; {{number_format($order->product_price, 2)}}</span></small>
+                                    <small>Product Quantity: <span>{{$order->product_quantity}}</span></small>
+                                    @if($order->product_size && $order->product_color)
+                                    <small>Product Size: <span>{{$order->product_size}}</span></small>
+                                    <small>Product Color: <span>{{$order->product_color}}</span></small>
+                                    @endif
+                                </div>
+                                <div class="col-lg-4 d-flex flex-column justify-content-center">
+                                    <small>Order Status: <span class="@if($order->status == 'pending') bg-warning text-white @else bg-info text-white @endif p-1 rounded">{{$order->status}}</span></small>
+                                    <small>Created: <span>{{date('F d, y, h:i', strtotime($order->created_at))}}</span></small>
+                                    <small>Total Price: <span>&#8369; {{number_format($order->product_price * $order->product_quantity, 2)}}</span></small>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                @endforeach
-
-                <a href="" class="btn ml-0 mb-2">Continue shopping</a>
+                    @endforeach
+                @else
+                    <p class="my-2">No Order History</p>
+                @endif
+                <a href="{{ URL::to('/') }}" class="btn ml-0 btn-sm mb-2"><small>&#8617; Continue shopping</small></a>
             </div>
             {{-- end column 2 --}}
         </div>

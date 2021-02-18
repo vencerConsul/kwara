@@ -15,7 +15,7 @@
 
             <button class="btn btn-sm text-white cart_button" onclick="cart()">
                 <i class="fab fa-opencart" title="cart"></i>
-                <span class="cart_text">cart</span>
+                <span class="cart_text"><small>cart</small></span>
                 <span id="cart__count"></span>
             </button>
         </div>
@@ -26,11 +26,11 @@
             @endguest
             @auth
                 @if(Route::current()->getName() == 'Main')
-                    <a class="nav-link mr-2" href="{{ route('user.myaccount') }}">My account</a>
+                    <a class="nav-link mr-2" href="{{ route('user.myaccount') }}"><small>My account</small></a>
                 @else
-                    <a class="nav-link mr-2" href="{{ route('Main') }}">Home</a>
+                    <a class="nav-link mr-2" href="{{ route('Main') }}"><small>Home</small></a>
                 @endif
-                    <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit()">Sign out</a>
+                    <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit()"><small>Sign out</small></a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         @csrf
                     </form>
@@ -104,9 +104,8 @@
             @auth
             <div class="sidebar__user__info">
                 <div class="sidebar__user__basic__info">
-                    <span class="my-1 text-capitalize">{{ Auth::user()->firstname .' '. Auth::user()->lastname }}</span>
+                    <small class="my-1 text-capitalize">{{ Auth::user()->firstname .' '. Auth::user()->lastname }}</small>
                     <br />
-                    <small class="text-info">{{ Auth::user()->email}}</small>
                 </div>
             </div>
             @endauth
@@ -128,12 +127,7 @@
                 <a class="@if(Route::current()->getName() == 'Main' || Route::current()->getName() == 'user')disabled @endif" href="{{ URL::to('/') }}">
                     <li>
                         <i class="fa fa-home mr-3"></i>
-                        @if(Route::current()->getName() == 'Main' || Route::current()->getName() == 'user')&nbsp;Home
-                        @if(Route::current()->getName() == 'Main' || Route::current()->getName() == 'user')
-                        <i class="fas fa-caret-left"></i>
-                        @endif
-                        @else continue shopping
-                        @endif
+                        Home
                     </li>
                 </a>
                 <a class="@if(Route::current()->getName() == 'user.myaccount') disabled @endif" href="{{ route('user.myaccount') }}">
@@ -145,9 +139,20 @@
                         @endif
                     </li>
                 </a>
-                <a href="{{ route('user.myaccount') }}">
+                <a class="@if(Route::current()->getName() == 'user.order') disabled @endif" href="{{ route('user.order') }}">
                     <li>
-                        <i class="fas fa-archive mr-3"></i>&nbsp; My Purchases
+                        <i class="fas fa-shopping-bag mr-3"></i>&nbsp; My Order
+                        @if(Route::current()->getName() == 'user.order')
+                        <i class="fas fa-caret-left"></i>
+                        @endif
+                    </li>
+                </a>
+                <a class="@if(Route::current()->getName() == 'user.orderHistory') disabled @endif" href="{{ route('user.orderHistory') }}">
+                    <li>
+                        <i class="far fa-list-alt mr-3"></i>&nbsp; Order history
+                        @if(Route::current()->getName() == 'user.orderHistory')
+                        <i class="fas fa-caret-left"></i>
+                        @endif
                     </li>
                 </a>
                 <a class="@if(Route::current()->getName() == 'user.changepassword') disabled @endif" href="{{ route('user.changepassword') }}">
@@ -192,10 +197,50 @@
     </div>
 </div>
 
+<div id="cookiess"></div>
 
 @section('NavbarScript')
 <script src="{{ asset('/js/mainpage/nav.js') }}" defer></script>
 <script>
+    window.addEventListener("load", function () {
+            setCookie()
+            checkAbandonCart()
+
+            async function setCookie(){
+                let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                await fetch('{{route("set.cookie")}}', {
+                        method: "post",
+                        credentials: "same-origin",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Accept": "application/json, text-plain, */*",
+                            "X-Requested-With": "XMLHttpRequest",
+                            "X-CSRF-TOKEN": token
+                            },
+
+                    })
+                    .then(result => {
+                        return result.json()
+                    }).then(data =>{
+                        if(data.status === 'ok'){
+                            document.querySelector('#cookiess').innerHTML = '<div class="cookies"><small>This website uses cookies to give you best possible experience.</small><button class="btn btn-sm" onClick="document.getElementByClassName("cookies").style.display="none";"><small>Enable</small></button></div>'
+                        }
+                })
+            }
+            async function checkAbandonCart(){
+                let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                await fetch('{{route("check.AbandonCart")}}', {
+                        method: "post",
+                        credentials: "same-origin",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Accept": "application/json, text-plain, */*",
+                            "X-Requested-With": "XMLHttpRequest",
+                            "X-CSRF-TOKEN": token
+                            },
+                    });
+            }
+        });
 
     document.addEventListener("DOMContentLoaded", function() {
         @if(Route::current()->getName() == 'Main' || Route::current()->getName() == 'view.cart' || Route::current()->getName() == 'product')
@@ -207,16 +252,24 @@
             document.querySelector('.products').innerHTML = '<div class="text-center big "><div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div></div>';
         @endif
         @if(Route::current()->getName() == 'view.cart')
-            document.querySelector(".container__cart").innerHTML = '<div class="text-center big "><div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div></div>';
+            document.querySelector(".container__cart").innerHTML = '<div class="text-center big "><div class="spinner-border" role="status" style="width:200px;height:200px;"><span class="sr-only">Loading...</span></div></div>';
         @endif
     });
 
     async function getCart(){
         const cartBody = document.querySelector(".cart__body")
         const cartFooter = document.querySelector(".cart__footer")
+        let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
         await fetch('{{route("get.cart")}}', {
-                method: "GET",
+                method: "post",
+                credentials: "same-origin",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json, text-plain, */*",
+                    "X-Requested-With": "XMLHttpRequest",
+                    "X-CSRF-TOKEN": token
+                    },
             })
             .then(result => {
                 return result.text()
@@ -227,15 +280,25 @@
                     cartFooter.style.display = 'none';
                 }else{
                     cartFooter.style.display = 'block';
+                    checkProductLength();
+                    observee()
                 }
         })
     }
 
     async function countCart(){
         let countCart = document.querySelector('#cart__count');
+        let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
         await fetch('{{route("count.cart")}}', {
-                method: "GET",
+                method: "post",
+                credentials: "same-origin",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json, text-plain, */*",
+                    "X-Requested-With": "XMLHttpRequest",
+                    "X-CSRF-TOKEN": token
+                    },
             })
             .then(result => {
                 return result.json()
@@ -247,9 +310,17 @@
 
     async function getSubtotal(){
         const cartSubtotal = document.querySelector("#Subtotal")
+        let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
         await fetch('{{route("get.cartSubtotal")}}', {
-                method: "GET",
+                method: "post",
+                credentials: "same-origin",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Accept": "application/json, text-plain, */*",
+                            "X-Requested-With": "XMLHttpRequest",
+                            "X-CSRF-TOKEN": token
+                            },
             })
             .then(result => {
                 return result.text()
@@ -258,14 +329,26 @@
         })
     }
 
-    function removeCart(id) {
+    async function removeCart(id) {
         let parent = document.querySelector("#parent" + id);
+        let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-        $.ajax({
-            url: '{{ URL("remove-cart") }}/'+id,
-            type: "get",
-            dataType: "JSON",
-            success: function(data){
+        await fetch('{{route("remove.cart")}}', {
+                method: "post",
+                credentials: "same-origin",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json, text-plain, */*",
+                    "X-Requested-With": "XMLHttpRequest",
+                    "X-CSRF-TOKEN": token
+                    },
+                body: JSON.stringify({
+                    id: id
+                })
+            })
+            .then(result => {
+                return result.json()
+            }).then(data =>{
                 if(data.status == 'ok'){
                     Swal.fire({
                         icon: 'success',
@@ -278,7 +361,46 @@
                         getRowCart()
                     @endif
                 }
+        })
+    }
+
+    function checkProductLength() {
+        try {
+            String.prototype.trimCardPname = function(length) {
+                return this.length > length
+                    ? this.substring(0, length) + "..."
+                    : this;
+            };
+
+            var p_name, i;
+            p_name = document.querySelectorAll(".p-name");
+
+            for (i = 0; i < p_name.length; i++) {
+                if (p_name[i].innerText.length > 6) {
+                    p_name[i].innerText = p_name[i].innerText.trimCardPname(11);
+                }
             }
+        } catch (err) {
+            alert(err.message);
+        }
+    }
+
+    function observee() {
+        const images = document.querySelectorAll(".p__image");
+
+        const imgOptions = {};
+        const imgObserver = new IntersectionObserver((entries, imgObserver) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+
+                const img = entry.target;
+                img.src = img.getAttribute("data-src");
+                imgObserver.unobserve(entry.target);
+            });
+        }, imgOptions);
+
+        images.forEach(img => {
+            imgObserver.observe(img);
         });
     }
 

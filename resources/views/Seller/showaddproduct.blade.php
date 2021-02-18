@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-Dashboard
+Add Product
 @endsection
 
 @section('sellerstyle')

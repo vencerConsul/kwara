@@ -10,24 +10,24 @@ if (App::environment('production')) {
 Auth::routes();
 
 // ---------- GET---------- //
-Route::get('/setting-cookie', 'Main\MainController@setCookie')->name('set.cookie');
+Route::post('/setting-cookie', 'Main\MainController@setCookie')->name('set.cookie');
 // get all products
-Route::get('/all-products', 'Main\MainController@ShowProducts')->name('all.products');
+Route::post('/all-products', 'Main\MainController@ShowProducts')->name('all.products');
 // check abandon carts
-Route::get('/check-abandon-cart', 'Main\MainController@DeleteAbandonCart')->name('check.AbandonCart');
+Route::post('/check-abandon-cart', 'Main\MainController@DeleteAbandonCart')->name('check.AbandonCart');
 // show main page
 Route::get('', 'Main\MainController@main')->name('Main');
 
 //add to cart
 Route::post('/add-to-cart', 'Main\MainController@addToCart')->name('add.cart');
 //count cart
-Route::get('/count-cart', 'Main\MainController@CountCart')->name('count.cart');
+Route::post('/count-cart', 'Main\MainController@CountCart')->name('count.cart');
 //get to cart
-Route::get('/get-cart', 'Main\MainController@getToCart')->name('get.cart');
+Route::post('/get-cart', 'Main\MainController@getToCart')->name('get.cart');
 //get subtotal cart
-Route::get('/get-cart-subtotal', 'Main\MainController@getCartSubtotal')->name('get.cartSubtotal');
+Route::post('/get-cart-subtotal', 'Main\MainController@getCartSubtotal')->name('get.cartSubtotal');
 // remove cart
-Route::get('/remove-cart/{id}', 'Main\MainController@RemoveCart')->name('remove.cart');
+Route::post('/remove-cart', 'Main\MainController@RemoveCart')->name('remove.cart');
 // view cart
 Route::get('/my-cart', 'Main\MainController@ViewCart')->name('view.cart');
 // get row cart
@@ -48,19 +48,19 @@ Route::group(['middleware' => 'auth'], function () {
     // checkout product
     Route::post('checkout/place-order', 'Main\UserController@PlaceOrder')->name('place.order');
     // my account
-    Route::get('/my-account', 'Main\UserController@myAccount')->name('user.myaccount');
+    Route::get('/account/my-account', 'Main\UserController@myAccount')->name('user.myaccount');
     //my Order
-    Route::get('/my-order', 'Main\UserController@myOrder')->name('user.order');
+    Route::get('/account/my-order', 'Main\UserController@myOrder')->name('user.order');
     // my purchases
-    Route::get('/my-purchases', 'Main\UserController@myPurchases')->name('user.mypurchases');
+    Route::get('/account/order-history', 'Main\UserController@OrderedHistory')->name('user.orderHistory');
     // show change password
-    Route::get('/change-password', 'Main\UserController@ShowChangePass')->name('user.changepassword');
+    Route::get('/account/change-password', 'Main\UserController@ShowChangePass')->name('user.changepassword');
     // show add shipping address page
-    Route::get('/shipping-address', 'Main\UserController@ShowshippingAddress')->name('user.shippingaddress');
+    Route::get('/account/shipping-address', 'Main\UserController@ShowshippingAddress')->name('user.shippingaddress');
     // delete shipping AddAddress
-    Route::get('/delete-address/{id}', 'Main\UserController@DeleteAddress')->name('delete-address');
+    Route::get('/account/delete-address/{id}', 'Main\UserController@DeleteAddress')->name('delete-address');
     // edit address
-    Route::get('/edit-address/{id}', 'Main\UserController@EditAddress')->name('user.editaddress');
+    Route::get('/account/edit-address/{id}', 'Main\UserController@EditAddress')->name('user.editaddress');
 
     // -------------POST----------- //
     // to update info
@@ -106,6 +106,8 @@ Route::group(['guard' => 'seller'], function () {
     // show edit product
     Route::get('edit-product/{id}', 'Seller\SellerController@EditProduct')->name('edit-product');
     Route::post('update-product/{id}', 'Seller\SellerController@UpdateProduct')->name('update-product');
+    // buyer view
+    Route::get('/product-buyer', 'Seller\SellerController@Buyer')->name('product.buyer');
 });
 
 
