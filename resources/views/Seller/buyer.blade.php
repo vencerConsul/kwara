@@ -185,50 +185,48 @@ Buyers
         <section class="content p-3">
             <div class="container-fluid">
 
-                <div class="row">
-                    <div class="col-lg-12">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Product</th>
-                                    <th>Buyer</th>
-                                    <th>Buyer Photo</th>
-                                    <th>Buyer ID</th>
-                                    <th>Shift to</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($orderProduct as $o)
-                                <tr>
-                                    <td>
-                                        <div class="product__info">
-                                            <img src="{{ asset("/storage/images/products/$o->product_image")}}" alt="{{$o->product_name}}">
-                                            <div class="d-flex flex-column justify-content-center">
-                                                <p>{{$o->product_name}}</p>
-                                                <small>&#8369; {{number_format($o->product_price, 2)}}</small>
-                                                <small>Qty: {{$o->product_quantity}}</small>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="text-capitalize">{{$o->firstname . ' ' . $o->lastname}}</td>
-                                    <td class="identity"><img src="{{ asset("/storage/images/buyer_photo/$o->buyer_photo")}}" alt=""></td>
-                                    <td class="identity"><img src="{{ asset("/storage/images/buyer_identity/$o->buyer_identity")}}" alt=""></td>
-                                    <td>
-                                        <div class="address__info">
-                                            <small>{{$o->address}}</small>
-                                            <small>{{$o->country}}</small>
-                                            <small>{{$o->postal_code}}</small>
-                                            <small>{{$o->phone_number}}</small>
-                                        </div>
-                                    </td>
-                                    <td><button class="btn btn-primary">Action</button></td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                    @foreach($orderProduct as $o)
+                        <div class="card mb-2">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <small>Buyer name: <span class="font-weight-bold text-capitalize">{{$o->firstname . ' ' . $o->lastname}}</span></small>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <small>Tracking number: <span class="font-weight-bold">{{$o->order_number}}</span></small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-4 d-flex flex-column justify-content-center">
+                                        <img src="{{ asset("/storage/images/products/$o->product_image")}}" alt="{{$o->product_name}}" style="width: 100px; height: 100px; object-fit:cover;">
+                                    </div>
+                                    <div class="col-lg-4 d-flex flex-column justify-content-center">
+                                        <small>Product Name: <span>{{$o->product_name}}</span></small>
+                                        <small>Product Price: <span>&#8369; {{number_format($o->product_price, 2)}}</span></small>
+                                        <small>Product Quantity: <span>{{$o->product_quantity}}</span></small>
+                                        @if($o->product_size && $o->product_color)
+                                        <small>Product Size: <span>{{$o->product_size}}</span></small>
+                                        <small>Product Color: <span>{{$o->product_color}}</span></small>
+                                        @endif
+                                    </div>
+                                    <div class="col-lg-4 d-flex flex-column justify-content-center">
+                                        <small>Order Status: <span class="@if($o->status == 'pending') text-warning @else text-info @endif font-weight-bold">{{$o->status}}</span></small>
+                                        <small>Payment mode: <span>{{$o->payment_method}}</span></small>
+                                        <small>Ordered: <span>{{date('F d, y, h:i', strtotime($o->created_at))}}</span></small>
+                                        <small>Total Price: <span>&#8369; {{number_format($o->product_price * $o->product_quantity, 2)}}</span></small>
+                                    </div>
+                                </div>
+                            </div>
+                            @if($o->buyer_photo)
+                                <div class="card-footer d-flex p-0 buyer__identity">
+                                    <a class="btn btn-sm btn-block" data-original="{{ asset("/storage/images/buyer_photo/$o->buyer_photo")}}" onclick="buyerPT(this)">Buyer Photo</a>
+                                    <a class="btn btn-sm btn-block" data-original="{{ asset("/storage/images/buyer_identity/$o->buyer_identity")}}" onclick="buyerID(this)">Buyer ID</a>
+                                </div>
+                            @endif
+                        </div>
+                    @endforeach
             </div>
         </section>
     </div>
@@ -237,6 +235,9 @@ Buyers
             Gotchu 2020
         </div>
     </footer>
+</div>
+<div class="modal__identity" onclick="closeModal(this)">
+    <img src="https://images.pexels.com/photos/1693095/pexels-photo-1693095.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="" class="full__view">
 </div>
 <!-- ./wrapper -->
 @endsection
@@ -247,4 +248,23 @@ Buyers
 <script src="{{ asset('/dashboard/js/adminlte.js') }}"></script>
 <script src="{{ asset('/dashboard/js/demo.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+<script>
+
+    function buyerPT(buyer_p){
+        document.querySelector('.full__view').src = buyer_p.getAttribute('data-original');
+        document.querySelector('.modal__identity').classList.add('open')
+    }
+
+    function buyerID(buyer_p){
+        document.querySelector('.full__view').src = buyer_p.getAttribute('data-original');
+        document.querySelector('.modal__identity').classList.add('open')
+    }
+
+    function closeModal(e){
+        if(e.classList.contains('modal__identity')){
+            document.querySelector('.modal__identity').classList.remove('open')
+        }
+    }
+
+</script>
 @endsection

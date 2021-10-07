@@ -359,8 +359,8 @@ Dashboard
                     <div class="col-lg-3 col-6">
                         <div class="small-box bg-light mb-3">
                             <div class="inner">
-                                <h3>455</h3>
-                                <p>Total Sales</p>
+                                <h5 class="font-weight-bold">455</h5>
+                                <small>Total Sales</small>
                             </div>
                             <div class="icon">
                                 <i class="fa fa-coins"></i>
@@ -372,8 +372,8 @@ Dashboard
                     <div class="col-lg-3 col-6">
                         <div class="small-box bg-light mb-3">
                             <div class="inner">
-                                <h3 id="count__product">0</h3>
-                                <p>Total Products</p>
+                                <h5 class="font-weight-bold" id="count__product">0</h5>
+                                <small>Total Products</small>
                             </div>
                             <div class="icon">
                                 <i class="fab fa-product-hunt"></i>
@@ -385,8 +385,8 @@ Dashboard
                     <div class="col-lg-3 col-6">
                         <div class="small-box bg-light mb-3">
                             <div class="inner">
-                                <h3>65</h3>
-                                <p>Product Visitors</p>
+                                <h5 class="font-weight-bold">65</h5>
+                                <small>Product Visitors</small>
                             </div>
                             <div class="icon">
                                 <i class="fa fa-eye"></i>
@@ -398,8 +398,8 @@ Dashboard
                     <div class="col-lg-3 col-6">
                         <div class="small-box bg-light mb-3">
                             <div class="inner">
-                                <h3>53</h3>
-                                <p>Reports</p>
+                                <h5 class="font-weight-bold">53</h5>
+                                <small>Reports</small>
                             </div>
                             <div class="icon">
                                 <i class="fas fa-info-circle"></i>
@@ -413,8 +413,8 @@ Dashboard
                     <div class="col-lg-12">
                         <div class="card dashboard__table" id="tableProducts">
                             <div class="card-header">
-                                <h3 class="card-title">Products</h3>
-                            <a href="{{ route('seller.addProduct') }}" class="btn float-right"><i class="fa fa-plus"></i> product</a>
+                                <small class="card-title"><small>Products</small></small>
+                            <a href="{{ route('seller.addProduct') }}" class="btn float-right btn-sm"><i class="fa fa-plus"></i> <small>product</small></a>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body table-responsive table-buttons">
@@ -422,41 +422,44 @@ Dashboard
                                 <table id="sellerTable" class="table dt-responsive nowrap" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th>Photo</th>
-                                            <th>Product name</th>
-                                            <th>Product price</th>
-                                            <th>Product stocks</th>
-                                            <th>Product type</th>
-                                            <th>Product discount</th>
-                                            <th>Action</th>
+                                            <th><small>Product</small></th>
+                                            <th><small>Action</small></th>
                                         </tr>
                                     </thead>
-                                    <tbody class="text-center">
+                                    <tbody>
                                         @foreach($sellerProducts as $sp)
                                             <tr id="t__row{{ $sp->id}}">
-                                                <td>
+                                                <td class="d-flex">
                                                     @php $productImageFirst = explode("|", $sp->product_image);
                                                     @endphp
-                                                    <img class="img-fluid" src="{{ asset('/storage/images/products/'.$productImageFirst[0].'') }}" alt="{{$sp->product_name}}" style="width: 50px;height:50px; object-fit:cover;">
-                                                </td>
-                                                <td class="text-capitalize">{{$sp->product_name}}</td>
-                                                <td>&#8369 {{number_format($sp->product_price)}}</td>
-                                                <td>{{$sp->product_stock}}</td>
-                                                <td>
-                                                    {{$sp->product_type}}
-                                                    @if(!empty($sp->product_size && !empty($sp->product_color)))
-                                                            <br />
-                                                            {{str_replace("|", ", ", $sp->product_size)}}
-                                                            <br />
-                                                            {{str_replace("|", ", ", $sp->product_color)}}
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    @if($sp->product_discount === 100)
-                                                        No discount
-                                                    @else
-                                                        {{$sp->product_discount}}%
-                                                    @endif
+                                                    <img class="img-fluid" src="{{ asset('/storage/images/products/'.$productImageFirst[0].'') }}" alt="{{$sp->product_name}}" style="width: 70px;height:70px; object-fit:cover;">
+                                                    <div class="ml-2 d-flex justify-content-center align-items-center">
+                                                        <div class="row">
+                                                            <div class="col-lg-6 d-flex flex-column">
+                                                                <small class="text-capitalize p-name">{{$sp->product_name}}</small>
+                                                                <small>&#8369 {{number_format($sp->product_price)}}</small>
+                                                                <small>Stock: {{$sp->product_stock}}</small>
+                                                            </div>
+                                                            <div class="col-lg-6 d-flex flex-column">
+                                                                <small>
+                                                                    {{$sp->product_type}}
+                                                                @if(!empty($sp->product_size && !empty($sp->product_color)))
+                                                                        <br />
+                                                                        {{str_replace("|", ", ", $sp->product_size)}}
+                                                                        <br />
+                                                                        {{str_replace("|", ", ", $sp->product_color)}}
+                                                                @endif
+                                                                </small>
+                                                                <small>
+                                                                    @if($sp->product_discount === 100)
+                                                                    No discount
+                                                                @else
+                                                                    {{$sp->product_discount}}%
+                                                                @endif
+                                                                </small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </td>
                                                 <td>
                                                     <button class="btn btn-sm">

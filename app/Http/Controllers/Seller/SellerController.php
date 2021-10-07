@@ -270,7 +270,7 @@ class SellerController extends Controller
                 $countFiles = count(request()->old__files) + count(request()->file('files'));
             }
             //check if the file is greather than 6, then invalid
-            if ($countFiles > 4) {
+            if ($countFiles > 1) {
                 return back()->with('toast_error', 'You can only upload 4 images');
             }
             Product::where('id', $id)->update([

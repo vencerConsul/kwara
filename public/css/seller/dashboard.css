@@ -95,6 +95,9 @@ input[type="password"]:focus:not([readonly]) {
     box-shadow: none;
     border-radius: 0;
 }
+.small-box .icon i{
+    font-size: 30px !important;
+}
 .dashboard__table{
     box-shadow: none;
     border-radius: 0;
