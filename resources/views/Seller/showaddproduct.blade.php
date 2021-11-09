@@ -266,6 +266,7 @@ Add Product
                                                     id="select__product__type" style="width: 100%; height: 100%;" onchange="changeProductType(this)">
                                                         <option class="text-white" value="" disabled selected>Product type</option>
                                                         <option value="Foods">Foods</option>
+                                                        <option value="Vape">Vape</option>
                                                         <option value="Clothes">Clothes</option>
                                                         <option value="Foot wears">Foot wears</option>
                                                         <option value="Accessories">Accessories</option>

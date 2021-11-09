@@ -95,12 +95,12 @@ class MainController extends Controller
 
         if ($products->count() > 0) {
             foreach ($products as $prod) {
-                $image = explode('|', $prod->product_image);
+                $image = explode('|', $prod->product_image_url);
 
                 echo '<div class="col-lg-2 col-sm-4 col-6 section__three__col">
                     <a href="product/' . $prod->id . '">
                         <div class="card mb-2">
-                            <img class="card-img-top p__image" data-src="' . asset("/storage/images/products/$image[0]") . '" src="https://lawnsolutionsaustralia.com.au/wp-content/themes/lsamaster/images/ajax-loader.gif"/>
+                            <img class="card-img-top p__image" data-src="' . $image[0] . '" src="https://lawnsolutionsaustralia.com.au/wp-content/themes/lsamaster/images/ajax-loader.gif"/>
                             <div class="card-body">
                                 <small class="card-title p-name">' . $prod->product_name . '</small>
                                 <br />
@@ -135,6 +135,7 @@ class MainController extends Controller
                     'product_discount',
                     'product_description',
                     'product_image',
+                    'product_image_url',
                     'product_size',
                     'product_color',
                     'status',
@@ -151,6 +152,7 @@ class MainController extends Controller
                 'product_discount',
                 'product_description',
                 'product_image',
+                'product_image_url',
                 'status',
                 'store_name'
             ))->first();
@@ -180,6 +182,7 @@ class MainController extends Controller
         }
 
         $image = explode("|", $product->product_image);
+        $image_url = explode("|", $product->product_image_url);
 
         if (Cart::where('product_cookie_id', $cookie_id)->where('user_id', NULL)->where('product_id', $product_id)->exists() || Cart::where('user_id', Auth::id())->where('product_id', $product_id)->exists()) {
             Cart::where('product_id', $product_id)->where('product_cookie_id', $cookie_id)->increment('product_quantity', $request->product_quantity);
@@ -199,6 +202,7 @@ class MainController extends Controller
                 'product_discount' => $product->product_discount,
                 'product_description' => $product->product_description,
                 'product_image' => $image[0],
+                'product_image_url' => $image_url[0],
                 'product_quantity' => $request->product_quantity,
                 'product_size' => $request->product_size,
                 'product_color' => $request->product_color,
@@ -237,7 +241,7 @@ class MainController extends Controller
             foreach ($carts as $cart) {
 
                 echo '<div class="box__cart d-flex mb-2" width="70px" id="parent' . $cart->id . '">
-                    <img data-src="' . asset("/storage/images/products/$cart->product_image") . '" src="https://lawnsolutionsaustralia.com.au/wp-content/themes/lsamaster/images/ajax-loader.gif"  alt="' . $cart->product_name . '"  class="img-fluid mb-3 p__image" style="height: 70px; width:70px; object-fit:cover;">
+                    <img data-src="' . $cart->product_image_url . '" src="https://lawnsolutionsaustralia.com.au/wp-content/themes/lsamaster/images/ajax-loader.gif"  alt="' . $cart->product_name . '"  class="img-fluid mb-3 p__image" style="height: 70px; width:70px; object-fit:cover;">
                     <div class="box__cart__body ml-4 d-flex flex-column">
                         <small class="text-capitalize font-weight-bold p-name">' . $cart->product_name . '</small>
                         <small>' . number_format($cart->product_price) . '</small>
@@ -319,7 +323,7 @@ class MainController extends Controller
                 echo '<tr id="cart__row__' . $cart->id . '" class="animated ">
                     <td>
                         <div class="cart__info">
-                            <img class="p__image" data-src="' . asset("/storage/images/products/$cart->product_image") . '" src="https://lawnsolutionsaustralia.com.au/wp-content/themes/lsamaster/images/ajax-loader.gif" alt="' . $cart->product_name . '" style="height:80px;width:80px;">
+                            <img class="p__image" data-src="' . $cart->product_image_url . '" src="https://lawnsolutionsaustralia.com.au/wp-content/themes/lsamaster/images/ajax-loader.gif" alt="' . $cart->product_name . '" style="height:80px;width:80px;">
                             <div>
                                 <p>' . $cart->product_name  . '</p>
                                 <small>&#8369; ' . number_format($cart->product_price, 2) . '</small>

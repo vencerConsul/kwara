@@ -8,6 +8,7 @@ use App\Seller;
 use App\Appointments;
 use App\OrderProduct;
 use Auth;
+use Storage;
 use Cookie;
 use DateTime;
 use File;
@@ -103,6 +104,7 @@ class SellerController extends Controller
     {
         if (Auth::user()->status == "approved") {
             $product_image = array();
+            $product_image_url = array();
             if ($files = $request->file('files')) {
                 $allowedfileExtension = ['jpg', 'png', 'jpeg'];
                 foreach ($files as $file) {
@@ -119,8 +121,10 @@ class SellerController extends Controller
                         $DateNow =  $integer_dateNow + $integer_hourNow;
                         $random = substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 7) . $DateNow . $name;
 
-                        $file->storeAs('public/images/products/', $random);
-                        $product_image[] = $random;
+                        $path = $file->storeAs('products', $random, 's3');
+                        Storage::disk('s3')->setVisibility($path, 'public');
+                        $product_image[] = basename($path);
+                        $product_image_url[] = Storage::disk('s3')->url($path);
                     } else {
                         return back()->with('toast_error', 'Image must be jpg or png ');
                     }
@@ -163,11 +167,11 @@ class SellerController extends Controller
                 'product_discount' => $discount,
                 'product_description' => $request->product__description,
                 'product_image' => implode('|', $product_image),
+                'product_image_url' => implode('|', $product_image_url),
                 'product_size' => $size,
                 'product_color' => $color
             ]);
 
-            // dd($data);
             return redirect(route('seller.dashboard'))->with('toast_success', 'You have added a product');
         }
         return abort(404);
@@ -188,6 +192,11 @@ class SellerController extends Controller
     {
         if (Auth::user()->status == "approved") {
             $seller = Seller::findOrFail(Auth::id());
+            $awsProductFile = $seller->product()->findOrFail($id);
+            $awsProductImage = explode('|', $awsProductFile->product_image);
+            foreach($awsProductImage as $awsProductImageName){
+                $deleteaws = Storage::disk('s3')->delete('products/'.$awsProductImageName);
+            }
             $seller->product()->where('id', $id)->delete();
             return response()->json(['status' => "ok"], 200);
         }

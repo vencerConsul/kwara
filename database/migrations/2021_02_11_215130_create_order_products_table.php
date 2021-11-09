@@ -25,6 +25,7 @@ class CreateOrderProductsTable extends Migration
             $table->string('product_name');
             $table->string('product_price');
             $table->text('product_image');
+            $table->text('product_image_url');
             $table->integer('product_quantity');
             $table->integer('total_price');
             $table->string('product_size')->nullable();

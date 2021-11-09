@@ -430,9 +430,9 @@ Dashboard
                                         @foreach($sellerProducts as $sp)
                                             <tr id="t__row{{ $sp->id}}">
                                                 <td class="d-flex">
-                                                    @php $productImageFirst = explode("|", $sp->product_image);
+                                                    @php $productImageFirst = explode("|", $sp->product_image_url);
                                                     @endphp
-                                                    <img class="img-fluid" src="{{ asset('/storage/images/products/'.$productImageFirst[0].'') }}" alt="{{$sp->product_name}}" style="width: 70px;height:70px; object-fit:cover;">
+                    <img src="{{$productImageFirst[0]}}" style="width: 70px;height:70px; object-fit:cover;" alt="{{$sp->product_name}}">
                                                     <div class="ml-2 d-flex justify-content-center align-items-center">
                                                         <div class="row">
                                                             <div class="col-lg-6 d-flex flex-column">

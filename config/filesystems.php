@@ -57,10 +57,10 @@ return [
 
         's3' => [
             'driver' => 's3',
-            'key' => env('AWS_ACCESS_KEY_ID'),
-            'secret' => env('AWS_SECRET_ACCESS_KEY'),
-            'region' => env('AWS_DEFAULT_REGION'),
-            'bucket' => env('AWS_BUCKET'),
+            'key' => env('AWS_ACCESS_KEY_ID', 'AKIAU37JDQIVD2JBHRDF'),
+            'secret' => env('AWS_SECRET_ACCESS_KEY', '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'),
+            'region' => env('AWS_DEFAULT_REGION', 'ap-southeast-1'),
+            'bucket' => env('AWS_BUCKET', 'kwarabucket'),
             'url' => env('AWS_URL'),
         ],
 

@@ -98,7 +98,7 @@ Checkout
                             $total = $total + ($order->product_quantity * $order->product_price);
                         @endphp
                         <div class="box-order w-100">
-                            <img class="img-fluid" src="{{  asset('/storage/images/products/'.$order->product_image.'') }}" alt="{{$order->product_name}}">
+                            <img class="img-fluid" src="{{ $order->product_image_url }}" alt="{{$order->product_name}}" style="width: 70px;height:70px; object-fit:cover;">
                             <div class="box-order-content">
                                 <p>{{$order->product_name}}</p>
                                 <p>&#8369; {{number_format($order->product_price, 2)}}</p>

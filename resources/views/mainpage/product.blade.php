@@ -16,16 +16,14 @@ Product
         <div class="image__container">
             <div class="row">
                 <div class="col-lg-6 column__one">
-                    @php
-                        $image = explode("|", $data->product_image);
-                    @endphp
+                    @php $image = explode("|", $data->product_image_url); @endphp
                     <div class="main__image">
-                        <img id="index-image" data-src="{{asset("/storage/images/products/$image[0]")}}" src="https://lawnsolutionsaustralia.com.au/wp-content/themes/lsamaster/images/ajax-loader.gif" alt="{{$data->product_name}}" class="img-fluid p__image">
+                        <img id="index-image" data-src="{{ $image[0] }}" src="https://lawnsolutionsaustralia.com.au/wp-content/themes/lsamaster/images/ajax-loader.gif" alt="{{$data->product_name}}" class="img-fluid p__image">
                     </div>
                     @if(count($image) > 1)
                         <div class="main__image__button my-2">
                             @foreach($image as $img)
-                            <a id="{{asset('/storage/images/products/'.$img.'')}}" class="fa fa-circle @if ($img == reset($image)) active @endif" onclick="btnCirle(this)"></a>
+                            <a id="{{$img}}" class="fa fa-circle @if ($img == reset($image)) active @endif" onclick="btnCirle(this)"></a>
                             @endforeach
                         </div>
                     @endif

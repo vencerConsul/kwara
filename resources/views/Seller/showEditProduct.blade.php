@@ -252,12 +252,12 @@ Edit Product
                                                 <div class="form-group">
                                                     <i class="fas fa-images upload__image mt-3 mb-2" title="upload image" onclick="document.getElementById('files').click()"></i><br />
                                                     @php
-                                                    $productImg = explode("|", $products->product_image)
+                                                    $productImg = explode("|", $products->product_image_url)
                                                     @endphp
                                                     <input type="file" id="files" name="files[]" multiple>
                                                     @foreach($productImg as $img)
                                                     <input type="hidden" class="img{{str_replace(".", "_", $img)}}" name="old__files[]" value="{{$img}}" multiple>
-                                                    <span class="container__multiple"><img class="imageThumb" src="{{ asset('/storage/images/products/'.$img.'') }}"><br><span class="remove" onclick="del(this)" id="{{str_replace(".", "_", $img)}}"><i class="fa fa-times"></i></span></span>
+                                                    <span class="container__multiple"><img class="imageThumb" src="{{ $img }}"><br><span class="remove" onclick="del(this)" id="{{str_replace(".", "_", $img)}}"><i class="fa fa-times"></i></span></span>
                                                     @endforeach
                                                 </div>
                                             </div>
@@ -266,17 +266,29 @@ Edit Product
                                                     <select class="form-control"
                                                     name="product__type"
                                                     id="select__product__type" style="width: 100%; height: 100%;" onchange="changeProductType(this)">
-                                                        <option class="text-white" value="" selected>Product type</option>
-                                                        <option value="Foods">Foods</option>
-                                                        <option value="Clothes">Clothes</option>
-                                                        <option value="Foot wears">Foot wears</option>
-                                                        <option value="Accessories">Accessories</option>
-                                                        <option value="Home Appliances">Home Appliances</option>
-                                                        <option value="Hardware">Hardware</option>
-                                                        <option value="Bike">Bike</option>
-                                                        <option value="Gadgets">Gadgets</option>
-                                                        <option value="Groceries">Groceries</option>
-                                                        <option value="Make up & Fragrances">Make up & Fragrances</option>
+                                                        @if($products->product_type)
+                                                            <option value="{{$products->product_type}}" selected>{{$products->product_type}}</option>
+                                                            <option value="Foods">Foods</option>
+                                                            <option value="Clothes">Clothes</option>
+                                                            <option value="Foot wears">Foot wears</option>
+                                                            <option value="Accessories">Accessories</option>
+                                                            <option value="Home Appliances">Home Appliances</option>
+                                                            <option value="Hardware">Hardware</option>
+                                                            <option value="Bike">Bike</option>
+                                                            <option value="Groceries">Groceries</option>
+                                                            <option value="Make up & Fragrances">Make up & Fragrances</option>
+                                                        @else
+                                                            <option class="text-white" value="" selected>Product type</option>
+                                                            <option value="Foods">Foods</option>
+                                                            <option value="Clothes">Clothes</option>
+                                                            <option value="Foot wears">Foot wears</option>
+                                                            <option value="Accessories">Accessories</option>
+                                                            <option value="Home Appliances">Home Appliances</option>
+                                                            <option value="Hardware">Hardware</option>
+                                                            <option value="Bike">Bike</option>
+                                                            <option value="Groceries">Groceries</option>
+                                                            <option value="Make up & Fragrances">Make up & Fragrances</option>
+                                                        @endif
                                                     </select>
                                                 </div>
                                             </div>

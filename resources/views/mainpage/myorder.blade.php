@@ -73,7 +73,7 @@ My Orders
                         <div class="card-body order__details">
                             <div class="row">
                                 <div class="col-lg-4 d-flex flex-column align-items-center justify-content-center">
-                                    <img src="{{ asset("/storage/images/products/$order->product_image")}}" alt="{{$order->product_name}}" style="width: 100px; height: 100px; object-fit:cover;">
+                                    <img src="{{ $order->product_image_url }}" alt="{{$order->product_name}}" style="width: 100px; height: 100px; object-fit:cover;">
                                 </div>
                                 <div class="col-lg-4 d-flex flex-column align-items-start justify-content-center">
                                     <small>Product Name: <span>{{$order->product_name}}</span></small>

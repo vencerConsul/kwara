@@ -15,7 +15,7 @@ class Product extends Model
     protected $guarded = [];
 
     protected $fillable = [
-        'product_name', 'product_type', 'product_price', 'product_stock', 'product_discount', 'product_description', 'product_image', 'product_size', 'product_color'
+        'product_name', 'product_type', 'product_price', 'product_stock', 'product_discount', 'product_description', 'product_image', 'product_image_url', 'product_size', 'product_color'
     ];
 
     public function Seller()

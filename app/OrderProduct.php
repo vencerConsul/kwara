@@ -15,7 +15,7 @@ class OrderProduct extends Model
     protected $guarded = [];
 
     protected $fillable = [
-        'seller_id', 'order_number', 'product_id', 'product_name', 'product_price', 'product_image', 'product_quantity',
+        'seller_id', 'order_number', 'product_id', 'product_name', 'product_price', 'product_image', 'product_image_url', 'product_quantity',
         'total_price', 'status'
     ];
 

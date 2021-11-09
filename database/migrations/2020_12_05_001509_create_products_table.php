@@ -26,6 +26,7 @@ class CreateProductsTable extends Migration
             $table->integer('product_discount');
             $table->text('product_description');
             $table->text('product_image');
+            $table->text('product_image_url');
             $table->text('product_size')->nullable();
             $table->text('product_color')->nullable();
             $table->timestamps();
